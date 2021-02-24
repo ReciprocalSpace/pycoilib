@@ -16,7 +16,7 @@ from scipy.constants import mu_0 as μ0
 from pycoilib._lib.misc.geometry import _vec_0
 
 def calc_M_arcNline(loop, line):
-    Rp = loop.R
+    Rp = loop.radius
     x_u = loop.vec_x
     y_u = loop.vec_y
     θ1 = loop.theta
@@ -31,13 +31,14 @@ def calc_M_arcNline(loop, line):
     else:
         s0_u = _vec_0.copy()
 
-    
 
     def integrand(θ):
         β =( Rp**2*( 1 - ( (x_u@s_u)*cos(θ) + (y_u@s_u)*sin(θ))**2)
             +s0**2*( 1 - (s0_u@s_u)**2 )
             -2*Rp*s0*( ((s0_u@x_u)-(s0_u@s_u)*(x_u@s_u))*cos(θ)
                       +((s0_u@y_u)-(s0_u@s_u)*(y_u@s_u))*sin(θ) ))
+        
+        β = sqrt(np.clip(β, 1e-54, np.inf))
         
         σ1 = Ls + s0*s_u@s0_u - Rp*((s_u@x_u)*cos(θ)+(s_u@y_u)*sin(θ)) 
         σ0 = 0. + s0*s_u@s0_u - Rp*((s_u@x_u)*cos(θ)+(s_u@y_u)*sin(θ)) 

@@ -19,6 +19,7 @@ from magpylib.source import current
 
 import pycoillib.geometry as geo
 
+
 class Coil():
     def __init__(self, magpy_collection, center=(0,0,0), 
                  vmax='norm(self.getB(center))*1.4'):
@@ -226,91 +227,91 @@ class Coil():
         return x, y
         
                 
-class Circular(Coil):
-    def __init__(self, 
-                 radius, 
-                 position=(0,0,0), 
-                 normal=(0,1,0)
-                 ):
-        angle, axis = geo.get_rotation(geo.z_vector, normal)
+# class Circular(Coil):
+#     def __init__(self, 
+#                  radius, 
+#                  position=(0,0,0), 
+#                  normal=(0,1,0)
+#                  ):
+#         angle, axis = geo.get_rotation(geo.z_vector, normal)
         
-        sources = [ current.Circular(curr=1, dim=2*radius, pos=position,
-                             angle=angle*180/π, axis=axis) ]
+#         sources = [ current.Circular(curr=1, dim=2*radius, pos=position,
+#                              angle=angle*180/π, axis=axis) ]
         
-        magpy_collection = magpy.Collection(sources)
+#         magpy_collection = magpy.Collection(sources)
 
-        POS = geo.circle_in_3D(position,radius*0.85,normal, npoints=1)
-        vmax = norm(magpy_collection.getB(POS))*1.1                
+#         POS = geo.circle_in_3D(position,radius*0.85,normal, npoints=1)
+#         vmax = norm(magpy_collection.getB(POS))*1.1                
         
-        super().__init__(magpy_collection, position, vmax)
+#         super().__init__(magpy_collection, position, vmax)
         
 
-class Solenoid(Coil):
-    def __init__(self,
-                 radius,
-                 length,
-                 nturns,
-                 position=(0,0,0),
-                 normal=(0,1,0),
-                 ):
-        angle, axis = geo.get_rotation(geo.z_vector, normal)
+# class Solenoid(Coil):
+#     def __init__(self,
+#                  radius,
+#                  length,
+#                  nturns,
+#                  position=(0,0,0),
+#                  normal=(0,1,0),
+#                  ):
+#         angle, axis = geo.get_rotation(geo.z_vector, normal)
         
-        sources = []
+#         sources = []
         
-        Z = np.linspace(-length/2,length/2,nturns)
-        for zi in Z:
-            pos = np.array([0,0,zi])
-            sources.append( current.Circular(curr=1,dim=2*radius,pos=pos) )
+#         Z = np.linspace(-length/2,length/2,nturns)
+#         for zi in Z:
+#             pos = np.array([0,0,zi])
+#             sources.append( current.Circular(curr=1,dim=2*radius,pos=pos) )
             
-        magpy_collection = magpy.Collection(sources)
-        magpy_collection.rotate(angle*180/π, axis)
-        magpy_collection.move(position)
+#         magpy_collection = magpy.Collection(sources)
+#         magpy_collection.rotate(angle*180/π, axis)
+#         magpy_collection.move(position)
         
-        vmax = norm(magpy_collection.getB(position))*1.2
+#         vmax = norm(magpy_collection.getB(position))*1.2
         
-        super().__init__(magpy_collection, position, vmax)
+#         super().__init__(magpy_collection, position, vmax)
         
         
-class Polygon(Coil):
-    def __init__(self,
-                 poly,
-                 position=(0,0,0),
-                 normal=(0,0,1)
-                 ):
-        angle, axis = geo.get_rotation(geo.z_vector, normal)
+# class Polygon(Coil):
+#     def __init__(self,
+#                  poly,
+#                  position=(0,0,0),
+#                  normal=(0,0,1)
+#                  ):
+#         angle, axis = geo.get_rotation(geo.z_vector, normal)
         
-        source = [ current.Line(1, poly) ]
-        magpy_collection = magpy.Collection(source)
-        magpy_collection.rotate(angle, axis)
-        magpy_collection.move(position)
+#         source = [ current.Line(1, poly) ]
+#         magpy_collection = magpy.Collection(source)
+#         magpy_collection.rotate(angle, axis)
+#         magpy_collection.move(position)
         
-        r = norm( np.std(poly, axis=0) ) / 2
-        I = poly.shape[0]-1 # Number of linear segments
-        vmax = μ0*I/(2*π*r) *1e6
+#         r = norm( np.std(poly, axis=0) ) / 2
+#         I = poly.shape[0]-1 # Number of linear segments
+#         vmax = μ0*I/(2*π*r) *1e6
         
-        super().__init__(magpy_collection, position, vmax)
+#         super().__init__(magpy_collection, position, vmax)
         
 
-class Helmholtz(Coil):
-    def __init__(self,
-                 radius,
-                 position=(0,0,0),
-                 normal=(0,1,0),
-                 ):
+# class Helmholtz(Coil):
+#     def __init__(self,
+#                  radius,
+#                  position=(0,0,0),
+#                  normal=(0,1,0),
+#                  ):
         
-        angle, axis = geo.get_rotation(geo.z_vector, normal)
+#         angle, axis = geo.get_rotation(geo.z_vector, normal)
         
-        sources = []
-        sources.append( current.Circular(curr=1,dim=2*radius,pos=[0,0,-radius/2]) )
-        sources.append( current.Circular(curr=1,dim=2*radius,pos=[0,0, radius/2]) )
+#         sources = []
+#         sources.append( current.Circular(curr=1,dim=2*radius,pos=[0,0,-radius/2]) )
+#         sources.append( current.Circular(curr=1,dim=2*radius,pos=[0,0, radius/2]) )
         
-        magpy_collection = magpy.Collection(sources)
-        magpy_collection.rotate(angle, axis)
-        magpy_collection.move(position)
+#         magpy_collection = magpy.Collection(sources)
+#         magpy_collection.rotate(angle, axis)
+#         magpy_collection.move(position)
         
-        vmax = norm(magpy_collection.getB(position))*1.2
+#         vmax = norm(magpy_collection.getB(position))*1.2
         
-        super().__init__(magpy_collection, position, vmax)
+#         super().__init__(magpy_collection, position, vmax)
         
 
 class Birdcage(Coil):

@@ -58,13 +58,15 @@ class Wire_circ(Wire):
         #     return μ0*R*((1+3/16*a**2/R**2)*np.log(8*R/a)-a**2/(16*R**2)-2)
         
         elif isinstance(shape, Arc):
-            R1 = shape.R1
+            R1 = shape.radius
+            arc_angle = shape.theta
             R2 = R1 - self.radius
-            
-            arc1 = Arc(_vec_0, R1, _vec_x, _vec_y, _vec_z )
-            arc2 = Arc(_vec_0, R2, _vec_x, _vec_y, _vec_z )
+            #radius, arc_angle, pos, vec_x, vec_y, vec_z, current=1
+            arc1 = Arc(R1, arc_angle, _vec_0, _vec_x, _vec_y, _vec_z )
+            arc2 = Arc(R2, arc_angle, _vec_0, _vec_x, _vec_y, _vec_z )
             I, tmp = calc_M(arc1, arc2)
             
+            return I
             # Old version : complicated
             # R = shape.R 
             # a = self.radius

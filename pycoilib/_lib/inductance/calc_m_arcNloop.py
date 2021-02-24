@@ -7,8 +7,8 @@ Created on Wed Feb 17 14:32:14 2021
 
 
 def calc_M_arcNloop(loop1, loop2):
-    Rp = loop1.R
-    Rs = loop2.R
+    Rp = loop1.radius
+    Rs = loop2.radius
     
     s0_u = (loop2.vec_r0-loop1.vec_r0)
     s0 = sqrt(s0_u@s0_u)

@@ -29,8 +29,8 @@ def Θ(φ1,φ0,k):
 
 
 def calc_M_2arcs(arc1, arc2):
-    Rp = arc1.R
-    Rs = arc2.R
+    Rp = arc1.radius
+    Rs = arc2.radius
 
     s0_u = (arc2.vec_r0-arc1.vec_r0)
     s0 = sqrt(s0_u@s0_u)

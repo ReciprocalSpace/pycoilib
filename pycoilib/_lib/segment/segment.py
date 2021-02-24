@@ -33,16 +33,18 @@ _vec_0=np.array([0.,0.,0.])
 class Segment():
     __metaclass__ = ABCMeta
     
-    def __init__(self, pos):
+    def __init__(self, pos, current):
         self.r0 = np.sqrt(pos@pos)
         self.vec_r0 = pos
+        self.current = current
         
-    def draw(self, ax=None, draw_current=True):
+        
+    def draw(self, ax=None, draw_current=True, transform=None):
         create_fig = (ax==None)
         if create_fig:
             fig = plt.figure()
             ax = fig.add_subplot(111, projection='3d')
-            
+        
         x, y, z = self._coordinates2draw()
         x, y, z= x*1e3, y*1e3, z*1e3
         
@@ -56,7 +58,6 @@ class Segment():
             ax.set_xlabel("x [mm]")
             ax.set_ylabel("y [mm]")
             ax.set_zlabel("z [mm]")
-            
             
             plt.show()
         
@@ -90,7 +91,8 @@ class Segment():
     @abstractmethod
     def flip_current_direction(self):
         raise NotImplementedError()
-        
+    
+    
     def translate(self, translation):
         self.vec_r0 = translation - self.vec_r0
         self.r0 = np.sqrt(self.vec_r0 @ self.vec_r0)
@@ -100,15 +102,14 @@ class Segment():
     def get_endpoints(self):
         raise NotImplementedError()
 
-
 class Arc(Segment):
-    def __init__(self, pos, R, arc_angle, vec_x, vec_y, vec_z):
-        super().__init__(pos)
-        self.R = R
+    def __init__(self, radius, arc_angle, pos, vec_x, vec_y, vec_z, current=1):
+        super().__init__(pos, current)
+        self.radius = radius
         self.theta = arc_angle
-        self.vec_x = vec_x
-        self.vec_y = vec_y
-        self.vec_z = vec_z
+        self.vec_x = vec_x.copy()
+        self.vec_y = vec_y.copy()
+        self.vec_z = vec_z.copy()
     
     @staticmethod
     def get_vec_uvw(arc_rot, axis, angle):
@@ -117,21 +118,28 @@ class Arc(Segment):
         axis = axis/sqrt(axis@axis) # Normalization
         rot = Rotation.from_rotvec(axis*angle).as_matrix()
         
-        vec_u = rot @ rot_arc @ _vec_x.copy()
-        vec_v = rot @ rot_arc @ _vec_y.copy()
-        vec_w = rot @ _vec_z.copy()
+        vec_u = rot @ rot_arc @ _vec_x
+        vec_v = rot @ rot_arc @ _vec_y
+        vec_w = rot @ _vec_z
         
         return vec_u, vec_v, vec_w
     
     @classmethod
-    def from_center(cls, center, R, arc_angle, arc_rot=0, axis=_vec_z, angle=0):
-
+    def from_rot(cls, radius, arc_angle, center, arc_rot=0, 
+                 axis=_vec_z, angle=0, current=1):
         vec_u, vec_v, vec_w = cls.get_vec_uvw(arc_rot, axis, angle)
 
-        return cls(center, R, arc_angle, vec_u, vec_v, vec_w)
+        return cls(radius, arc_angle, center, vec_u, vec_v, vec_w, current)
     
     @classmethod
-    def from_endpoints(cls, p0, p1, arc_angle, arc_axis):
+    def from_normal(cls, radius, arc_angle, center, arc_rot=0, normal=_vec_y,current=1):
+        axis, angle = geo.get_rotation(_vec_z, normal)
+        vec_u, vec_v, vec_w = cls.get_vec_uvw(arc_rot, axis, angle)
+        
+        return cls(radius, arc_angle, center, vec_u, vec_v, vec_w, current)
+    
+    @classmethod
+    def from_endpoints(cls, p0, p1, arc_angle, normal, current=1):
         # Bisection
         vec_n = p1 - p0
         len_n = sqrt(vec_n @ vec_n)
@@ -139,7 +147,7 @@ class Arc(Segment):
         
         R = len_n / ( 2*sin(θ/2) )
         
-        vec_z = arc_axis / sqrt(arc_axis @ arc_axis)
+        vec_z = normal / sqrt(normal @ normal)
         
         vec_v = vec_n / sqrt( vec_n @ vec_n )
         vec_u = np.cross(vec_z, vec_v)
@@ -149,11 +157,11 @@ class Arc(Segment):
         vec_x = (p0-vec_r0)/R
         vec_y = np.cross(vec_z, vec_x)
         
-        return cls(vec_r0, R, arc_angle, vec_x, vec_y, vec_z)
+        return cls(vec_r0, R, arc_angle, vec_x, vec_y, vec_z, current)
         
     def __str__(self):
         return (f"Segment : Arc\n"
-                f"\tRad. r:\t{self.R:.3}\n"
+                f"\tRad. r:\t{self.radius:.3}\n"
                 f"\tangle θ:\t{self.theta*360/2/π:.1f}\n"
                 f"\tpos:\t\t{self.vec_r0[0]},"
                 f" {self.vec_r0[1]:.3}, {self.vec_r0[2]:.3}\n"
@@ -166,7 +174,7 @@ class Arc(Segment):
     
     def _coordinates2draw(self):
         θ = np.linspace(0, self.theta, max( abs(int(self.theta*360/(2*π)/5))+1, 5))
-        R = self.R
+        R = self.radius
         coord = np.array( [self.vec_r0 
                             + R*self.vec_x*cos(θ_i)
                             + R*self.vec_y*sin(θ_i) for θ_i in θ ]) 
@@ -181,9 +189,9 @@ class Arc(Segment):
         return self
     
     def get_endpoints(self):
-        p0 = self.vec_r0 + self.R*self.vec_x
+        p0 = self.vec_r0 + self.radius*self.vec_x
         
-        p1 = self.vec_r0 + self.R*( self.vec_x*cos(self.theta)
+        p1 = self.vec_r0 + self.radius*( self.vec_x*cos(self.theta)
                                +self.vec_y*sin(self.theta))
         return p0, p1
     
@@ -191,24 +199,22 @@ class Arc(Segment):
         to_rotate = [self.vec_x, self.vec_y, self.vec_z]
         super()._rotate(axis, angle, origin, to_rotate)
         return self
-
     
     
 class Loop(Arc):
-    def __init__(self, R, pos=_vec_0, axis=_vec_z, angle=0):
+    def __init__(self, R, pos=_vec_0, axis=_vec_z, angle=0, current=1):
         vec_u, vec_v, vec_w = Arc.get_vec_uvw(0, axis, angle)
        
-        super().__init__( pos, R, 2*π, vec_u, vec_v, vec_w)
+        super().__init__( R, 2*π, pos, vec_u, vec_v, vec_w, current)
     
     @classmethod
-    def from_normal(cls, R, pos, vec_z):
+    def from_normal(cls, R, pos, vec_z, current=1):
         rot_axis, rot_angle = geo.get_rotation(_vec_z, vec_z)
-        return cls(R, pos, rot_axis, rot_angle)
-        
+        return cls(R, pos, rot_axis, rot_angle, current)
         
     def __str__(self):
             return (f"Segment : Loop\n"
-                    f"\tradius r:\t{self.R:.3e}\n"
+                    f"\tradius r:\t{self.radius:.3e}\n"
                     f"\tposition:\t{self.vec_r0[0]},"
                     f" {self.vec_r0[1]}, {self.vec_r0[2]}\n"
                     f"\tvec x:\t{self.vec_x[0]},"
@@ -219,8 +225,8 @@ class Loop(Arc):
                     f" {self.vec_z[1]}, {self.vec_z[2]}")
 
 class Line(Segment):
-    def __init__(self, p0, p1):
-        super().__init__(p0)
+    def __init__(self, p0, p1, current=1):
+        super().__init__(p0, current)
         self.ell = sqrt( (p1-p0)@(p1-p0) )
         self.vec_n = (p1-p0)/self.ell
         
@@ -251,7 +257,4 @@ class Line(Segment):
         p0 = self.r0
         p1 = self.r0 + self.ell*self.vec_n 
         return p0, p1
-
-
-
 

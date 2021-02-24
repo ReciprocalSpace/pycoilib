@@ -151,7 +151,8 @@ if True:
             I1.append(i1)
         if np.isnan(i1):
             break
-
+    I1 = np.array(I1)
+    
     plt.plot(I1*1e6, "-", )
     plt.legend([f"{θ.max()/π:.2f} π"])
     plt.xlabel('Angle [π]')

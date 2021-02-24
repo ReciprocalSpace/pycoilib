@@ -8,7 +8,7 @@ Created on Tue Dec 15 15:28:30 2020
 ## OLD VERSION
 
 import numpy as np
-from numpy import sqrt, arctan2, pi as π, cos, sin
+from numpy import sqrt, arctan2, pi as π, cos, sin, arcsin, arccos
 from scipy.spatial.transform import Rotation
 import sys
 
@@ -226,4 +226,33 @@ def circle_in_3D(pos,radius,normal, npoints=73):
     
     return coordinates
     
+def normalize(vector):
+    return vector / length(vector)
+
+
+def vector_on_sphere(n):
+    θ = np.linspace(0, 16*π, 400  )
+    φ = np.linspace(0, π, 81)
     
+    n_vec = np.array([ [np.cos(θ_i)*np.sin(φ_i),
+                        np.sin(θ_i)*np.sin(φ_i),
+                        np.cos(φ_i)] for θ_i, φ_i in zip(θ, φ) ] )
+    
+
+def fibonacci_sphere(n=1): 
+    phi = π * (3. - sqrt(5.))  # golden angle in radians
+    points = []
+    
+    i = np.arange(n)
+    y = 1 - (i / float(n - 1.)) * 2  # y goes from 1 to -1
+    radius = sqrt(1 - y * y)  # radius at y
+
+    theta = phi * i  # golden angle increment
+
+    x = cos(theta) * radius
+    z = sin(theta) * radius
+
+    points = np.array( [x, y, z] ).T
+
+    return points
+
