@@ -1,10 +1,10 @@
-# pycoilib
+# pycoilib (to complete)
 
 
 $pycoilib
 ========
 
-$pycoilib is a free python library for inductance cal
+$pycoilib is a free python library for inductance calculation
 
 Look how easy it is to use:
 
@@ -16,7 +16,7 @@ Features
 --------
 
 - Construct complex coil geometries from simple segments shapes : lines, arcs and loops
-- Perform self-inductance computation for a coil and mutual inductance between coils
+- Perform self-inductance computations for a coil and mutual inductance between coils
 - Interface with magpylib to compute and display magnetic field maps
 -  
 
@@ -35,8 +35,8 @@ Support
 -------
 
 If you are having issues, please let us know.
-We have a mailing list located at: project@google-groups.com
 
 License
 -------
 
+MIT License
