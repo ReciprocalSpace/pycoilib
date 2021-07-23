@@ -42,6 +42,8 @@ I.append(coil.calc_I())
 for θ_i in θ[1:]:
     R = ell/θ_i
     arc = Arc.from_normal(R, arc_angle=θ_i, center=vec_0, arc_rot=0)
+    arc = Arc.from_normal(R, arc_angle=θ_i, center=vec_0, arc_rot=0)
+    arc = Arc( R, θ_i, vec_0, vec_x, vec_y, vec_z )
     coil = pycoil.coil.Coil([arc], wire)
     I.append( coil.calc_I() )
 I = np.array(I)
@@ -50,7 +52,7 @@ loop = Loop(R)
 I_loop = pycoil.coil.Coil([loop], wire).calc_I()
 I_line = I[0]
 
-fig = plt.figure(figsize=(6.5/2.54, 5./2.54))
+fig = plt.figure(figsize=(6.5/2.54, 5./2.54),dpi=300)
 ax = plt.gca()
 
 plt.plot(θ/(2*π), I/1e-9, )
@@ -73,5 +75,5 @@ ax.text(0.60, 0.92, r"Self of a line", transform=ax.transAxes, fontsize=8,
 
 
 fig.tight_layout()
-fig.savefig("Appli-fil-courbe.png", dpi=300)
+#fig.savefig("Appli-fil-courbe.png", dpi=300)
 plt.show()

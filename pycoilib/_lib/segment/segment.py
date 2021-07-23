@@ -9,12 +9,12 @@ from abc import ABCMeta, abstractmethod
 import numpy as np
 from numpy import cos, sin, arctan2 as atan, sqrt, pi as π, sign, log
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+#from mpl_toolkits.mplot3d import Axes3D
 from scipy.spatial.transform import Rotation
-from scipy.integrate import quad
-from scipy.special import ellipk as ellK,  ellipe as ellE
-from scipy.special import ellipkinc as ellK_inc,  ellipeinc as ellE_inc
-from scipy.constants import mu_0 as μ0
+#from scipy.integrate import quad
+#from scipy.special import ellipk as ellK,  ellipe as ellE
+#from scipy.special import ellipkinc as ellK_inc,  ellipeinc as ellE_inc
+#from scipy.constants import mu_0 as μ0
 
 from pycoilib._lib.misc._set_axes_equal import _set_axes_equal
 import pycoilib._lib.misc.geometry as geo
@@ -138,7 +138,7 @@ class Arc(Segment):
         
         return cls(radius, arc_angle, center, vec_u, vec_v, vec_w, current)
     
-    @classmethod
+    @classmethod   
     def from_endpoints(cls, p0, p1, arc_angle, normal, current=1):
         # Bisection
         vec_n = p1 - p0
@@ -156,8 +156,7 @@ class Arc(Segment):
         
         vec_x = (p0-vec_r0)/R
         vec_y = np.cross(vec_z, vec_x)
-        
-        return cls(vec_r0, R, arc_angle, vec_x, vec_y, vec_z, current)
+        return cls(R, arc_angle, vec_r0, vec_x, vec_y, vec_z, current)
         
     def __str__(self):
         return (f"Segment : Arc\n"
@@ -208,7 +207,7 @@ class Loop(Arc):
         super().__init__( R, 2*π, pos, vec_u, vec_v, vec_w, current)
     
     @classmethod
-    def from_normal(cls, R, pos, vec_z, current=1):
+    def from_normal(cls, R, pos=_vec_0, vec_z=_vec_z, current=1):
         rot_axis, rot_angle = geo.get_rotation(_vec_z, vec_z)
         return cls(R, pos, rot_axis, rot_angle, current)
         

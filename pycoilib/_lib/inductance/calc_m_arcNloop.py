@@ -4,6 +4,26 @@ Created on Wed Feb 17 14:32:14 2021
 
 @author: Aime Labbe
 """
+import numpy as np
+from numpy import sin, cos, sqrt
+from scipy.constants import mu_0 as μ0, pi as π
+from scipy.integrate import quad
+from scipy.special import ellipk as ellK,  ellipe as ellE
+from scipy.special import ellipkinc as ellK_inc,  ellipeinc as ellE_inc
+from pycoilib._lib.misc.geometry import _vec_0
+
+def Ψ_p(k):
+    return (1-k**2/2)*ellK(k**2) - ellE(k**2)
+
+
+def Ψ(φ1,φ0,k):
+    res = ( (1-k**2/2)*(ellK_inc(φ1,k**2)-ellK_inc(φ0,k**2))/2
+           -(ellE_inc(φ1,k**2)-ellE_inc(φ0,k**2))/2 )
+    return res
+
+def Θ(φ1,φ0,k):
+    return ( sqrt(1-k**2*sin(φ1)**2)-sqrt(1-k**2*sin(φ0)**2) )/2
+
 
 
 def calc_M_arcNloop(loop1, loop2):

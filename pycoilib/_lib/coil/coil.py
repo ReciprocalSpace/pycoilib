@@ -8,7 +8,7 @@ Created on Tue Jan 26 08:31:05 2021
 import os
 import matplotlib.pyplot as plt
 import numpy as np
-from numpy import pi as π, sqrt
+from numpy import pi as π, sqrt, cos, sin
 
 from scipy.spatial.transform import Rotation
 
@@ -34,7 +34,6 @@ class Coil():
     @classmethod
     def from_magpylib(cls, magpy_object, wire=Wire(), anchor="_vec_0"):
         return
-    
     
     def _magpy2pycoil(self, magpy_object):
         pass
@@ -65,7 +64,7 @@ class Coil():
         return self
     
     def draw(self, draw_current=True, savefig=False):            
-        fig = plt.figure(figsize=(7.5/2.4, 7.5/2.4))
+        fig = plt.figure(figsize=(7.5/2.4, 7.5/2.4), dpi=300,)
         ax = fig.add_subplot(111, projection='3d')
         
         for shape in self.shape_array:
@@ -150,28 +149,73 @@ class Polygon(Coil):
 
 
 class Helmholtz(Coil):
-    def __init__(self, radius, position=(0,0,0), normal=(0,1,0) ):
+    def __init__(self, radius, position=_vec_0, axis=_vec_z, angle=0, wire=Wire() ):
         
-        axis, angle = geo.get_rotation(_vec_z, normal)
+        #axis, angle = geo.get_rotation(_vec_z, normal)
         
         segments = []
         
+        segments.append( segment.Loop(radius, np.array([0,0,-radius/2])) )
+        segments.append( segment.Loop(radius, np.array([0,0, radius/2])) )
+        
+        super().__init__(segments, wire)
+        
+        self.rotate(axis, angle)
+
+
+# class Birdcage(Coil):
+#     def __init__(self,
+#                  radius, length, nwires, position=_vec_0, axis=_vec_z, angle=0,
+#                  wire=Wire() ):
+        
+#         segments = []
+        
+#         θ_0 = 2*π/(nwires-1)/2 # Angular position of the first wire
+#         Θ = np.linspace(θ_0, 2*π-θ_0, nwires) # Vector of angular positions
+        
+#         # Linear segments
+#         p0, p1 = _vec_0, np.array([0,0,length] )
+#         positions = np.array( [radius*cos(Θ), radius*sin(Θ), -length/2 ] )
+#         currents = cos(Θ) # Current in each segment
+        
+#         for curr, pos in zip(currents, positions):
+#             segments.append( segment.Line(p0+pos, p1+pos, curr))
+        
+#         # Arc segments
+#         integral_matrix = np.zeros( (nwires, nwires) )
+        
+#         for i, line in enumerate(integral_matrix.T):
+#             line[i:] = 1
+#         currents = integral_matrix @ segments_current
+#         currents -= np.sum(arcs_currents)
         
         
-        sources.append( current.Circular(curr=1,dim=2*radius,pos=[0,0,-radius/2]) )
-        sources.append( current.Circular(curr=1,dim=2*radius,pos=[0,0, radius/2]) )
+#         #arcs_pos # to be implemeted
+#         #arcs_angle  # to be implemented
+            
+            
+            
+#         magpy_collection = magpy.collection(sources)
         
-        magpy_collection = magpy.Collection(sources)
-        magpy_collection.rotate(angle, axis)
-        magpy_collection.move(position)
-        
-        vmax = norm(magpy_collection.getB(position))*1.2
-        
-        super().__init__(magpy_collection, position, vmax)
-        
+#         angle, axis = geo.get_rotation(geo.z_vector, normal)
+#         magpy_collection.rotate(angle*180/π, axis)
+#         magpy_collection.move(position)
+#         vmax = norm(magpy_collection.getB(position))*1.2
+#         super().__init__(magpy_collection, position, vmax)
 
 
 
-
-
-
+class MTLR(Coil):
+    def __init__(self, Rext, Rint, Nturns, thickness, 
+                 position=_vec_0, axis=_vec_z, angle=0, wire=Wire()):
+        #self.N = Ntours
+        #self.espace = espace # Distance entre deux cercles concentriques
+        self.width = width # Largeur piste supraconductrice
+        self.thickness = thickness # Epaisseur du substrat
+        self.R = np.array( [Rext-width/2 - n*(width+espace) for n in range(Ntours)] )
+        self.εr = εr # Constante dielectrique relative du matériaux 
+        self.ell = 2*π*np.sum(self.R)
+        self.Cth = (0,0,-thickness)
+        self._L = None
+        
+        segments = []

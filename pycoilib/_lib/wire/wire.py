@@ -102,7 +102,22 @@ class Wire_circ(Wire):
             # return I_nm
         
 class Wire_rect(Wire):
-    def __init__(self, width, thickness, arc_res=100):
+    def __init__(self, width, thickness=0, arc_res=100):
         self.width = width
         self.thickness = thickness
         super().__init__(arc_res)
+        
+        
+        
+    def self_inductance(self, shape):
+        if isinstance(shape, Line):
+            raise NotImplementedError()
+                    
+        elif isinstance(shape, Loop):
+            # Grover1912, p. 116-117 eq. 70
+            # Formule empirique de Reyleigh et Niven
+            wt = self.width
+            d = 2*shape.radius
+            I = μ0 *d/2*( np.log(4*d/wt)-1/2+(wt/d)**2/24*(np.log(4*d/wt)+43/12) )
+            return I
+            
