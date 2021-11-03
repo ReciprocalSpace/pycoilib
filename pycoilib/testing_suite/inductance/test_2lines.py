@@ -7,13 +7,15 @@ Created on Wed Feb 17 14:59:58 2021
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.constants import mu_0 as μ0, pi as π
+from scipy.constants import pi as π
 import random
 
 import pycoilib as pycoil
 
+
 def rand(n=1):
     return np.array([random.random() for i in range(n)])
+
 
 def random_vec_on_sphere(n=1):
     φ = rand(n) *2*π
@@ -23,6 +25,7 @@ def random_vec_on_sphere(n=1):
                         np.sin(θ_i)*np.sin(φ_i),
                         np.cos(φ_i)] for θ_i, φ_i in zip(θ, φ) ] )
     return n_vec
+
 
 if False:
     print("-------Autoinductance d'un fil----------")

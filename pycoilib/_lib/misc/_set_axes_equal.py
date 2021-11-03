@@ -2,9 +2,10 @@
 """
 Created on Fri Jan 29 12:07:06 2021
 
-@author: utric
+@author: Aimé Labbé
 """
 import numpy as np
+
 
 def _set_axes_equal(ax):
     '''Make axes of 3D plot have equal scale so that spheres appear as spheres,

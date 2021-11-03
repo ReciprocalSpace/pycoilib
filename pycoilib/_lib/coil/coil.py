@@ -8,9 +8,7 @@ Created on Tue Jan 26 08:31:05 2021
 import os
 import matplotlib.pyplot as plt
 import numpy as np
-from numpy import pi as π, sqrt, cos, sin
-
-from scipy.spatial.transform import Rotation
+from numpy import pi as π
 
 from pycoilib import segment
 from pycoilib.wire import Wire
@@ -20,7 +18,8 @@ from pycoilib._lib.misc._set_axes_equal import _set_axes_equal
 from pycoilib._lib.misc import geometry as geo
 from pycoilib._lib.misc.geometry import _vec_0, _vec_x, _vec_y, _vec_z
 
-class Coil():
+
+class Coil:
     def __init__(self, shape_array, wire=Wire()):
         self.shape_array = shape_array
         self.wire = wire
@@ -105,7 +104,7 @@ class Coil():
     
 class Loop(Coil):
     def __init__(self, radius, pos=_vec_0, axis=_vec_z, angle=0, wire=Wire() ):
-        loop = segment.Loop(radius,pos, axis,angle)
+        loop = segment.Loop(radius, pos, axis, angle)
         
         return super().__init__([loop], wire)
     
@@ -125,7 +124,7 @@ class Solenoid(Coil):
         Z = np.linspace(-length/2,length/2,nturns)
         for zi in Z:
             pos = np.array([0,0,zi])
-            segments.append( segment.Loop(radius, pos) )
+            segments.append(segment.Loop(radius, pos))
             
         super().__init__(segments, wire)
         self.rotate(axis, angle)
@@ -155,8 +154,8 @@ class Helmholtz(Coil):
         
         segments = []
         
-        segments.append( segment.Loop(radius, np.array([0,0,-radius/2])) )
-        segments.append( segment.Loop(radius, np.array([0,0, radius/2])) )
+        segments.append(segment.Loop(radius, np.array([0, 0, -radius / 2])))
+        segments.append(segment.Loop(radius, np.array([0, 0, radius / 2])))
         
         super().__init__(segments, wire)
         
