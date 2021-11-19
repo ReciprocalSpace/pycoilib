@@ -9,7 +9,7 @@ import numpy as np
 from numpy import pi as π, cos, sin, arctanh, arccos, tan, sqrt, arctan
 from scipy.constants import mu_0 as μ0
 import pycoilib as pycoil 
-import pycoilib._lib.misc.geometry as geo
+import pycoilib.lib.misc.geometry as geo
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 

@@ -14,9 +14,9 @@ from pycoilib import segment
 from pycoilib.wire import Wire
 from pycoilib import calc_M
 
-from pycoilib._lib.misc._set_axes_equal import _set_axes_equal
-from pycoilib._lib.misc import geometry as geo
-from pycoilib._lib.misc.geometry import _vec_0, _vec_x, _vec_y, _vec_z
+from pycoilib.lib.misc._set_axes_equal import _set_axes_equal
+from pycoilib.lib.misc import geometry as geo
+from pycoilib.lib.misc.geometry import _vec_0, _vec_x, _vec_y, _vec_z
 
 
 class Coil:
@@ -101,19 +101,20 @@ class Coil:
             res = self.wire.self_inductance(self.shape_array[i]) 
             I += res
         return I
-    
+
+
 class Loop(Coil):
     def __init__(self, radius, pos=_vec_0, axis=_vec_z, angle=0, wire=Wire() ):
         loop = segment.Loop(radius, pos, axis, angle)
-        
-        return super().__init__([loop], wire)
+        super().__init__([loop], wire)
     
     @classmethod
     def from_normal(cls, radius, pos=_vec_0, normal=_vec_y, wire=Wire()):
         axis, angle = geo.get_rotation(geo.z_vector, normal)
         
         return cls(radius, pos, axis, angle, wire)
-    
+
+
 class Solenoid(Coil):
     def __init__(self, radius, length, nturns, 
                  pos=_vec_0, axis=_vec_z, angle = 0,
@@ -137,7 +138,8 @@ class Solenoid(Coil):
         axis, angle = geo.get_rotation(geo.z_vector, normal)
         
         return cls(radius, length, nturns, pos, axis, angle, wire)
-    
+
+
 class Polygon(Coil):
     def __init__(self, polygon, wire):
         lines = []
@@ -204,17 +206,17 @@ class Helmholtz(Coil):
 
 
 
-class MTLR(Coil):
-    def __init__(self, Rext, Rint, Nturns, thickness, 
-                 position=_vec_0, axis=_vec_z, angle=0, wire=Wire()):
-        #self.N = Ntours
-        #self.espace = espace # Distance entre deux cercles concentriques
-        self.width = width # Largeur piste supraconductrice
-        self.thickness = thickness # Epaisseur du substrat
-        self.R = np.array( [Rext-width/2 - n*(width+espace) for n in range(Ntours)] )
-        self.εr = εr # Constante dielectrique relative du matériaux 
-        self.ell = 2*π*np.sum(self.R)
-        self.Cth = (0,0,-thickness)
-        self._L = None
-        
-        segments = []
+# class MTLR(Coil):
+#     def __init__(self, Rext, Rint, Nturns, thickness,
+#                  position=_vec_0, axis=_vec_z, angle=0, wire=Wire()):
+#         #self.N = Ntours
+#         #self.espace = espace # Distance entre deux cercles concentriques
+#         self.width = width # Largeur piste supraconductrice
+#         self.thickness = thickness # Epaisseur du substrat
+#         self.R = np.array( [Rext-width/2 - n*(width+espace) for n in range(Ntours)] )
+#         self.εr = εr # Constante dielectrique relative du matériaux
+#         self.ell = 2*π*np.sum(self.R)
+#         self.Cth = (0,0,-thickness)
+#         self._L = None
+#
+#         segments = []

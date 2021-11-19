@@ -170,7 +170,7 @@ class Coil():
                 R = source.dimension/2
                 ω = source.angle*π/180*source.axis
                 n =  geo.z_vector @ Rotation.from_rotvec(ω).as_matrix().T
-                pts = geo.circle_in_3D(C,R,n)
+                pts = geo.circle_in_3D(C, R, n)
                 
                 for i in range(3):
                     ri = pts[:,i]
@@ -203,7 +203,7 @@ class Coil():
             R = source.dimension/2
             ω = source.angle*π/180*source.axis
             n =  geo.z_vector @ Rotation.from_rotvec(ω).as_matrix().T
-            vertices = geo.circle_in_3D(C,R,n)
+            vertices = geo.circle_in_3D(C, R, n)
             
         else:
             import warnings

@@ -26,7 +26,9 @@ def test_loop():
     # Base constructor
     loop = Loop(0.5, np.array([0., 0., 0.]), np.array([0., 0., 1.]), 0.)
     print(loop)
-    loop = Loop.from_normal(0.5, )
+    loop = Loop.from_normal(0.5, np.array([0., 1., 0.5]), np.array([0.5, 0.1, 0.]))
+    loop.draw()
+    print(loop)
 
 
 if __name__ == '__main__':

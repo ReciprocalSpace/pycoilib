@@ -6,4 +6,4 @@ Created on Tue Jan 26 08:24:40 2021
 """
 
 
-from pycoilib._lib.wire.wire import Wire, Wire_circ, Wire_rect
+from pycoilib.lib.wire.wire import Wire, Wire_circ, Wire_rect

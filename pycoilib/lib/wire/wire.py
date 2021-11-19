@@ -12,7 +12,7 @@ from scipy.constants import mu_0 as μ0
 
 from pycoilib.segment import Arc, Loop, Line
 
-from pycoilib._lib.misc.geometry import _vec_0, _vec_x, _vec_y, _vec_z
+from pycoilib.lib.misc.geometry import _vec_0, _vec_x, _vec_y, _vec_z
 
 from pycoilib import calc_M
 

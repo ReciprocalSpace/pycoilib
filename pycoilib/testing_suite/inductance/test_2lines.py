@@ -128,13 +128,8 @@ if True:
     ell_2 = 2
     z_axis = np.array([0.,0.,1.])
     vec_0 =  np.array([0.,0.,0.])
-   
-    θ = np.linspace(0, 16*π, 400  )
-    φ = np.linspace(0, π, 81)
-    
-    n_vec = np.array([ [np.cos(θ_i)*np.sin(φ_i),
-                        np.sin(θ_i)*np.sin(φ_i),
-                        np.cos(φ_i)] for θ_i, φ_i in zip(θ, φ) ] )
+
+    n_vec = vector_on_sphere()
     
     p0, p1 = np.array([0.,0., 0.]), np.array([0., 0., ell_1])
     line1 = pycoil.segment.Line(p0,p1)

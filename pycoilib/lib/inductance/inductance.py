@@ -7,10 +7,11 @@ Created on Tue Jan 26 08:25:36 2021
 
 from pycoilib.segment import Arc, Loop, Line
 
-from pycoilib._lib.inductance.calc_m_2lines import calc_M_2lines
-from pycoilib._lib.inductance.calc_m_arcNline import calc_M_arcNline
-from pycoilib._lib.inductance.calc_m_arcNloop import calc_M_arcNloop
-from pycoilib._lib.inductance.calc_m_2arcs import calc_M_2arcs
+from pycoilib.lib.inductance.calc_m_2lines import calc_M_2lines
+from pycoilib.lib.inductance.calc_m_arcNline import calc_M_arcNline
+from pycoilib.lib.inductance.calc_m_arcNloop import calc_M_arcNloop
+from pycoilib.lib.inductance.calc_m_2arcs import calc_M_2arcs
+
 
 def calc_M(shape1, shape2):
     if isinstance(shape1, Line):

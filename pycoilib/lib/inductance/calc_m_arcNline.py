@@ -13,7 +13,7 @@ from scipy.special import ellipkinc as ellK_inc,  ellipeinc as ellE_inc
 from scipy.constants import mu_0 as μ0
 
 
-from pycoilib._lib.misc.geometry import _vec_0
+from pycoilib.lib.misc.geometry import _vec_0
 
 def calc_M_arcNline(loop, line):
     Rp = loop.radius

@@ -11,13 +11,9 @@ from numpy import cos, sin, sqrt, pi as π
 import matplotlib.pyplot as plt
 from scipy.spatial.transform import Rotation
 
-from pycoilib._lib.misc._set_axes_equal import _set_axes_equal
-import pycoilib._lib.misc.geometry as geo
+from pycoilib.lib.misc._set_axes_equal import _set_axes_equal
+import pycoilib.lib.misc.geometry as geo
 
-# plt.rc('xtick',labelsize=8)
-# plt.rc('ytick',labelsize=8)
-# plt.rc('lines', linewidth=2)
-# plt.rc('font', size=9)
 
 _vec_x = np.array([1., 0., 0.])
 _vec_y = np.array([0., 1., 0.])
@@ -97,7 +93,7 @@ class Segment:
 
 
 class ArcAbstract(Segment):
-    def __init__(self, radius, arc_angle, pos, vec_x, vec_y, vec_z, current=1):
+    def __init__(self, radius, arc_angle, pos, vec_x, vec_y, vec_z, current=1.):
         super().__init__(pos, current)
         self.radius = radius
         self.theta = arc_angle
