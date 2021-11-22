@@ -105,7 +105,7 @@ if False:
         line1 = pycoil.segment.Line(p0,p1)
         
         line2 = pycoil.segment.Line(p2, p3)
-        line2.rotate(z_axis, angle,)
+        line2.rotate(angle, z_axis, )
         
         i1, tmp = pycoil.calc_M(line1, line2)
         

@@ -11,7 +11,7 @@ def test_line():
     p1 = np.array([0., 1., 1.2])
     line = Line(p0, p1)
     print(line)
-    line.rotate(np.array([0., 1., 0.]), π/3)
+    line.rotate(π / 3, np.array([0., 1., 0.]), )
     print(line)
     line.flip_current_direction()
     print(line)

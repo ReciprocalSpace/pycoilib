@@ -348,7 +348,7 @@ class Birdcage(Coil):
         magpy_collection = magpy.collection(sources)
         
         angle, axis = geo.get_rotation(geo.z_vector, normal)
-        magpy_collection.rotate(angle*180/π, axis)
+        magpy_collection.rotate(axis, angle * 180 / π, )
         magpy_collection.move(position)
         vmax = norm(magpy_collection.getB(position))*1.2
         super().__init__(magpy_collection, position, vmax)
