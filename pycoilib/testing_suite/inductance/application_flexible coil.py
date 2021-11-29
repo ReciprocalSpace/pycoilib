@@ -40,8 +40,8 @@ I.append(coil.calc_I())
 # Premier line : arc
 for θ_i in θ[1:]:
     R = ell / θ_i
-    arc = Arc.from_normal(R, arc_angle=θ_i, center=vec_0, arc_rot=0)
-    arc = Arc.from_normal(R, arc_angle=θ_i, center=vec_0, arc_rot=0)
+    arc = Arc.from_normal(R, arc_angle=θ_i, arc_angular_pos=0, position=vec_0, normal=VEC_Y)
+    arc = Arc.from_normal(R, arc_angle=θ_i, arc_angular_pos=0, position=vec_0, normal=VEC_Y)
     arc = Arc(R, θ_i, vec_0, vec_x, vec_y, vec_z)
     coil = pycoil.coil.Coil([arc], wire)
     I.append(coil.calc_I())
