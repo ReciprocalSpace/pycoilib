@@ -315,9 +315,9 @@ class ArcAbstract(Segment):
 
     def __str__(self):
         return (f"Segment : Arc\n"
-                f"\tRad. r:\t{self.radius:.3}\n"
-                f"\tangle θ:\t{self.theta * 360 / 2 / np.pi:.1f}\n"
-                f"\tpos:\t\t{self.vec_r0[0]},"
+                f"\tRad. r:  \t{self.radius:.3}\n"
+                f"\tangle θ: \t{self.theta * 360 / 2 / np.pi:.1f}\n"
+                f"\tposition:\t{self.vec_r0[0]},"
                 f" {self.vec_r0[1]:.3}, {self.vec_r0[2]:.3}\n"
                 f"\tvec x:\t{self.vec_x[0]:.3},"
                 f" {self.vec_x[1]:.3}, {self.vec_x[2]:.3}\n"
@@ -360,14 +360,14 @@ class Arc(ArcAbstract):
 
     This class defines several constructors for the arc segment class.
     """
-    def __init__(self, radius, arc_angle, pos: np.ndarray = None,
+    def __init__(self, radius, arc_angle, position: np.ndarray = None,
                  vec_x: np.ndarray = None, vec_y: np.ndarray = None, vec_z: np.ndarray = None, current=1.):
-        pos = self.VEC_0 if pos is None else pos
+        position = self.VEC_0 if position is None else position
         vec_x = self.VEC_X if vec_x is None else vec_x
         vec_y = self.VEC_Y if vec_y is None else vec_y
         vec_z = self.VEC_Z if vec_z is None else vec_z
 
-        super().__init__(radius, arc_angle, pos, vec_x, vec_y, vec_z, current)
+        super().__init__(radius, arc_angle, position, vec_x, vec_y, vec_z, current)
 
     @classmethod
     def from_rot(cls, radius: float, arc_angle: float, arc_angular_pos: float, position: np.ndarray, axis: np.ndarray,
@@ -473,19 +473,71 @@ class Arc(ArcAbstract):
 
 
 class Loop(ArcAbstract):
-    """Arc segment class
+    """Loop segment class
 
-    This class defines several constructors for the arc segment class.
+    This class defines several constructors for the loop segment class.
     """
-    def __init__(self, radius, position=_vec_0, axis=_vec_z, angle=0., current=1.):
-        vec_u, vec_v, vec_w = Arc.get_vec_uvw(0, angle, axis)
+    def __init__(self, radius: float, position: np.ndarray = None,
+                 vec_x: np.ndarray = None, vec_y: np.ndarray = None, vec_z: np.ndarray = None,
+                 current: float = 1.):
+        position = self.VEC_0 if position is None else position
+        vec_x = self.VEC_X if vec_x is None else vec_x
+        vec_y = self.VEC_Y if vec_y is None else vec_y
+        vec_z = self.VEC_Z if vec_z is None else vec_z
 
-        super().__init__(radius, 2 * np.pi, position, vec_u, vec_v, vec_w, current)
+        super().__init__(radius, 2 * np.pi, position, vec_x, vec_y, vec_z, current)
 
     @classmethod
-    def from_normal(cls, radius, pos=_vec_0, vec_z=_vec_z, current=1.):
-        rot_axis, rot_angle = geo.get_rotation(_vec_z, vec_z)
-        return cls(radius, pos, rot_axis, rot_angle, current)
+    def from_rot(cls, radius: float, position: np.ndarray, axis: np.ndarray, angle: float, current=1.) -> Loop:
+        """Instantiate an arc in the xy-plane and rotate it around an axis
+
+        Parameters
+        ----------
+        radius: float
+            Radius or the arc or loop segment.
+        position: 1D numpy.ndarray of shape (3,)
+            Position vector of the center of the arc.
+        axis: 1D-numpy.ndarray en shape (3,)
+            Rotation axis for the arc.
+        angle: float
+            Rotation angle around the axis.
+        current: current: positive float
+            Current flowing in the arc.
+
+        Returns
+        -------
+        loop: Loop
+        """
+
+        vec_u, vec_v, vec_w = Arc.get_vec_uvw(0., angle, axis)
+
+        return cls(radius, position, vec_u, vec_v, vec_w, current)
+
+    @classmethod
+    def from_normal(cls, radius, position: np.ndarray = None, normal: np.ndarray = None, current=1.):
+        """Instantiate a loop from the orientation of its normal
+
+        Parameters
+        ----------
+        radius: float
+            Radius or the arc or loop segment.
+        position: 1D numpy.ndarray of shape (3,), optional
+            Position vector of the center of the arc. Default is origin (0,0,0)
+        normal: 1D numpy.ndarray of shape (3,), optional
+            Orientation of the arc normal. Default is the z-axis (0,0,1)
+        current: positive float, optional
+            Current flowing in the arc. Default is 1.
+
+        Returns
+        -------
+        loop: Loop
+        """
+        normal = cls.VEC_Z if normal is None else normal
+
+        rot_axis, rot_angle = geo.get_rotation(cls.VEC_Z, normal)
+        vec_x, vec_y, vec_z = Arc.get_vec_uvw(0., rot_angle, rot_axis)
+
+        return cls(radius, position, vec_x, vec_y, vec_z, current)
 
     def __str__(self):
         return (f"Segment : Loop\n"
