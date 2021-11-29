@@ -37,6 +37,8 @@ class Segment:
         Plot the segment in 3-dimension
     translate(translation):
         Translate the segment
+    move_to(new_position):
+        Move the segment to a new position
     rotate(angle, axis, origin):
         Rotate the segment
     flip_current_direction():
@@ -72,7 +74,7 @@ class Segment:
         if position.shape != (3,):
             raise PycoilibWrongShapeVector
         self.r0 = np.sqrt(position @ position)
-        self.vec_r0 = position
+        self.vec_r0 = position.copy()
         self.current = current
 
     def draw(self, ax=None, draw_current=True) -> None:
@@ -148,6 +150,24 @@ class Segment:
         self.r0 = np.sqrt(self.vec_r0 @ self.vec_r0)
         return self
 
+    def move_to(self, new_position: np.ndarray):
+        """Move the segment to a new position
+
+        Parameters
+        ----------
+        new_position: 1D numpy.ndarray of shape (3,)
+            New position of the segment.
+
+        Returns
+        -------
+        itself
+        """
+        if new_position.shape != (3,):
+            raise PycoilibWrongShapeVector
+
+        self.vec_r0 = new_position
+        self.r0 = np.sqrt(new_position @ new_position)
+
     @abstractmethod
     def rotate(self, angle: float, axis: np.ndarray, origin: np.ndarray) -> Segment:
         """Rotate the segment"""
@@ -176,6 +196,9 @@ class Segment:
         """
         if origin is None:
             origin = self.vec_r0
+
+        if axis.shape != (3,) or origin.shape != (3,):
+            raise PycoilibWrongShapeVector
 
         rot = Rotation.from_rotvec(angle * axis).as_matrix()
 
@@ -395,6 +418,9 @@ class Arc(ArcAbstract):
         -------
         arc: Arc
         """
+        if any([vec.shape != (3,) for vec in [axis]]):
+            raise PycoilibWrongShapeVector
+
         vec_u, vec_v, vec_w = cls.get_vec_uvw(arc_angular_pos, angle, axis)
 
         return cls(radius, arc_angle, position, vec_u, vec_v, vec_w, current)
@@ -427,6 +453,9 @@ class Arc(ArcAbstract):
         position = cls.VEC_0 if position is None else position
         normal = cls.VEC_Z if normal is None else normal
 
+        if any([vec.shape != (3,) for vec in [normal]]):
+            raise PycoilibWrongShapeVector
+
         axis, angle = geo.get_rotation(cls.VEC_Z, normal)
         vec_u, vec_v, vec_w = cls.get_vec_uvw(arc_angular_pos, angle, axis)
 
@@ -453,6 +482,10 @@ class Arc(ArcAbstract):
         -------
         arc: Arc
         """
+
+        if any([vec.shape != (3,) for vec in [p0, p1, normal]]):
+            raise PycoilibWrongShapeVector
+
         # Bisection
         vec_n = p1 - p0
         len_n = np.sqrt(vec_n @ vec_n)
@@ -508,6 +541,8 @@ class Loop(ArcAbstract):
         -------
         loop: Loop
         """
+        if axis.shape != (3,):
+            raise PycoilibWrongShapeVector
 
         vec_u, vec_v, vec_w = Arc.get_vec_uvw(0., angle, axis)
 
@@ -533,6 +568,8 @@ class Loop(ArcAbstract):
         loop: Loop
         """
         normal = cls.VEC_Z if normal is None else normal
+        if normal.shape != (3,):
+            raise PycoilibWrongShapeVector
 
         rot_axis, rot_angle = geo.get_rotation(cls.VEC_Z, normal)
         vec_x, vec_y, vec_z = Arc.get_vec_uvw(0., rot_angle, rot_axis)
@@ -554,10 +591,9 @@ class Line(Segment):
     Attributes
     ----------
     vec_n: 1D numpy.ndarray of shape (3,)
-        Vector parallel to the orientation of the line object.
+        Unit vector parallel to the orientation of the line object.
     ell: float
         Length of the line object.
-
     """
     def __init__(self, p0: np.ndarray, p1: np.ndarray, current=1.):
         """Initialize a line segment from its endpoints
@@ -571,6 +607,9 @@ class Line(Segment):
         current: positive float, optional
             Current flowing in the arc. Default is 1.
         """
+        if p0.shape != (3,) or p1.shape != (3,):
+            raise PycoilibWrongShapeVector
+
         super().__init__(p0, current)
         self.ell = np.sqrt((p1 - p0) @ (p1 - p0))  # ell: length
         self.vec_n = (p1 - p0) / self.ell
@@ -586,8 +625,8 @@ class Line(Segment):
                 f"\tOrientation:\t{self.vec_n[0]:8.3f}, {self.vec_n[1]:8.3f}, {self.vec_n[2]:8.3f}\n"
                 f"\tPosition:\t\t{self.vec_r0[0]:8.3f}, {self.vec_r0[1]:8.3f}, {self.vec_r0[2]:8.3f}")
 
-    def rotate(self, angle: float, axis: np.ndarray, origin):
-        to_rotate = [self.vec_n]
+    def rotate(self, angle: float, axis: np.ndarray, origin: np.ndarray = None):
+        to_rotate = [self.vec_n, self.vec_r0]
         super()._rotate(to_rotate, angle, axis, origin)
         return self
 
