@@ -549,7 +549,28 @@ class Loop(ArcAbstract):
 
 
 class Line(Segment):
+    """Line segment class
+
+    Attributes
+    ----------
+    vec_n: 1D numpy.ndarray of shape (3,)
+        Vector parallel to the orientation of the line object.
+    ell: float
+        Length of the line object.
+
+    """
     def __init__(self, p0: np.ndarray, p1: np.ndarray, current=1.):
+        """Initialize a line segment from its endpoints
+
+        Parameters
+        ----------
+        p0: 1D numpy.ndarray of shape (3,)
+            Beginning of the line segment.
+        p1: 1D numpy.ndarray of shape (3,)
+            End of the line segment.
+        current: positive float, optional
+            Current flowing in the arc. Default is 1.
+        """
         super().__init__(p0, current)
         self.ell = np.sqrt((p1 - p0) @ (p1 - p0))  # ell: length
         self.vec_n = (p1 - p0) / self.ell
