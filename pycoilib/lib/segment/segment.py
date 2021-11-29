@@ -10,7 +10,7 @@ from typing import List, Tuple
 import numpy as np
 import matplotlib.pyplot as plt
 
-from abc import ABCMeta, abstractmethod
+from abc import abstractmethod
 # from matplotlib.axes import Axes
 from scipy.spatial.transform import Rotation
 
@@ -53,7 +53,7 @@ class Segment:
     _rotate(vec_to_rotate, angle, axis, origin):
         Rotate a list of vectors
     """
-    __metaclass__ = ABCMeta
+    # __metaclass__ = ABCMeta
 
     VEC_X = np.array([1., 0., 0.])
     VEC_Y = np.array([0., 1., 0.])
@@ -104,9 +104,8 @@ class Segment:
 
         ax.plot(x, y, z, "k", lw=1)
         if draw_current:
-            # TODO : display the current with more points. Use continuous color gradient ?
-            ax.plot(x[0], y[0], z[0], "bo", alpha=0.4, lw=2)
-            ax.plot(x[-1], y[-1], z[-1], "ro", alpha=0.4, lw=2)
+            c = np.linspace(0, 1, len(x))
+            ax.scatter(x, y, z, c=c, cmap="plasma", marker="o")
 
         if create_fig:
             # It might be relevant to remove the following 4 lines from the if statement
@@ -199,6 +198,8 @@ class Segment:
 
         if axis.shape != (3,) or origin.shape != (3,):
             raise PycoilibWrongShapeVector
+
+        axis = axis / np.sqrt(axis @ axis)  # Normalization
 
         rot = Rotation.from_rotvec(angle * axis).as_matrix()
 
@@ -338,7 +339,7 @@ class ArcAbstract(Segment):
 
     def __str__(self):
         return (f"Segment : Arc\n"
-                f"\tRad. r:  \t{self.radius:.3}\n"
+                f"\tradius r:\t{self.radius:.3}\n"
                 f"\tangle θ: \t{self.theta * 360 / 2 / np.pi:.1f}\n"
                 f"\tposition:\t{self.vec_r0[0]},"
                 f" {self.vec_r0[1]:.3}, {self.vec_r0[2]:.3}\n"
@@ -372,7 +373,7 @@ class ArcAbstract(Segment):
                                           + self.vec_y * np.sin(self.theta))
         return p0, p1
 
-    def rotate(self, angle, axis, origin):
+    def rotate(self, angle: float, axis: np.ndarray, origin: np.ndarray = None):
         to_rotate = [self.vec_x, self.vec_y, self.vec_z]
         super()._rotate(to_rotate, angle, axis, origin)
         return self
@@ -578,8 +579,8 @@ class Loop(ArcAbstract):
 
     def __str__(self):
         return (f"Segment : Loop\n"
-                f"\tRadius r:\t{self.radius:11.3e}\n"
-                f"\tPosition:\t{self.vec_r0[0]:10.3e}, {self.vec_r0[1]:10.3e}, {self.vec_r0[2]:10.3e}\n"
+                f"\tradius r:\t{self.radius:11.3e}\n"
+                f"\tposition:\t{self.vec_r0[0]:10.3e}, {self.vec_r0[1]:10.3e}, {self.vec_r0[2]:10.3e}\n"
                 f"\tvec x:\t\t{self.vec_x[0]:10.3e}, {self.vec_x[1]:10.3e}, {self.vec_x[2]:10.3e}\n"
                 f"\tvec y:\t\t{self.vec_y[0]:10.3e}, {self.vec_y[1]:10.3e}, {self.vec_y[2]:10.3e}\n"
                 f"\tvec z:\t\t{self.vec_z[0]:10.3e}, {self.vec_z[1]:10.3e}, {self.vec_z[2]:10.3e}")
@@ -615,18 +616,18 @@ class Line(Segment):
         self.vec_n = (p1 - p0) / self.ell
 
     def _coordinates2draw(self):
-        coord = np.array([self.vec_r0, self.vec_r0 + self.ell * self.vec_n])
+        coord = np.array([self.vec_r0 + alpha*self.vec_n for alpha in np.linspace(0, self.ell, 51)])
         x, y, z = coord[:, 0], coord[:, 1], coord[:, 2]
         return x, y, z
 
     def __str__(self):
         return (f"Segment : Line\n"
-                f"\tLength ell:\t\t{self.ell:8.3f}\n"
-                f"\tOrientation:\t{self.vec_n[0]:8.3f}, {self.vec_n[1]:8.3f}, {self.vec_n[2]:8.3f}\n"
-                f"\tPosition:\t\t{self.vec_r0[0]:8.3f}, {self.vec_r0[1]:8.3f}, {self.vec_r0[2]:8.3f}")
+                f"\tlength ell:\t\t{self.ell:8.3f}\n"
+                f"\torientation:\t{self.vec_n[0]:8.3f}, {self.vec_n[1]:8.3f}, {self.vec_n[2]:8.3f}\n"
+                f"\tposition:\t\t{self.vec_r0[0]:8.3f}, {self.vec_r0[1]:8.3f}, {self.vec_r0[2]:8.3f}")
 
     def rotate(self, angle: float, axis: np.ndarray, origin: np.ndarray = None):
-        to_rotate = [self.vec_n, self.vec_r0]
+        to_rotate = [self.vec_n]
         super()._rotate(to_rotate, angle, axis, origin)
         return self
 
