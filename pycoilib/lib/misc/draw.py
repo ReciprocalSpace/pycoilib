@@ -15,7 +15,7 @@ Created on Thu Jan 28 10:25:41 2021
 #
 #     coil_or_shapes.draw()
 #
-#     for shape in self.shape_array:
+#     for shape in self.segment_array:
 #         shape.draw(ax)
 #
 #     ax.set_xlabel("x [mm]")

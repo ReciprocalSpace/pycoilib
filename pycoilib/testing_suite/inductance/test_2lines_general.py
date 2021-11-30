@@ -70,7 +70,7 @@ for p in points:
 
         #pycoil.coil.Coil([line1,line2]).draw()
         Mth.append( calc_M_general(line1,line2) )
-        m, tmp= pycoil.calc_M(line1, line2)
+        m, tmp= pycoil.calc_mutual(line1, line2)
         Mour.append(m)
 
 

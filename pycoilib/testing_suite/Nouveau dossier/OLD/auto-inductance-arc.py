@@ -48,8 +48,8 @@ coil = pycoil.coil.Coil([arc], wire)
 
 res, err = quad(get_A_φ, 0, φ1 )
 
-print(coil.calc_I(), r*res)
-print(abs( coil.calc_I()/(r*res)-1 )*100, "%")
+print(coil.get_inductance(), r * res)
+print(abs(coil.get_inductance() / (r * res) - 1) * 100, "%")
 
 
 

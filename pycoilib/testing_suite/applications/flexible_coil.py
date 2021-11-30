@@ -6,11 +6,10 @@ Created on Thu Jan 28 14:56:43 2021
 """
 
 import numpy as np
-from numpy import pi as π
 import matplotlib.pyplot as plt
-# from scipy.constants import mu_0 as μ0
-
 import pycoilib as pycoil
+
+from numpy import pi as π
 
 vec_x = np.array([1., 0., 0.])
 vec_y = np.array([0., 1., 0.])
@@ -28,9 +27,10 @@ n = 2
 θ = np.linspace(0, π/100, n)
 
 for θ_i in θ:
+    print("*"*32)
     if θ_i == 0.:
-        p0, p1 = np.array([ell / 2, 0., w / 2]), np.array([-ell / 2, 0., w / 2])
-        p2, p3 = np.array([-ell / 2, 0., -w / 2]), np.array([ell / 2, 0., -w / 2])
+        p0, p1 = np.array([ell/2, 0., w/2]), np.array([-ell/2, 0., w/2])
+        p2, p3 = np.array([-ell/2, 0., -w/2]), np.array([ell/2, 0., -w/2])
 
         pos0, pos1 = np.array([-ell / 2, 0., 0.]), np.array([ell / 2, 0., 0.])
 
@@ -60,7 +60,7 @@ for θ_i in θ:
     coil = pycoil.coil.Coil([side1, side2, arc1, arc2], wire)
 
     coil.draw(True)
-    inductance.append(coil.calc_I())
+    inductance.append(coil.get_inductance())
 
 inductance = np.array(inductance)
 #

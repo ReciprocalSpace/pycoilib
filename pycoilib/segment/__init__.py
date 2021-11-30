@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Jan 26 08:24:40 2021
+"""Contains the segment class
 
-@author: utric
 """
+__all__ = ["Arc", "Circle", "Line"]
 
-from pycoilib.lib.segment.segment import Segment, Arc, Loop, Line
+from pycoilib.lib.segment.segment import Arc, Circle, Line

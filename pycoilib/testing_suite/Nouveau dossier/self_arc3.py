@@ -44,20 +44,20 @@ I = []
 # Premier cas : line
 line = Line(np.array([0.,0.,0.]), np.array([0.,0.,ell]))
 coil = pycoilib.coil.Coil([line], wire)
-I.append(coil.calc_I())
+I.append(coil.get_inductance())
 
 # Premier line : arc
 for θ_i in θ[1:]:
     R = ell/θ_i
     arc = Arc.from_center(vec_0, R=R, arc_angle=θ_i, arc_rot=0)
     coil = pycoilib.coil.Coil([arc], wire)
-    I.append( coil.calc_I() )
+    I.append(coil.get_inductance())
 I = np.array(I)
 plt.plot(θ, I, "+")
 plt.show()
 
 loop = Loop(R)
-I_loop = coil.calc_I([loop], wire)
+I_loop = coil.get_inductance()
 
 
 

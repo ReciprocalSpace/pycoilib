@@ -57,7 +57,7 @@ coil = pycoil.coil.Coil(segments, wire)
 # robuste.
 coil.draw()
 
-L = coil.calc_I()
+L = coil.get_inductance()
 print("L:", L, "(0th-order gradiometer - entire geometry)")
 
 ############################################################
@@ -91,7 +91,7 @@ coil = pycoil.coil.Coil(segments, wire)
 # Affichage
 coil.draw()
 
-L = coil.calc_I()
+L = coil.get_inductance()
 print("L:", L, "(1st-order gradiometer - entire geometry)")
 
 #####################################################
@@ -112,14 +112,14 @@ p4 = np.array([x, -y, 0.15])
 
 # Liste des segments de l'antenne
 segments = [pycoil.segment.Line(p1, p2), pycoil.segment.Line(p3, p4),
-            pycoil.segment.Loop(a, np.array([0., 0., 0.]), axis=z),
-            pycoil.segment.Loop(a, np.array([0., 0., -b + 1e-3]), axis=-z),
-            pycoil.segment.Loop(a, np.array([0., 0., -b - 1e-3]), axis=-z),
-            pycoil.segment.Loop(a, np.array([0., 0., -2 * b]), axis=+z)]
+            pycoil.segment.Circle(a, np.array([0., 0., 0.]), axis=z),
+            pycoil.segment.Circle(a, np.array([0., 0., -b + 1e-3]), axis=-z),
+            pycoil.segment.Circle(a, np.array([0., 0., -b - 1e-3]), axis=-z),
+            pycoil.segment.Circle(a, np.array([0., 0., -2 * b]), axis=+z)]
 
 # Antenne
 coil = pycoil.coil.Coil(segments, wire)
 coil.draw()
 
-L = coil.calc_I()
+L = coil.get_inductance()
 print("L:", L, "(2nd-order gradiometer)")

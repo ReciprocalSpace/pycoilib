@@ -39,9 +39,9 @@ if False:
         line1 = pycoil.segment.Line(p0, p1)
         wire = pycoil.wire.Wire_circ(a)
         
-        coil = pycoil.coil.Coil([line1], wire )
+        coil = pycoil.coil.Coil([line1], wire)
         
-        I1.append( coil.calc_I() )
+        I1.append(coil.get_inductance())
         I2.append( μ0*ell/(2*π)*(np.log(2*ell/a)-1) )
     I1 = np.array(I1)
     I2 = np.array(I2)
@@ -72,8 +72,8 @@ if False:
         p4, p5 = np.array([ell_1+d, a,0.]), np.array([ell_1+d+ell_2, a,0.])
         line3 = pycoil.segment.Line(p4, p5)
         
-        i1, tmp = pycoil.calc_M(line1, line2)
-        i2, tmp = pycoil.calc_M(line1, line3)
+        i1, tmp = pycoil.calc_mutual(line1, line2)
+        i2, tmp = pycoil.calc_mutual(line1, line3)
         I1.append(i1)
         I2.append(i2)
         
@@ -107,7 +107,7 @@ if False:
         line2 = pycoil.segment.Line(p2, p3)
         line2.rotate(angle, z_axis, )
         
-        i1, tmp = pycoil.calc_M(line1, line2)
+        i1, tmp = pycoil.calc_mutual(line1, line2)
         
         I1.append(i1)
 
@@ -140,10 +140,10 @@ if True:
             
             line2 = pycoil.segment.Line(p2, p3)
             
-            i1, tmp = pycoil.calc_M(line1, line2)
+            i1, tmp = pycoil.calc_mutual(line1, line2)
             
             if np.isnan(i1):
-                pycoil.coil.Coil([line1,line2]).draw()
+                pycoil.coil.Coil([line1, line2]).draw()
                 break
             
             I1.append(i1)

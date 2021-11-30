@@ -14,7 +14,7 @@ from abc import abstractmethod
 # from matplotlib.axes import Axes
 from scipy.spatial.transform import Rotation
 
-from pycoilib.lib.misc._set_axes_equal import _set_axes_equal
+from pycoilib.lib.misc.set_axes_equal import set_axes_equal
 from pycoilib.lib.misc.exceptions import PycoilibWrongShapeVector
 import pycoilib.lib.misc.geometry as geo
 
@@ -109,7 +109,7 @@ class Segment:
 
         if create_fig:
             # It might be relevant to remove the following 4 lines from the if statement
-            _set_axes_equal(ax)
+            set_axes_equal(ax)
             ax.set_xlabel("x [mm]")
             ax.set_ylabel("y [mm]")
             ax.set_zlabel("z [mm]")
@@ -238,12 +238,12 @@ class Segment:
 
 
 class ArcAbstract(Segment):
-    """Superclass for arc and loop type segments
+    """Superclass for arc and circle type segments
 
     Attributes
     ----------
     radius: float
-        Radius or the arc or loop segment.
+        Radius or the arc or circle segment.
     arc_angle: float
         Angle of the arc.
     position: 1D numpy.ndarray of shape (3,)
@@ -267,7 +267,7 @@ class ArcAbstract(Segment):
         Parameters
         ----------
         radius: float
-            Radius or the arc or loop segment.
+            Radius or the arc or circle segment.
         arc_angle: float
             Angle of the arc.
         position: 1D numpy.ndarray of shape (3,)
@@ -401,7 +401,7 @@ class Arc(ArcAbstract):
         Parameters
         ----------
         radius: float
-            Radius or the arc or loop segment.
+            Radius or the arc or circle segment.
         arc_angle: float
             Angle of the arc.
         arc_angular_pos: float
@@ -434,7 +434,7 @@ class Arc(ArcAbstract):
         Parameters
         ----------
         radius: float
-            Radius or the arc or loop segment.
+            Radius or the arc or circle segment.
         arc_angle: float
             Angle of the arc.
         arc_angular_pos: float, optional
@@ -506,10 +506,10 @@ class Arc(ArcAbstract):
         return cls(R, arc_angle, vec_r0, vec_x, vec_y, vec_z, current)
 
 
-class Loop(ArcAbstract):
-    """Loop segment class
+class Circle(ArcAbstract):
+    """Circle segment class
 
-    This class defines several constructors for the loop segment class.
+    This class defines several constructors for the circle segment class.
     """
     def __init__(self, radius: float, position: np.ndarray = None,
                  vec_x: np.ndarray = None, vec_y: np.ndarray = None, vec_z: np.ndarray = None,
@@ -522,13 +522,13 @@ class Loop(ArcAbstract):
         super().__init__(radius, 2 * np.pi, position, vec_x, vec_y, vec_z, current)
 
     @classmethod
-    def from_rot(cls, radius: float, position: np.ndarray, axis: np.ndarray, angle: float, current=1.) -> Loop:
+    def from_rot(cls, radius: float, position: np.ndarray, axis: np.ndarray, angle: float, current=1.) -> Circle:
         """Instantiate an arc in the xy-plane and rotate it around an axis
 
         Parameters
         ----------
         radius: float
-            Radius or the arc or loop segment.
+            Radius or the arc or circle segment.
         position: 1D numpy.ndarray of shape (3,)
             Position vector of the center of the arc.
         axis: 1D-numpy.ndarray en shape (3,)
@@ -540,7 +540,7 @@ class Loop(ArcAbstract):
 
         Returns
         -------
-        loop: Loop
+        circle: Circle
         """
         if axis.shape != (3,):
             raise PycoilibWrongShapeVector
@@ -551,12 +551,12 @@ class Loop(ArcAbstract):
 
     @classmethod
     def from_normal(cls, radius, position: np.ndarray = None, normal: np.ndarray = None, current=1.):
-        """Instantiate a loop from the orientation of its normal
+        """Instantiate a circle from the orientation of its normal
 
         Parameters
         ----------
         radius: float
-            Radius or the arc or loop segment.
+            Radius or the arc or circle segment.
         position: 1D numpy.ndarray of shape (3,), optional
             Position vector of the center of the arc. Default is origin (0,0,0)
         normal: 1D numpy.ndarray of shape (3,), optional
@@ -566,7 +566,7 @@ class Loop(ArcAbstract):
 
         Returns
         -------
-        loop: Loop
+        circle: Circle
         """
         normal = cls.VEC_Z if normal is None else normal
         if normal.shape != (3,):
@@ -578,7 +578,7 @@ class Loop(ArcAbstract):
         return cls(radius, position, vec_x, vec_y, vec_z, current)
 
     def __str__(self):
-        return (f"Segment : Loop\n"
+        return (f"Segment : Circle\n"
                 f"\tradius r:\t{self.radius:11.3e}\n"
                 f"\tposition:\t{self.vec_r0[0]:10.3e}, {self.vec_r0[1]:10.3e}, {self.vec_r0[2]:10.3e}\n"
                 f"\tvec x:\t\t{self.vec_x[0]:10.3e}, {self.vec_x[1]:10.3e}, {self.vec_x[2]:10.3e}\n"

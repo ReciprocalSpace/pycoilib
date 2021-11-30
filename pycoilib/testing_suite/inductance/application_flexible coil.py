@@ -12,7 +12,7 @@ from numpy import pi as π
 from pathlib import Path
 
 import pycoilib as pycoil
-from pycoilib.segment import Arc, Line, Loop
+from pycoilib.segment import Arc, Line, Circle
 
 # plt.rc('xtick',labelsize=8)
 # plt.rc('ytick',labelsize=8)
@@ -35,7 +35,7 @@ I = []
 # Premier cas : line
 line = Line(np.array([0., 0., 0.]), np.array([0., 0., ell]))
 coil = pycoil.coil.Coil([line], wire)
-I.append(coil.calc_I())
+I.append(coil.get_inductance())
 
 # Premier line : arc
 for θ_i in θ[1:]:
@@ -44,11 +44,11 @@ for θ_i in θ[1:]:
     arc = Arc.from_normal(R, arc_angle=θ_i, arc_angular_pos=0, position=vec_0, normal=VEC_Y)
     arc = Arc(R, θ_i, vec_0, vec_x, vec_y, vec_z)
     coil = pycoil.coil.Coil([arc], wire)
-    I.append(coil.calc_I())
+    I.append(coil.get_inductance())
 I = np.array(I)
 
-loop = Loop(R)
-I_loop = pycoil.coil.Coil([loop], wire).calc_I()
+loop = Circle(R)
+I_loop = pycoil.coil.Coil([loop], wire).get_inductance()
 I_line = I[0]
 
 fig = plt.figure(figsize=(6.5 / 2.54, 5. / 2.54), dpi=300)
@@ -63,7 +63,7 @@ ax.set_xlabel(r"Arc angle [$2\pi$]")
 ax.set_ylabel(r"Inductance [nH]")
 
 props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
-ax.text(0.05, 0.18, r"Self of a Loop", transform=ax.transAxes, fontsize=8,
+ax.text(0.05, 0.18, r"Self of a Circle", transform=ax.transAxes, fontsize=8,
         verticalalignment='top', c="gray")
 
 ax.text(0.60, 0.92, r"Self of a line", transform=ax.transAxes, fontsize=8,

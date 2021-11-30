@@ -63,9 +63,9 @@ if False:
 
     loop1 = Loop(R_p)
     for R_si, vec_ni, vec_s0i in zip(R_s, vec_n, vec_s0):
-        loop2 = Loop.from_normal(R_si, vec_s0i, vec_ni)
+        loop2 = Loop.from_normal(R_si, vec_s0i, )
         
-        m_our, err = pycoil.inductance.calc_M(loop1, loop2) 
+        m_our, err = pycoil.inductance.calc_mutual(loop1, loop2)
         m_bab, err = pycoil.inductance.calc_M_Babic(R_p, R_si, vec_s0i, vec_ni)
         
         M_our.append(m_our)
@@ -117,7 +117,7 @@ if False:
         
         loop2 = Loop(R_s,vec_s0)
             
-        m_our, err = pycoil.inductance.calc_M(loop1, loop2) 
+        m_our, err = pycoil.inductance.calc_mutual(loop1, loop2)
         m_bab, err = pycoil.inductance.calc_M_Babic(R_p, R_s, vec_s0)
     
         M_our.append(m_our)
@@ -152,7 +152,7 @@ if False:
         vec_s0 = np.array([x0, 0., z0])        
         loop2 = Loop(R_s, vec_s0)
             
-        m_our, err = pycoil.inductance.calc_M(loop1, loop2) 
+        m_our, err = pycoil.inductance.calc_mutual(loop1, loop2)
         m_bab, err = pycoil.inductance.calc_M_Babic(R_p, R_s, vec_s0)
     
         M_our.append(m_our)
@@ -202,9 +202,9 @@ if False:
         
         vec_s0 = np.array([x0, y0, z0])
         
-        loop2 = Loop.from_normal(R_s, vec_s0, vec_n)
+        loop2 = Loop.from_normal(R_s, vec_s0, )
             
-        m_our, err = pycoil.inductance.calc_M(loop1, loop2) 
+        m_our, err = pycoil.inductance.calc_mutual(loop1, loop2)
         m_bab, err = pycoil.inductance.calc_M_Babic(R_p, R_s, vec_s0,vec_n)
         if np.isnan(m_bab):
             break

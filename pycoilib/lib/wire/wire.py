@@ -10,11 +10,11 @@ import numpy as np
 from numpy import cos, sin, arctan2 as atan, sqrt, pi as π, sign, log
 from scipy.constants import mu_0 as μ0
 
-from pycoilib.segment import Arc, Loop, Line
+from pycoilib.segment import Arc, Circle, Line
 
 from pycoilib.lib.misc.geometry import _vec_0, _vec_x, _vec_y, _vec_z
 
-from pycoilib import calc_M
+from pycoilib import calc_mutual
 
 
 
@@ -44,7 +44,7 @@ class Wire_circ(Wire):
             line1 = Line(p0,p1)
             line2 = Line(p2,p3)
             
-            I, tmp = calc_M(line1, line2)
+            I, tmp = calc_mutual(line1, line2)
             
             return I
             
@@ -62,9 +62,9 @@ class Wire_circ(Wire):
             arc_angle = shape.theta
             R2 = R1 - self.radius
             #radius, arc_angle, pos, vec_x, vec_y, vec_z, current=1
-            arc1 = Arc(R1, arc_angle, _vec_0, _vec_x, _vec_y, _vec_z )
-            arc2 = Arc(R2, arc_angle, _vec_0, _vec_x, _vec_y, _vec_z )
-            I, tmp = calc_M(arc1, arc2)
+            arc1 = Arc(R1, arc_angle, _vec_0, _vec_x, _vec_y, _vec_z)
+            arc2 = Arc(R2, arc_angle, _vec_0, _vec_x, _vec_y, _vec_z)
+            I, tmp = calc_mutual(arc1, arc2)
             
             return I
             # Old version : complicated
@@ -113,7 +113,7 @@ class Wire_rect(Wire):
         if isinstance(shape, Line):
             raise NotImplementedError()
                     
-        elif isinstance(shape, Loop):
+        elif isinstance(shape, Circle):
             # Grover1912, p. 116-117 eq. 70
             # Formule empirique de Reyleigh et Niven
             wt = self.width
