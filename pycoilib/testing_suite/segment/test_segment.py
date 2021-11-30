@@ -3,7 +3,7 @@ import numpy as np
 from numpy import pi as π
 import matplotlib.pyplot as plt
 
-from pycoilib.segment import Arc, Line, Loop
+from pycoilib.segment import Arc, Line, Circle
 
 ST24 = "*"*24
 ST12 = "*"*12
@@ -118,67 +118,67 @@ def test_arc():
     print(arc)
 
 
-def test_loop():
+def test_circle():
     radius = 1.
     position = np.array([0., 0., 1.])
 
-    print(ST24 + "Test Loop" + ST24)
-    print(ST12 + "Loop()")
-    loop = Loop(radius, position, )
-    print(loop)
+    print(ST24 + "Test Circle" + ST24)
+    print(ST12 + "Circle()")
+    circle = Circle(radius, position, )
+    print(circle)
 
-    print(ST12 + "Loop.from_normal()")
-    loop_angular_pos = 0.
+    print(ST12 + "Circle.from_normal()")
+    circle_angular_pos = 0.
     normal = np.array([0., 1., 0.])
-    loop = Loop.from_normal(radius, position, normal)
-    print(loop)
+    circle = Circle.from_normal(radius, position, normal)
+    print(circle)
 
-    print(ST12 + "Loop.from_rot()")
+    print(ST12 + "Circle.from_rot()")
     axis = np.array([0., 1., 0.])
     angle = π / 2
-    loop = Loop.from_rot(radius, position, axis, angle)
-    print(loop)
-    # loop.draw()
+    circle = Circle.from_rot(radius, position, axis, angle)
+    print(circle)
+    # circle.draw()
 
-    print(ST12 + "loop.rotate(π/2,np.array([0.,1.,0.]))")
-    loop = Loop(radius, position)
-    loop.rotate(π / 2, np.array([0., 1., 0.]))
-    print(loop)
+    print(ST12 + "circle.rotate(π/2,np.array([0.,1.,0.]))")
+    circle = Circle(radius, position)
+    circle.rotate(π / 2, np.array([0., 1., 0.]))
+    print(circle)
 
-    print(ST12 + "loop.rotate(π/2, np.array([0., 1., 0.]), np.array([0.,-1.,0.])")
-    loop = Loop(radius, position)
-    loop.rotate(π / 2, axis=np.array([0., 1., 0.]), origin=np.array([0., -1., 0.]))
-    print(loop)
+    print(ST12 + "circle.rotate(π/2, np.array([0., 1., 0.]), np.array([0.,-1.,0.])")
+    circle = Circle(radius, position)
+    circle.rotate(π / 2, axis=np.array([0., 1., 0.]), origin=np.array([0., -1., 0.]))
+    print(circle)
 
-    print(ST12 + "loop.translate(np.array([0., 1., 5.]))")
-    loop = Loop(radius, position)
-    loop.translate(np.array([0., 1., 5.]))
-    print(loop)
-    print(loop.vec_r0)
-    print(loop.r0)
+    print(ST12 + "circle.translate(np.array([0., 1., 5.]))")
+    circle = Circle(radius, position)
+    circle.translate(np.array([0., 1., 5.]))
+    print(circle)
+    print(circle.vec_r0)
+    print(circle.r0)
 
-    print(ST12 + "loop.move_to(np.array([0., 1., 5.]))")
-    loop = Loop(radius, position)
-    loop.move_to(np.array([0., 1., 5.]))
-    print(loop)
-    print(loop.vec_r0)
-    print(loop.r0)
+    print(ST12 + "circle.move_to(np.array([0., 1., 5.]))")
+    circle = Circle(radius, position)
+    circle.move_to(np.array([0., 1., 5.]))
+    print(circle)
+    print(circle.vec_r0)
+    print(circle.r0)
 
-    print(ST12 + "loop.get_endpoints()")
-    loop = Loop(radius, position)
-    p0, p1 = loop.get_endpoints()
+    print(ST12 + "circle.get_endpoints()")
+    circle = Circle(radius, position)
+    p0, p1 = circle.get_endpoints()
     print(p0, p1)
     print()
 
-    print(ST12 + "loop.flip_current_direction()")
-    loop = Loop(radius, position)
-    loop.flip_current_direction()
-    print(loop)
+    print(ST12 + "circle.flip_current_direction()")
+    circle = Circle(radius, position)
+    circle.flip_current_direction()
+    print(circle)
 
 
 if __name__ == '__main__':
-    # test_line()
-    # test_arc()
-    test_loop()
+    test_line()
+    test_arc()
+    test_circle()
 
 
