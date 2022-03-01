@@ -10,7 +10,7 @@ import numpy as np
 from numpy import pi as π
 
 # Une antenne = collection de segments géométriques + un fil (wire)
-wire = pycoil.wire.Wire_circ(0.3e-3)  # Fil circulaire de 0.3 mm de rayon
+wire = pycoil.wire.WireCircular(0.3e-3)  # Fil circulaire de 0.3 mm de rayon
 
 ####################################################
 # Géométrie Magnétomètre (c'est la géo la plus compliquée dans ce script)

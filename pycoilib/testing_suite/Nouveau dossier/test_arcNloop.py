@@ -293,7 +293,7 @@ for R_si, vec_zi, vec_s0i, vec_yi, vec_xi, arc_angle_i in zip(R_s, vec_z, vec_s0
     arc2 = Arc(vec_s0i, R_si,arc_angle_i,vec_xi, vec_yi, vec_zi)
 
     m_arcs, err = pycoil.inductance.calc_M_2arcs(arc2, arc1) 
-    m_loop, err = pycoil.inductance.calc_M_arcNloop(arc2, loop)
+    m_loop, err = pycoil.inductance.calc_M_arcNcircle(arc2, loop)
 
     M_arcs.append(m_arcs)
     M_loop.append(m_loop)

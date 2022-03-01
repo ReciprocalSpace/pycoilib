@@ -14,9 +14,10 @@ from scipy.special import ellipkinc as ellK_inc,  ellipeinc as ellE_inc
 from scipy.constants import mu_0 as μ0
 
 
-
-
-def calc_M_Babic(Rp,Rs,C=(0.,0.,0.),n=(0.,0.,1.)):
+def calc_M_Babic(Rp, Rs, C=(0.,0.,0.), n=(0.,0.,1.)):
+    """Compute the mutual inductance between a pair of loop using the equations from Babic paper.
+    This method is deprecated, and was used primarly for testing.
+    """
     xc,yc,zc = tuple(C)
     a,b,c = tuple(n)
     

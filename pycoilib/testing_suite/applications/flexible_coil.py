@@ -16,18 +16,18 @@ vec_y = np.array([0., 1., 0.])
 vec_z = np.array([0., 0., 1.])
 vec_0 = np.array([0., 0., 0.])
 
-wire = pycoil.wire.Wire_circ(1e-3)
+wire = pycoil.wire.WireCircular(1e-3)
 
 inductance = []
 
 ell = 0.10
 w = 0.08
 
-n = 2
-θ = np.linspace(0, π/100, n)
+n = 101
+θ = np.linspace(0, π, n)
 
+print("*"*32)
 for θ_i in θ:
-    print("*"*32)
     if θ_i == 0.:
         p0, p1 = np.array([ell/2, 0., w/2]), np.array([-ell/2, 0., w/2])
         p2, p3 = np.array([-ell/2, 0., -w/2]), np.array([ell/2, 0., -w/2])
@@ -59,7 +59,7 @@ for θ_i in θ:
 
     coil = pycoil.coil.Coil([side1, side2, arc1, arc2], wire)
 
-    coil.draw(True)
+    # coil.draw(False)
     inductance.append(coil.get_inductance())
 
 inductance = np.array(inductance)

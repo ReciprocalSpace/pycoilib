@@ -37,7 +37,7 @@ ax = plt.gca()
 
 N = [100, 50, 25, 10, 5, 2]
 
-wire = pycoilib.wire.Wire_circ(a)
+wire = pycoilib.wire.WireCircular(a)
 
 for n in N:
     θ = 2*π/n

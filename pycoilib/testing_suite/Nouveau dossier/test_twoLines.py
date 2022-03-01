@@ -35,7 +35,7 @@ if True:
     print(f"---- \tM: {M:.9e}\t Mth: {Mth:.9e}")
 
 
-if False:
+if True:
     print("---------------------------------------------------------------------")
     print("----1.2\t-  A pair of parallel lines")#   1.1
     ell = np.arange(0.5, 10.1, 0.5)*1e-2
@@ -72,12 +72,12 @@ if False:
     plt.show()
 
 # print("---------------------------------------------------------------------")
-# wire = pycoilib.wire.Wire_circ(1.e-3)
+# wire = pycoilib.wire.WireCircular(1.e-3)
 # coil = pycoilib.coil.Coil([line1,line2.flip_current_direction()], wire)
 # coil.draw()
 # print(coil.calc_I())
 # print(pycoilib.inductance.calc_M(line1, line2))
-if False:
+if True:
     print("---------------------------------------------------------------------")
     print("----1.2\t-  Antiparalle pair of lines")#   1.1
     

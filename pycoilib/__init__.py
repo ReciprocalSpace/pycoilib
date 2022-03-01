@@ -4,7 +4,7 @@
 """
 
 
-from pycoilib.lib.inductance.inductance import calc_mutual
+from pycoilib.lib.inductance.get_mutual import get_mutual
 import pycoilib.coil
 import pycoilib.wire
 import pycoilib.segment

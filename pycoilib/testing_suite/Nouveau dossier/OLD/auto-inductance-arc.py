@@ -43,7 +43,7 @@ def get_A_φ(φ):
 
 
 arc = pycoil.shape.Arc(_vec_0, r0, φ1, _vec_x, _vec_y, _vec_z)
-wire = pycoil.wire.Wire_circ(a0)
+wire = pycoil.wire.WireCircular(a0)
 coil = pycoil.coil.Coil([arc], wire)
 
 res, err = quad(get_A_φ, 0, φ1 )

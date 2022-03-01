@@ -2,75 +2,133 @@
 """
 Created on Wed Feb 17 14:33:02 2021
 
-@author: Aime Labbe
+@author: Aime Labbé
 """
-import matplotlib.pyplot as plt
 import numpy as np
-from numpy import cos, sin, arctan2 as atan, sqrt, pi as π, sign, log
+from numpy import pi as π
 from scipy.integrate import quad
-from scipy.special import ellipk as ellK,  ellipe as ellE
-from scipy.special import ellipkinc as ellK_inc,  ellipeinc as ellE_inc
 from scipy.constants import mu_0 as μ0
 
+from scipy.special import ellipk, ellipe
+from scipy.special import ellipkinc, ellipeinc
 
-from pycoilib.lib.misc.geometry import _vec_0
+from ..segment.segment import Line, ArcAbstract
 
-def calc_M_arcNline(loop, line):
-    Rp = loop.radius
-    x_u = loop.vec_x
-    y_u = loop.vec_y
-    θ1 = loop.theta
-    
+# TODO: clean this file. Verify which of these two functions works best
+# TODO: documentation and comments
+
+
+def calc_M_arc_line(arc: ArcAbstract, line: Line):
+    """Comupute the mutual between an arc and a line."""
+    VEC_0 = np.array([0., 0., 0.])
+
+    Rp = arc.radius
+    x_u = arc.vec_x
+    y_u = arc.vec_y
+    θ1 = arc.theta
+
     s_u = line.vec_n
-    Ls=line.ell
-    
-    
-    s0 = sqrt( (line.vec_r0-loop.vec_r0)@(line.vec_r0-loop.vec_r0))
-    if s0 != 0.:
-        s0_u= (line.vec_r0-loop.vec_r0)/s0
-    else:
-        s0_u = _vec_0.copy()
+    Ls = line.ell
 
+    s0 = np.sqrt((line.vec_r0 - arc.vec_r0) @ (line.vec_r0 - arc.vec_r0))
+    if s0 != 0.:
+        s0_u = (line.vec_r0 - arc.vec_r0) / s0
+    else:
+        s0_u = VEC_0.copy()
 
     def integrand(θ):
-        β =( Rp**2*( 1 - ( (x_u@s_u)*cos(θ) + (y_u@s_u)*sin(θ))**2)
-            +s0**2*( 1 - (s0_u@s_u)**2 )
-            -2*Rp*s0*( ((s0_u@x_u)-(s0_u@s_u)*(x_u@s_u))*cos(θ)
-                      +((s0_u@y_u)-(s0_u@s_u)*(y_u@s_u))*sin(θ) ))
-        
-        β = sqrt(np.clip(β, 1e-54, np.inf))
-        
-        σ1 = Ls + s0*s_u@s0_u - Rp*((s_u@x_u)*cos(θ)+(s_u@y_u)*sin(θ)) 
-        σ0 = 0. + s0*s_u@s0_u - Rp*((s_u@x_u)*cos(θ)+(s_u@y_u)*sin(θ)) 
+        p_u = x_u*np.cos(θ) + y_u*np.sin(θ)
+        dp_u = -x_u*np.cos(θ) + y_u*np.cos(θ)
 
-        cst = μ0/(4*π)*Rp*( -(s_u@x_u)*sin(θ) +(s_u@y_u)*cos(θ))
+        β2 = Rp**2 * (1 - (p_u@s_u)**2) + s0**2 * (1 - (s0_u@s_u)**2) - 2*Rp*s0 * (s0_u@p_u - (s0_u@s_u)*(p_u@s_u))
+
+        β = np.sqrt(np.clip(β2, 0., np.inf))
+
+        σ1 = Ls + s0*(s_u@s0_u) - Rp*(s_u@p_u)
+        σ0 = 0. + s0*(s_u@s0_u) - Rp*(s_u@p_u)
+
+        pre = μ0/(4*π) * Rp*(s_u @ dp_u)
+
         if isinstance(β, np.ndarray):
             fct = np.zeros_like(β)
-            ind = np.logical_and( np.absolute(β)*1e18>σ0**2, 
-                                  np.absolute(β)*1e18>σ1**2 )
+            ind = β != 0.
             not_ind = np.logical_not(ind)
-            fct[ind] =cst[ind]*(np.arctanh(σ1[ind]/sqrt(σ1[ind]**2+β[ind]))
-                               -np.arctanh(σ0[ind]/sqrt(σ0[ind]**2+β[ind])))
-            fct[not_ind] = cst[not_ind]*( 
-                 sign(σ1[not_ind])*log(np.absolute(σ1[not_ind])) 
-                -sign(σ0[not_ind])*log(np.absolute(σ0[not_ind])) )
+            fct[ind] = pre[ind] * (np.arcsinh(σ1[ind]/β[ind]) - np.arcsinh(σ0[ind]/β[ind]))
+            fct[not_ind] = pre[not_ind] * (
+                    np.sign(σ1[not_ind]) * np.log(np.absolute(σ1[not_ind]))
+                    - np.sign(σ0[not_ind]) * np.log(np.absolute(σ0[not_ind]))
+            )
         else:
-            
-            if abs(β)*1e18>σ0**2 and abs(β)*1e18>σ1**2:
-                fct = cst * ( np.arctanh(σ1/sqrt(σ1**2+β))
-                             -np.arctanh(σ0/sqrt(σ0**2+β)))
+            if β != 0.:
+                fct = pre*(np.arcsinh(σ1/β) - np.arcsinh(σ0/β))
             else:
-                fct = cst*(  sign(σ1)*log(np.absolute(σ1)) 
-                           - sign(σ0)*log(np.absolute(σ0)) )
+                fct = pre * (np.sign(σ1)*np.log(np.absolute(σ1)) - np.sign(σ0)*np.log(np.absolute(σ0)))
 
         return fct
-    
-    mutual, err = quad(integrand, 1e-5, θ1-1e-5, epsrel=1e-5,limit=200)
-    if np.isnan(mutual):
-        theta = np.linspace( 1e-8, θ1-1e-8, 201)
-        res = integrand( theta )
-        plt.plot(theta, res)
-        plt.show()
-        print(res)
-    
+    p0, p1 = line.get_endpoints()
+    p2, p3 = arc.get_endpoints()
+
+    points = []
+    if all(np.isclose(p2, p0)) or all(np.isclose(p2, p1)):
+        points.append(0.)
+    if all(np.isclose(p3, p1)) or all(np.isclose(p3, p1)):
+        points.append(θ1)
+    print(points)
+
+    output = quad(integrand, 0, θ1, epsabs=1e-10, limit=400, points=points)
+    mutual, err = output[0], output[1:]
+
+    return mutual, err
+
+def Ψ_p(k):
+    return (1 - k ** 2 / 2) * ellipk(k ** 2) - ellipe(k ** 2)
+
+
+def Ψ(φ1, φ0, k):
+    res = ((1 - k ** 2 / 2) * (ellipkinc(φ1, k ** 2) - ellipkinc(φ0, k ** 2)) / 2
+           - (ellipeinc(φ1, k ** 2) - ellipeinc(φ0, k ** 2)) / 2)
+    return res
+
+
+def Θ(φ1, φ0, k):
+    return (np.sqrt(1 - k**2 * np.sin(φ1)**2) - np.sqrt(1 - k**2 * np.sin(φ0)**2)) / 2
+
+
+def calc_M_arc_line_2(arc: ArcAbstract, line: Line):
+    Rs = arc.radius
+    s0_u = (arc.vec_r0 - line.vec_r0)
+    s0 = np.sqrt(s0_u @ s0_u)
+    if np.isclose(s0, 0.):
+        s0_u = np.array([0., 0., 0.])
+    else:
+        s0_u = s0_u / s0
+
+    u_u = arc.vec_x
+    v_u = arc.vec_y
+
+    sφ = arc.theta
+
+    p_u = line.vec_n
+
+    def integrand(p: float):
+        A = p**2 + Rs**2 + s0**2 - 2*p*s0 * (p_u @ s0_u)
+        B = -2*Rs * (p*u_u@p_u - s0*s0_u@u_u)
+        C = -2*Rs * (p*v_u@p_u - s0*s0_u@v_u)
+
+        d = np.sqrt(B**2 + C**2)
+        k = np.clip(np.sqrt(2*d/(A+d)), 0., 1.)
+
+        κ = np.arctan2(C, B)
+        φ1, φ0 = (sφ - κ) / 2, -κ / 2
+
+        pre = 2 * μ0 * Rs / π
+        fct1 = 1 / (k ** 2 * d * np.sqrt(A + d))
+        fct2 = u_u@p_u*B + v_u@p_u*C
+        fct3 = u_u@p_u*C - v_u@p_u*B
+
+        return pre * fct1 * (fct2 * Θ(φ1, φ0, k) + fct3 * Ψ(φ1, φ0, k))
+
+    output = quad(integrand, 1e-8, line.ell - 1e-8, epsabs=1e-15, limit=200)
+    mutual, err = output[0], output[1:]
+
     return mutual, err

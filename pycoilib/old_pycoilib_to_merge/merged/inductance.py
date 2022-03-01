@@ -10,7 +10,7 @@
 # from scipy.integrate import quad
 # from scipy.constants import mu_0 as μ0, pi as π
 #
-# from scipy.special import ellipe as ellE, ellipk as ellK
+# from scipy.special import ellipe as ellE, ellipk as ellipK
 # import pycoillib.geometry as geo
 #
 #
@@ -145,7 +145,7 @@
 #                        +β**2+γ**2-2*α*(β*a*b-γ*l**2)/(l*L)*cos(φ)
 #                        -2*α*β*c/l*sin(φ) )
 #         k = sqrt( 4*V0/(A0+2*V0) )
-#         Ψ = (1-k**2/2)*ellK(k**2)-ellE(k**2)
+#         Ψ = (1-k**2/2)*ellipK(k**2)-ellE(k**2)
 #         cst = μ0*Rs/π
 #         return cst*(p1*cos(φ)+p2*sin(φ)+p3)*Ψ/(k*sqrt(V0**3))
 #

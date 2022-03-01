@@ -24,8 +24,6 @@ class Segment:
 
     Attributes
     ----------
-    r0 : float
-        Length of the position vector of the segment.
     vec_r0 : 1D numpy.ndarray of shape (3,)
         Position vector of the segment
     current : float
@@ -73,7 +71,6 @@ class Segment:
         # Input shape validation
         if position.shape != (3,):
             raise PycoilibWrongShapeVector
-        self.r0 = np.sqrt(position @ position)
         self.vec_r0 = position.copy()
         self.current = current
 
@@ -146,7 +143,6 @@ class Segment:
             raise PycoilibWrongShapeVector
 
         self.vec_r0 = translation + self.vec_r0
-        self.r0 = np.sqrt(self.vec_r0 @ self.vec_r0)
         return self
 
     def move_to(self, new_position: np.ndarray):
@@ -165,7 +161,6 @@ class Segment:
             raise PycoilibWrongShapeVector
 
         self.vec_r0 = new_position
-        self.r0 = np.sqrt(new_position @ new_position)
 
     @abstractmethod
     def rotate(self, angle: float, axis: np.ndarray, origin: np.ndarray) -> Segment:
@@ -204,7 +199,6 @@ class Segment:
         rot = Rotation.from_rotvec(angle * axis).as_matrix()
 
         self.vec_r0 = rot @ (self.vec_r0 - origin) + origin
-        self.r0 = np.sqrt(self.vec_r0 @ self.vec_r0)
 
         # This code is a bit obscure : vec = self.a_ndarray
         # by doing vec[:] = ... the new values are stored in self.a_ndarray
@@ -638,5 +632,5 @@ class Line(Segment):
 
     def get_endpoints(self):
         p0 = self.vec_r0
-        p1 = self.r0 + self.ell * self.vec_n
+        p1 = self.vec_r0 + self.ell * self.vec_n
         return p0, p1

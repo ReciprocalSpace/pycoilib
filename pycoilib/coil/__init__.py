@@ -3,6 +3,6 @@
 @author: Aimé Labbé
 """
 
-from ..lib.coil.coil import Coil
+from ..lib.coil.coil import Coil, Loop, Helmholtz, Solenoid, Polygon, MTLR
 
-__all__ = ["Coil"]
+__all__ = ["Coil", "Loop", "Helmholtz", "Solenoid", "Polygon", "MTLR"]

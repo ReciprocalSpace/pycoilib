@@ -35,7 +35,7 @@ a = 0.001
 fig = plt.figure()
 ax = plt.gca()
 
-wire = pycoilib.wire.Wire_circ(a)
+wire = pycoilib.wire.WireCircular(a)
 
 
 θ = np.linspace(0.,2*π, round(360/5+1) )

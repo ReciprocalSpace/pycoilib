@@ -2,165 +2,176 @@
 """
 Created on Tue Jan 26 08:31:05 2021
 
-@author: utric
+@author: Aimé Labbé
 """
 
+from __future__ import annotations
+from typing import List
+
+import numpy as np
 import os
 import matplotlib.pyplot as plt
-import numpy as np
-from numpy import pi as π
 
-from pycoilib import segment
-from pycoilib.wire import Wire
-from pycoilib import calc_M
-
-from pycoilib.lib.misc._set_axes_equal import _set_axes_equal
-from pycoilib.lib.misc import geometry as geo
-from pycoilib.lib.misc.geometry import _vec_0, _vec_x, _vec_y, _vec_z
+from ..segment.segment import Segment, Arc, Circle, Line
+from ..wire.wire import Wire, WireRect, WireCircular
+from ..inductance.inductance import calc_mutual
+from ..misc.set_axes_equal import set_axes_equal
+from ..misc import geometry as geo
 
 
 class Coil:
-    def __init__(self, shape_array, wire=Wire()):
-        self.shape_array = shape_array
+    """General Coil object.
+
+    A coil is defined as the combination of a segment array and a wire type.
+
+    """
+    VEC_0 = np.array([0., 0., 0.])
+    VEC_X = np.array([1., 0., 0.])
+    VEC_Y = np.array([0., 1., 0.])
+    VEC_Z = np.array([0., 0., 1.])
+
+    def __init__(self, segment_array: List[Segment], wire=Wire(), anchor: np.ndarray = None):
+        self.segment_array = segment_array
         self.wire = wire
-        
-        self.anchor = _vec_0.copy()
-        
-        # self.pos = pos.copy()
-        # self.anchor = _vec_0.copy()
-        # self.rotation= Rotation.from_rotvec(geo.normalize(axis)*angle)
+        self.anchor = self.VEC_0.copy() if anchor is None else anchor.copy()
     
     @classmethod
-    def from_magpylib(cls, magpy_object, wire=Wire(), anchor="_vec_0"):
-        return
+    def from_magpylib(cls, magpy_object, wire=Wire(), anchor: np.ndarray = None):
+        """Construct a coil from a collection of magpy sources and a Wire object"""
+        raise NotImplementedError
+
+    def to_magpy(self):
+        """Return a list of segments as collection of magpy sources"""
+        raise NotImplementedError
     
     def _magpy2pycoil(self, magpy_object):
-        pass
+        raise NotImplementedError
     
     def _pycoil2magpy(self, coil_array):
-        pass
+        raise NotImplementedError
     
-    def move_to(self, new_pos):
-        # self.pos = new_pos.copy()
+    def move_to(self, new_position: np.ndarray) -> Coil:
+        """Move the coil to a new position."""
+        translation = new_position - self.anchor
+        for segment in self.segment_array:
+            segment.translate(translation)
+        self.anchor = new_position.copy()
         return self
     
-    def translate(self, translation):
-        # self.pos += translation
+    def translate(self, translation: np.ndarray):
+        """Translate the coil by a specific translation vector."""
+        for segment in self.segment_array:
+            segment.translate(translation)
+        self.anchor += translation
+        return self
+
+    def rotate(self, angle: float, axis: np.ndarray = None):
+        """Rotate the coil around an axis by a specific angle."""
+        axis = self.VEC_Z if axis is None else axis
+        for segment in self.segment_array:
+            segment.rotate(angle, axis, self.anchor)
         return self
     
-    def rotate(self, axis, angle, anchor="self.anchor"):
-        anchor = self.anchor if self.anchor=='self.anchor' else anchor
-        
-        # Rotation.from_rotvec(geo.normalize(axis)*angle)
-        # new_rot = Rotation.from_rotvec(geo.normalize(axis)*angle)
-        
-        # self.rotation = new_rot @ self.rotation
-        
-        return self
-        
-    def reset_rotation(self):
-        # self.rotation = np.eye(3)
-        return self
-    
-    def draw(self, draw_current=True, savefig=False):            
+    def draw(self, draw_current=True, savefig=False):
+        """Draw the coil in a 3D plot."""
         fig = plt.figure(figsize=(7.5/2.4, 7.5/2.4), dpi=300,)
         ax = fig.add_subplot(111, projection='3d')
         
-        for shape in self.shape_array:
+        for shape in self.segment_array:
             shape.draw(ax, draw_current)
-        
-        _set_axes_equal(ax)
+
+        set_axes_equal(ax)
         ax.set_xlabel("x [mm]")
         ax.set_ylabel("y [mm]")
         ax.set_zlabel("z [mm]")
         
         if savefig:
-            i=0
+            i = 0
             while True:
-                path="Fig_"+str(i)+".png"
+                path = "Fig_"+str(i)+".png"
                 if os.path.exists(path):
-                    i+=1
+                    i += 1
                 else:
                     break
             plt.savefig(path, dpi=300, transparent=True)
         plt.show()
-    
-    def calc_I(self):
-        I = 0
-        n = len(self.shape_array)
-        for i in range(n-1):
-            
-            for j in range(i+1,n):
-                tmp = calc_M(self.shape_array[i], self.shape_array[j])
-                I += tmp[0]
-                if np.isnan(tmp[0]):
-                    print(i,j)
-                    print(self.shape_array[i])
-                    print(self.shape_array[j])
-        for i in range(n):
-            res = self.wire.self_inductance(self.shape_array[i]) 
-            I += res
-        return I
+
+    def get_inductance(self):
+        """Compute the coil self-inductance."""
+        inductance = 0
+        n = len(self.segment_array)
+
+        # Mutual between segment pairs
+        for i, segment_i in enumerate(self.segment_array[:-1]):
+            for j, segment_j in enumerate(self.segment_array[i + 1:]):
+                res = calc_mutual(segment_i, segment_j)
+                inductance += 2*res[0]
+
+        # Self of segments
+        for i, segment_i in enumerate(self.segment_array):
+            res = self.wire.self_inductance(segment_i)
+
+            inductance += res
+        return inductance
 
 
 class Loop(Coil):
-    def __init__(self, radius, pos=_vec_0, axis=_vec_z, angle=0, wire=Wire() ):
-        loop = segment.Loop(radius, pos, axis, angle)
-        super().__init__([loop], wire)
+    def __init__(self, radius: float, position: np.ndarray = None, axis: np.ndarray = None, angle: float = 0.,
+                 wire=Wire()):
+        """"""
+        position = self.VEC_0 if position is None else position
+        axis = self.VEC_Z if axis is None else axis
+        circle = Circle.from_rot(radius, position, axis, angle)
+
+        super().__init__([circle], wire)
     
     @classmethod
-    def from_normal(cls, radius, pos=_vec_0, normal=_vec_y, wire=Wire()):
-        axis, angle = geo.get_rotation(geo.z_vector, normal)
-        
-        return cls(radius, pos, axis, angle, wire)
+    def from_normal(cls, radius: float, position: np.ndarray = None, normal: np.ndarray = None, wire=Wire()):
+        position = cls.VEC_0 if position is None else position
+        normal = cls.VEC_Y if normal is None else normal
+
+        axis, angle = geo.get_rotation(cls.VEC_Z, normal)
+        return cls(radius, position, axis, angle, wire)
 
 
 class Solenoid(Coil):
-    def __init__(self, radius, length, nturns, 
-                 pos=_vec_0, axis=_vec_z, angle = 0,
+    def __init__(self, radius: float, length: float, n_turns: int,
+                 position: np.ndarray = None, axis: np.ndarray = None, angle: float = 0.,
                  wire=Wire()):
-        
-        segments = []
-        
-        Z = np.linspace(-length/2,length/2,nturns)
-        for zi in Z:
-            pos = np.array([0,0,zi])
-            segments.append(segment.Loop(radius, pos))
-            
+
+        segments = [Circle(radius, np.array([0., 0., z])) for z in np.linspace(-length/2, length/2, n_turns)]
         super().__init__(segments, wire)
+
+        position = self.VEC_0 if position is None else position
+        axis = self.VEC_Z if axis is None else axis
+        self.move_to(position)
         self.rotate(axis, angle)
-        
-    
+
     @classmethod
-    def from_normal(cls, radius, length, nturns, 
-                    pos=_vec_0, normal=_vec_z, wire=Wire()):
-        
-        axis, angle = geo.get_rotation(geo.z_vector, normal)
-        
-        return cls(radius, length, nturns, pos, axis, angle, wire)
+    def from_normal(cls, radius, length, n_turns, position, normal, wire=Wire()):
+        axis, angle = geo.get_rotation(cls.VEC_Z, normal)
+        return cls(radius, length, n_turns, position, axis, angle, wire)
 
 
 class Polygon(Coil):
     def __init__(self, polygon, wire):
         lines = []
-        for p0, p1 in zip(polygon[:-1],polygon[1:]):
-            lines.append( segment.Line(p0, p1) )
-        
+        for p0, p1 in zip(polygon[:-1], polygon[1:]):
+            lines.append(Line(p0, p1))
         super().__init__(lines, wire)
 
 
 class Helmholtz(Coil):
-    def __init__(self, radius, position=_vec_0, axis=_vec_z, angle=0, wire=Wire() ):
-        
-        #axis, angle = geo.get_rotation(_vec_z, normal)
-        
-        segments = []
-        
-        segments.append(segment.Loop(radius, np.array([0, 0, -radius / 2])))
-        segments.append(segment.Loop(radius, np.array([0, 0, radius / 2])))
-        
+    def __init__(self, radius: float, position: np.ndarray = None, axis: np.ndarray = None, angle:float = 0.,
+                 wire=Wire()):
+
+        segments = [Circle(radius, np.array([0, 0, -radius/2])),
+                    Circle(radius, np.array([0, 0, radius/2]))]
         super().__init__(segments, wire)
-        
+
+        position = self.VEC_0 if position is None else position
+        axis = self.VEC_Z if axis is None else axis
+        self.move_to(position)
         self.rotate(axis, angle)
 
 
@@ -193,9 +204,7 @@ class Helmholtz(Coil):
         
 #         #arcs_pos # to be implemeted
 #         #arcs_angle  # to be implemented
-            
-            
-            
+
 #         magpy_collection = magpy.collection(sources)
         
 #         angle, axis = geo.get_rotation(geo.z_vector, normal)
@@ -205,18 +214,24 @@ class Helmholtz(Coil):
 #         super().__init__(magpy_collection, position, vmax)
 
 
+class MTLR(Coil):
+    def __init__(self, inner_radius: float, delta_radius: float, line_width: float, n_turns,
+                 dielectric_thickness: float,
+                 anchor: np.ndarray = None, axis: np.ndarray = None, angle: float = 0.):
 
-# class MTLR(Coil):
-#     def __init__(self, Rext, Rint, Nturns, thickness,
-#                  position=_vec_0, axis=_vec_z, angle=0, wire=Wire()):
-#         #self.N = Ntours
-#         #self.espace = espace # Distance entre deux cercles concentriques
-#         self.width = width # Largeur piste supraconductrice
-#         self.thickness = thickness # Epaisseur du substrat
-#         self.R = np.array( [Rext-width/2 - n*(width+espace) for n in range(Ntours)] )
-#         self.εr = εr # Constante dielectrique relative du matériaux
-#         self.ell = 2*π*np.sum(self.R)
-#         self.Cth = (0,0,-thickness)
-#         self._L = None
-#
-#         segments = []
+        radii = np.array([inner_radius + n * delta_radius for n in range(n_turns)])
+
+        segments = []
+        for radius in radii:
+            segments.append(Circle.from_normal(radius))
+            segments.append(Circle.from_normal(radius, position=np.array([0., 0., -dielectric_thickness])))
+
+        wire = WireRect(line_width, )
+        super().__init__(segments, wire)
+
+        if anchor:
+            self.translate(anchor)
+
+        if axis:
+            self.rotate(angle, axis)
+

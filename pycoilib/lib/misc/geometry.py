@@ -5,8 +5,6 @@ Created on Tue Dec 15 15:28:30 2020
 @author:
 """
 
-# OLD VERSION
-
 import numpy as np
 from numpy import sqrt, arctan2, pi as π, cos, sin
 from scipy.spatial.transform import Rotation
@@ -17,6 +15,9 @@ _vec_x = np.array([1., 0., 0.])
 _vec_y = np.array([0., 1., 0.])
 _vec_z = np.array([0., 0., 1.])
 
+
+# TODO: clear this code and remove what is not necessary anymore.
+#  -> most of this code was used in a prior version of pycoilib.
 
 def length(wire_or_vector):
     """Return the length of a wire of a vector.
@@ -235,9 +236,10 @@ def normalize(vector):
     return vector / length(vector)
 
 
-def vector_on_sphere():
-    θ = np.linspace(0, 16 * π, 400)
-    φ = np.linspace(0, π, 81)
+def vector_on_sphere(n_polar: int = 81, n_azimuthal: int = 400, n_turns: int = 8) -> np.ndarray:
+    """Generate a spiral of points on a sphere."""
+    θ = np.linspace(0, n_turns * 2*π, n_azimuthal)
+    φ = np.linspace(0, π, n_polar)
 
     n_vec = np.array([[np.cos(θ_i) * np.sin(φ_i),
                        np.sin(θ_i) * np.sin(φ_i),
@@ -247,6 +249,7 @@ def vector_on_sphere():
 
 
 def fibonacci_sphere(n=1):
+    """Generate n points pseudo-randomly generated in a unit ball using the golden-angle approach."""
     phi = π * (3. - sqrt(5.))  # golden angle in radians
 
     i = np.arange(n)
