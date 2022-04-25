@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jan 26 08:24:40 2021
-
-@author: utric
+@author: Aimé Labbé
 """
 
 
-from pycoilib._lib.inductance.inductance import calc_M
+from pycoilib.lib.inductance.get_mutual import get_mutual
 import pycoilib.coil
 import pycoilib.wire
 import pycoilib.segment
-import pycoilib._lib
+import pycoilib.lib

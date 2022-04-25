@@ -170,7 +170,7 @@ class Coil():
                 R = source.dimension/2
                 ω = source.angle*π/180*source.axis
                 n =  geo.z_vector @ Rotation.from_rotvec(ω).as_matrix().T
-                pts = geo.circle_in_3D(C,R,n)
+                pts = geo.circle_in_3D(C, R, n)
                 
                 for i in range(3):
                     ri = pts[:,i]
@@ -203,7 +203,7 @@ class Coil():
             R = source.dimension/2
             ω = source.angle*π/180*source.axis
             n =  geo.z_vector @ Rotation.from_rotvec(ω).as_matrix().T
-            vertices = geo.circle_in_3D(C,R,n)
+            vertices = geo.circle_in_3D(C, R, n)
             
         else:
             import warnings
@@ -348,7 +348,7 @@ class Birdcage(Coil):
         magpy_collection = magpy.collection(sources)
         
         angle, axis = geo.get_rotation(geo.z_vector, normal)
-        magpy_collection.rotate(angle*180/π, axis)
+        magpy_collection.rotate(axis, angle * 180 / π, )
         magpy_collection.move(position)
         vmax = norm(magpy_collection.getB(position))*1.2
         super().__init__(magpy_collection, position, vmax)

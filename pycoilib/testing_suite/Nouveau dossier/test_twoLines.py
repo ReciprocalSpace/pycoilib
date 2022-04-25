@@ -30,12 +30,12 @@ if True:
     line1 = pycoilib.segment.Line(p0,p1)
     line2 = pycoilib.segment.Line(p1,p2)
     
-    M, tmp = pycoilib.calc_M(line1, line2)
+    M, tmp = pycoilib.calc_mutual(line1, line2)
     Mth =  1/2 * μ0/(2*π)*(line1.ell+line2.ell)*np.log(2)
     print(f"---- \tM: {M:.9e}\t Mth: {Mth:.9e}")
 
 
-if False:
+if True:
     print("---------------------------------------------------------------------")
     print("----1.2\t-  A pair of parallel lines")#   1.1
     ell = np.arange(0.5, 10.1, 0.5)*1e-2
@@ -50,7 +50,7 @@ if False:
         p3 = np.array([ell_i, 0., d0])
         line1 = pycoilib.segment.Line(p0,p1)
         line2 = pycoilib.segment.Line(p2,p3)
-        M, tmp = pycoilib.inductance.calc_M(line1, line2)
+        M, tmp = pycoilib.inductance.calc_mutual(line1, line2)
         MM.append(M)
     M1 = np.array(MM)
     Mth = 2*(ell*np.log( ((ell+np.sqrt(ell**2+d0**2))/d0) ) 
@@ -72,12 +72,12 @@ if False:
     plt.show()
 
 # print("---------------------------------------------------------------------")
-# wire = pycoilib.wire.Wire_circ(1.e-3)
+# wire = pycoilib.wire.WireCircular(1.e-3)
 # coil = pycoilib.coil.Coil([line1,line2.flip_current_direction()], wire)
 # coil.draw()
 # print(coil.calc_I())
 # print(pycoilib.inductance.calc_M(line1, line2))
-if False:
+if True:
     print("---------------------------------------------------------------------")
     print("----1.2\t-  Antiparalle pair of lines")#   1.1
     
@@ -142,10 +142,10 @@ if True:
     line2 = pycoilib.segment.Line(p2,p3)
     line3 = pycoilib.segment.Line(p4,p5)
     
-    i1, tmp = pycoilib.calc_M(line1, line2)
+    i1, tmp = pycoilib.calc_mutual(line1, line2)
     print("ok")
     
-    i2, tmp = pycoilib.calc_M(line1, line3)
+    i2, tmp = pycoilib.calc_mutual(line1, line3)
     print("ok")
     
     print(i1)

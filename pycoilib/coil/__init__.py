@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jan 26 08:24:40 2021
-
-@author: utric
+@author: Aimé Labbé
 """
 
+from ..lib.coil.coil import Coil, Loop, Helmholtz, Solenoid, Polygon, MTLR
 
-from pycoilib._lib.coil.coil import Coil
+__all__ = ["Coil", "Loop", "Helmholtz", "Solenoid", "Polygon", "MTLR"]

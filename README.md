@@ -1,14 +1,14 @@
-# pycoilib (to complete)
+# Pycoilib
 
 
-$pycoilib
+pycoilib
 ========
 
-$pycoilib is a free python library for inductance calculation
+Pycoilib is a free python library for inductance calculation
 
 Look how easy it is to use:
 
-    import project
+    import pycoilib
     # Get your stuff done
     project.do_stuff()
 
@@ -22,8 +22,11 @@ Features
 
 Installation
 ------------
+As this library is still in development
 
-Not implemented
+Copy this repository on your system and add the repository 
+
+
 
 Contribute
 ----------

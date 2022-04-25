@@ -37,7 +37,7 @@ ax = plt.gca()
 
 N = [100, 50, 25, 10, 5, 2]
 
-wire = pycoilib.wire.Wire_circ(a)
+wire = pycoilib.wire.WireCircular(a)
 
 for n in N:
     θ = 2*π/n
@@ -46,7 +46,7 @@ for n in N:
     for m in range(1, n+1):
         arc = Arc(R=R, arc_angle=m*θ, arc_rot=0)
         coil = pycoilib.coil.Coil([arc], wire)
-        I.append( coil.calc_I() )
+        I.append(coil.get_inductance())
         X.append( 360*m/n )
     plt.plot(X, I, "+")
 plt.show()
