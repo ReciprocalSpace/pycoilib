@@ -24,9 +24,9 @@ import pycoilib.lib.misc.geometry as geo
 class Segment:
     """Segment generic class
 
-    ..note:: 
-      This generic class is not available directly by the user.
-      Arc, Circle and Line are to be used.
+    .. note:: 
+       This generic class is not available directly by the user.
+       Arc, Circle and Line are to be used.
     
     :param numpy.ndarray vec_r0: Position vector of the segment, 1D of shape (3,)
     :param float current: Value of the current flowing in the Segment.
@@ -183,9 +183,9 @@ class Segment:
 class ArcAbstract(Segment):
     """Superclass for arc and circle type segments
 
-    ..note:: 
-      This superclass is not available directly by the user.
-      Arc, Circle and Line are to be used.
+    .. note:: 
+        This superclass is not available directly by the user.
+        Arc, Circle and Line are to be used.
     
     :param float radius: Radius or the arc or circle segment.
     :param float arc_angle: Angle of the arc.
