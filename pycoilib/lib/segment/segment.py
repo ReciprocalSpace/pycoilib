@@ -24,6 +24,9 @@ import pycoilib.lib.misc.geometry as geo
 class Segment:
     """Segment generic class
 
+    ..note:: 
+      This generic class is not available directly by the user.
+      Arc, Circle and Line are to be used.
     
     :param numpy.ndarray vec_r0: Position vector of the segment, 1D of shape (3,)
     :param float current: Value of the current flowing in the Segment.
@@ -180,10 +183,14 @@ class Segment:
 class ArcAbstract(Segment):
     """Superclass for arc and circle type segments
 
+    ..note:: 
+      This superclass is not available directly by the user.
+      Arc, Circle and Line are to be used.
+    
     :param float radius: Radius or the arc or circle segment.
     :param float arc_angle: Angle of the arc.
     :param numpy.ndarray position: Position vector of the center of the arc. 1D of shape (3,)
-    :param numpy.ndarray vec_x:Unit vector corresponding to the x-axis in the arc referential. By construction, this vector also defines the beginning of the arc. 1D of shape (3,)
+    :param numpy.ndarray vec_x: Unit vector corresponding to the x-axis in the arc referential. By construction, this vector also defines the beginning of the arc. 1D of shape (3,)
     :param numpy.ndarray vec_y: Unit vector corresponding to the y-axis in the arc referential. By construction, this vector also defines the orientation of the arc in the plane. 1D of shape (3,)
     :param numpy.ndarray vec_z: Unit vector corresponding to the z-axis in the arc referential. By construction, this vector is orthogonal to arc plane. 1D of shape (3,)
     :param float current: Current flowing in the arc. Must be positive.
