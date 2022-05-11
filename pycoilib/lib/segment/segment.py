@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Segment library
+Segment module
 
 Created on Tue Jan 26 08:25:11 2021
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Coil library
+Coil module
 
 Created on Tue Jan 26 08:31:05 2021
 
