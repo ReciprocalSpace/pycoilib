@@ -338,7 +338,7 @@ class Arc(ArcAbstract):
         :param float arc_angle: Angle of the arc.
         :param float arc_angular_pos: Angular position of the arc around the z-axis, with the x-axis the origin. Default is 0.
         :param numpy.ndarray position: Position vector of the center of the arc. Default is origin (0,0,0). 1D of shape (3,).
-        :param numpy.ndarray normal:Orientation of the arc normal. Default is the z-axis (0,0,1). 1D of shape (3,).
+        :param numpy.ndarray normal: Orientation of the arc normal. Default is the z-axis (0,0,1). 1D of shape (3,).
         :param float current: Current flowing in the arc. Default is 1. Must be positive.
 
         :returns: Arc
