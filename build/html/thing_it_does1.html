@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exemple code &mdash; Pycoilib  documentation</title>
+  <title>thing it does 1 &mdash; Pycoilib  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,7 +18,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Wire" href="wire.html" /> 
+    <link rel="next" title="thing it does 2" href="thing_it_does2.html" />
+    <link rel="prev" title="Credits, licence &amp; citation" href="credits.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,12 +37,25 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Content:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Credits, licence &amp; citation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Exemples:</span></p>
 <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">thing it does 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thing_it_does2.html">thing it does 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thing_it_does3.html">thing it does 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="display_output.html">Displaying output</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Docstring:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="coil.html">Coil</a></li>
 <li class="toctree-l1"><a class="reference internal" href="segment.html">Segment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wire.html">Wire</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Exemple code</a></li>
 </ul>
 
         </div>
@@ -58,9 +72,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Exemple code</li>
+      <li>thing it does 1</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/exemple.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/thing_it_does1.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -68,8 +82,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="exemple-code">
-<h1>Exemple code<a class="headerlink" href="#exemple-code" title="Permalink to this headline"></a></h1>
+  <section id="thing-it-does-1">
+<h1>thing it does 1<a class="headerlink" href="#thing-it-does-1" title="Permalink to this headline"></a></h1>
+<p>TODO show that it does something useful 1</p>
 <p>Ce code peut être touvé directement dans example code (open me)/Calcul inductance.py</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pycoilib</span> <span class="k">as</span> <span class="nn">pycoil</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -112,23 +127,20 @@
 <span class="n">pycoil</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">Arc</span><span class="o">.</span><span class="n">from_endpoints</span><span class="p">(</span><span class="n">p_begin</span><span class="p">,</span> <span class="n">p_end</span><span class="p">,</span> <span class="n">arc_angle</span><span class="p">,</span> <span class="n">normal_axis</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl>
-<dt>::</dt><dd><p>#Exemples d’utilisation des constructeurs
-segments = [pycoil.segment.Line(p1, p2),</p>
-<blockquote>
-<div><p>pycoil.segment.Arc.from_endpoints(p2, p3, π / 2, z),
-pycoil.segment.Line(p3, p4),
-pycoil.segment.Arc.from_endpoints(p4, p5, π, -z),
-pycoil.segment.Line(p5, p6),
-pycoil.segment.Arc.from_endpoints(p6, p7, π / 2, -z),
-pycoil.segment.Line(p7, p8),
-pycoil.segment.Arc.from_endpoints(p8, p9, π, z),
-pycoil.segment.Line(p0, p1),
-pycoil.segment.Line(p9, p10),
-pycoil.segment.Line(p10, p11)]</p>
-</div></blockquote>
-</dd>
-</dl>
+<p>Exemples d’utilisation des constructeurs</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">segments</span> <span class="o">=</span> <span class="p">[</span><span class="n">pycoil</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">Line</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">),</span>
+            <span class="n">pycoil</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">Arc</span><span class="o">.</span><span class="n">from_endpoints</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">π</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span>
+            <span class="n">pycoil</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">Line</span><span class="p">(</span><span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">),</span>
+            <span class="n">pycoil</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">Arc</span><span class="o">.</span><span class="n">from_endpoints</span><span class="p">(</span><span class="n">p4</span><span class="p">,</span> <span class="n">p5</span><span class="p">,</span> <span class="n">π</span><span class="p">,</span> <span class="o">-</span><span class="n">z</span><span class="p">),</span>
+            <span class="n">pycoil</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">Line</span><span class="p">(</span><span class="n">p5</span><span class="p">,</span> <span class="n">p6</span><span class="p">),</span>
+            <span class="n">pycoil</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">Arc</span><span class="o">.</span><span class="n">from_endpoints</span><span class="p">(</span><span class="n">p6</span><span class="p">,</span> <span class="n">p7</span><span class="p">,</span> <span class="n">π</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">z</span><span class="p">),</span>
+            <span class="n">pycoil</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">Line</span><span class="p">(</span><span class="n">p7</span><span class="p">,</span> <span class="n">p8</span><span class="p">),</span>
+            <span class="n">pycoil</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">Arc</span><span class="o">.</span><span class="n">from_endpoints</span><span class="p">(</span><span class="n">p8</span><span class="p">,</span> <span class="n">p9</span><span class="p">,</span> <span class="n">π</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span>
+            <span class="n">pycoil</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">Line</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">),</span>
+            <span class="n">pycoil</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">Line</span><span class="p">(</span><span class="n">p9</span><span class="p">,</span> <span class="n">p10</span><span class="p">),</span>
+            <span class="n">pycoil</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">Line</span><span class="p">(</span><span class="n">p10</span><span class="p">,</span> <span class="n">p11</span><span class="p">)]</span>
+</pre></div>
+</div>
 <p>Antenne (constructeur)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">coil</span> <span class="o">=</span> <span class="n">pycoil</span><span class="o">.</span><span class="n">coil</span><span class="o">.</span><span class="n">Coil</span><span class="p">(</span><span class="n">segments</span><span class="p">,</span> <span class="n">wire</span><span class="p">)</span>
 </pre></div>
@@ -216,7 +228,8 @@ pycoil.segment.Line(p10, p11)]</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="wire.html" class="btn btn-neutral float-left" title="Wire" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="credits.html" class="btn btn-neutral float-left" title="Credits, licence &amp; citation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="thing_it_does2.html" class="btn btn-neutral float-right" title="thing it does 2" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

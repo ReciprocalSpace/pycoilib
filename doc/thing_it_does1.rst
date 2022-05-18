@@ -1,5 +1,10 @@
-Exemple code
-==============
+thing it does 1
+===============
+
+TODO show that it does something useful 1
+
+
+
 
 Ce code peut être touvé directement dans example code (open me)/Calcul inductance.py
 
@@ -55,8 +60,11 @@ Liste des segments de l'antenne
     #Constructeur pour un arc (il en existe d'autres, from_normal, from rot)
     pycoil.segment.Arc.from_endpoints(p_begin, p_end, arc_angle, normal_axis)
 
+
+Exemples d'utilisation des constructeurs
+
 ::
-    #Exemples d'utilisation des constructeurs
+
     segments = [pycoil.segment.Line(p1, p2), 
                 pycoil.segment.Arc.from_endpoints(p2, p3, π / 2, z),
                 pycoil.segment.Line(p3, p4), 
