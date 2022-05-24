@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coil &mdash; Pycoilib  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Segment" href="segment.html" />
+    <link rel="prev" title="Displaying output" href="display_output.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Pycoilib
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Content:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="physics.html">Physics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Credits, licence &amp; citation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Exemples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="thing_it_does1.html">thing it does 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thing_it_does2.html">thing it does 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thing_it_does3.html">thing it does 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="display_output.html">Displaying output</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Docstring:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Coil</a></li>
+<li class="toctree-l1"><a class="reference internal" href="segment.html">Segment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wire.html">Wire</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Pycoilib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Coil</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/coil.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pycoilib.lib.coil.coil">
+<span id="coil"></span><h1>Coil<a class="headerlink" href="#module-pycoilib.lib.coil.coil" title="Permalink to this headline"></a></h1>
+<p>Coil module</p>
+<p>Created on Tue Jan 26 08:31:05 2021</p>
+<p>&#64;author: Aimé Labbé</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Coil">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycoilib.lib.coil.coil.</span></span><span class="sig-name descname"><span class="pre">Coil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">segment_array:</span> <span class="pre">typing.List[pycoilib.lib.segment.segment.Segment],</span> <span class="pre">wire=&lt;pycoilib.lib.wire.wire.Wire</span> <span class="pre">object&gt;,</span> <span class="pre">anchor:</span> <span class="pre">typing.Optional[numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.Coil" title="Permalink to this definition"></a></dt>
+<dd><p>General Coil object.</p>
+<p>A coil is defined as the combination of a segment array and a wire type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>segment_array</strong> (<em>List</em><em>[</em><em>segment</em><em>]</em>) – TODO description or delete</p></li>
+<li><p><strong>wire</strong> (<em>function</em>) – TODO description or delete</p></li>
+<li><p><strong>anchor</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Coil.from_magpylib">
+<span class="sig-name descname"><span class="pre">from_magpylib</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">magpy_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wire=&lt;pycoilib.lib.wire.wire.Wire</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor:</span> <span class="pre">typing.Optional[numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.Coil.from_magpylib" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a coil from a collection of magpy sources and a Wire object</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Not implemented</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Coil.to_magpy">
+<span class="sig-name descname"><span class="pre">to_magpy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.Coil.to_magpy" title="Permalink to this definition"></a></dt>
+<dd><p>Return a list of segments as collection of magpy sources</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Not implemented</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Coil.move_to">
+<span class="sig-name descname"><span class="pre">move_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pycoilib.lib.coil.coil.Coil" title="pycoilib.lib.coil.coil.Coil"><span class="pre">pycoilib.lib.coil.coil.Coil</span></a></span></span><a class="headerlink" href="#pycoilib.lib.coil.coil.Coil.move_to" title="Permalink to this definition"></a></dt>
+<dd><p>Move the coil to a new position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>new_position</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Coil.translate">
+<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.Coil.translate" title="Permalink to this definition"></a></dt>
+<dd><p>Translate the coil by a specific translation vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>translation</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Coil.rotate">
+<span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.Coil.rotate" title="Permalink to this definition"></a></dt>
+<dd><p>Rotate the coil around an axis by a specific angle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>angle</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>axis</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Coil.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">draw_current</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savefig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.Coil.draw" title="Permalink to this definition"></a></dt>
+<dd><p>Draw the coil in a 3D plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>draw_current</strong> (<em>bool</em>) – TODO description or delete</p></li>
+<li><p><strong>savefig</strong> (<em>bool</em>) – TODO description or delete</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Coil.get_inductance">
+<span class="sig-name descname"><span class="pre">get_inductance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.Coil.get_inductance" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the coil self-inductance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>self inductance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Loop">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycoilib.lib.coil.coil.</span></span><span class="sig-name descname"><span class="pre">Loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius:</span> <span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position:</span> <span class="pre">typing.Optional[numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis:</span> <span class="pre">typing.Optional[numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wire=&lt;pycoilib.lib.wire.wire.Wire</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.Loop" title="Permalink to this definition"></a></dt>
+<dd><p>Loop class TODO describe it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>position</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+<li><p><strong>axis</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+<li><p><strong>angle</strong> (<em>float</em>) – TODO description or delete</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Loop.from_normal">
+<span class="sig-name descname"><span class="pre">from_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius:</span> <span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position:</span> <span class="pre">typing.Optional[numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normal:</span> <span class="pre">typing.Optional[numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wire=&lt;pycoilib.lib.wire.wire.Wire</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.Loop.from_normal" title="Permalink to this definition"></a></dt>
+<dd><p>TODO describe methode</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>position</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+<li><p><strong>normal</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+<li><p><strong>wire</strong> (<em>function</em>) – TODO description or delete</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>TODO description or delete</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TODO description or delete</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Solenoid">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycoilib.lib.coil.coil.</span></span><span class="sig-name descname"><span class="pre">Solenoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius:</span> <span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length:</span> <span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_turns:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position:</span> <span class="pre">typing.Optional[numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis:</span> <span class="pre">typing.Optional[numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wire=&lt;pycoilib.lib.wire.wire.Wire</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.Solenoid" title="Permalink to this definition"></a></dt>
+<dd><p>Solenoid class TODO describe it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>length</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>n_turns</strong> (<em>int</em>) – TODO description or delete</p></li>
+<li><p><strong>position</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+<li><p><strong>axis</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+<li><p><strong>angle</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>wire</strong> (<em>function</em>) – TODO description or delete</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Solenoid.from_normal">
+<span class="sig-name descname"><span class="pre">from_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_turns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wire=&lt;pycoilib.lib.wire.wire.Wire</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.Solenoid.from_normal" title="Permalink to this definition"></a></dt>
+<dd><p>TODO describe methode</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cls</strong> (<em>function</em>) – TODO description or delete</p></li>
+<li><p><strong>radius</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>length</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>n_turns</strong> (<em>int</em>) – TODO description or delete</p></li>
+<li><p><strong>position</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+<li><p><strong>normal</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+<li><p><strong>wire</strong> (<em>function</em>) – TODO description or delete</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>TODO description or delete</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TODO description or delete</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Polygon">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycoilib.lib.coil.coil.</span></span><span class="sig-name descname"><span class="pre">Polygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polygon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wire</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.Polygon" title="Permalink to this definition"></a></dt>
+<dd><p>Polygon class TODO describe it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>polygon</strong> (<em>TYPE</em>) – TODO description or delete + type</p></li>
+<li><p><strong>wire</strong> (<em>function</em>) – TODO description or delete</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.Helmholtz">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycoilib.lib.coil.coil.</span></span><span class="sig-name descname"><span class="pre">Helmholtz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius:</span> <span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position:</span> <span class="pre">typing.Optional[numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis:</span> <span class="pre">typing.Optional[numpy.ndarray]</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wire=&lt;pycoilib.lib.wire.wire.Wire</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.Helmholtz" title="Permalink to this definition"></a></dt>
+<dd><p>Helmholtz class TODO describe it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>position</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+<li><p><strong>axis</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+<li><p><strong>angle</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>wire</strong> (<em>function</em>) – TODO description or delete</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pycoilib.lib.coil.coil.MTLR">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pycoilib.lib.coil.coil.</span></span><span class="sig-name descname"><span class="pre">MTLR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inner_radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_radius</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_turns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dielectric_thickness</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pycoilib.lib.coil.coil.MTLR" title="Permalink to this definition"></a></dt>
+<dd><p>MTLR class TODO describe it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inner_radius</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>delta_radius</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>line_width</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>n_turns</strong> (<em>int</em>) – TODO description or delete</p></li>
+<li><p><strong>dielectric_thickness</strong> (<em>float</em>) – TODO description or delete</p></li>
+<li><p><strong>anchor</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+<li><p><strong>axis</strong> (<em>numpy.ndarray</em>) – TODO description or delete</p></li>
+<li><p><strong>angle</strong> (<em>float</em>) – TODO description or delete</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="display_output.html" class="btn btn-neutral float-left" title="Displaying output" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="segment.html" class="btn btn-neutral float-right" title="Segment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Aimé Labbé.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

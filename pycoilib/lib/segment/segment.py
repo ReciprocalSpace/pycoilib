@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """
+Segment module
+
 Created on Tue Jan 26 08:25:11 2021
 
 @author: Aimé Labbé
@@ -22,34 +24,13 @@ import pycoilib.lib.misc.geometry as geo
 class Segment:
     """Segment generic class
 
-    Attributes
-    ----------
-    vec_r0 : 1D numpy.ndarray of shape (3,)
-        Position vector of the segment
-    current : float
-        Value of the current flowing in the Segment.
+    .. note:: 
+       This generic class is not available directly by the user.
+       Arc, Circle and Line are to be used.
+    
+    :param numpy.ndarray vec_r0: Position vector of the segment, 1D of shape (3,)
+    :param float current: Value of the current flowing in the Segment.
 
-    Methods
-    -------
-    draw(ax, draw_current):
-        Plot the segment in 3-dimension
-    translate(translation):
-        Translate the segment
-    move_to(new_position):
-        Move the segment to a new position
-    rotate(angle, axis, origin):
-        Rotate the segment
-    flip_current_direction():
-        Inverse current orientation
-    get_endpoints():
-        Return segment endpoint coordinates
-
-    Other methods
-    -------------
-    _coordinates2draw():
-        Return a list of coordinates
-    _rotate(vec_to_rotate, angle, axis, origin):
-        Rotate a list of vectors
     """
     # __metaclass__ = ABCMeta
 
@@ -59,19 +40,13 @@ class Segment:
     VEC_0 = np.array([0., 0., 0.])
 
     def __init__(self, position: np.ndarray, current: float):
-        """Create an instance of a Segment object
-
-        Parameters
-        ----------
-        position: 1D numpy.ndarray of shape (3,)
-            Position at which the segment is anchored. Specific to each segment child-class.
-        current: float
-            Value of the current in flowing in the segment.
-        """
+        """Create an instance of a Segment object"""
         # Input shape validation
         if position.shape != (3,):
             raise PycoilibWrongShapeVector
+        #:Position vector of the center of the arc.
         self.vec_r0 = position.copy()
+        #:Current flowing in the arc.
         self.current = current
 
     def draw(self, ax=None, draw_current=True) -> None:
@@ -80,13 +55,8 @@ class Segment:
         This method draws the segment on an 3D-axis specified by ax, or a new figure otherwise. If the draw_current
         parameter is True, then the plot contains visual indicators of the the current orientation in the wire.
 
-        Parameters
-        ----------
-        ax: Axes, optional
-            Axis on which the segment is drawn. If no axis if provided, a new figure is created. Default is None.
-        draw_current: bool, optional
-            Specify if indicators are added to the figure to display the current orientation in the wire. Default is
-            True.
+        :param Axes ax: Axis on which the segment is drawn. If no axis if provided, a new figure is created. Default is None.
+        :param bool draw_current: Specify if indicators are added to the figure to display the current orientation in the wire. Default is True.
 
         """
         # TODO: add options for passing keyword arguments to pyplot
@@ -113,15 +83,14 @@ class Segment:
 
             plt.show()
 
-    @abstractmethod
     def _coordinates2draw(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Return a list of coordinates
 
         This method computes the coordinates of the segment in the laboratory frame for plotting.
 
-        Returns
-        -------
-        coordinates: Tuple of three 1D-numpy.ndarray
+        
+        :returns: Tuple of three 1D
+        :rtype: numpy.ndarray
         """
         raise NotImplementedError()
 
@@ -129,14 +98,9 @@ class Segment:
         """Translate the segment
         This method moves the segment to a position defined by its current position plus a translation.
 
-        Parameters
-        ----------
-        translation: 1D numpy.ndarray of shape (3,)
-            Translation vector.
-
-        Returns
-        -------
-        itself
+        
+        :param numpy.ndarray translation: Translation vector. 1D of shape (3,)
+        :returns: itself
         """
         # Input segment validation
         if translation.shape != (3,):
@@ -148,23 +112,18 @@ class Segment:
     def move_to(self, new_position: np.ndarray):
         """Move the segment to a new position
 
-        Parameters
-        ----------
-        new_position: 1D numpy.ndarray of shape (3,)
-            New position of the segment.
-
-        Returns
-        -------
-        itself
+        :param numpy.ndarray new_position: New position of the segment. 1D of shape (3,)
+        :returns: itself
         """
         if new_position.shape != (3,):
             raise PycoilibWrongShapeVector
 
         self.vec_r0 = new_position
 
-    @abstractmethod
     def rotate(self, angle: float, axis: np.ndarray, origin: np.ndarray) -> Segment:
-        """Rotate the segment"""
+        """Rotate the segment
+        
+        """
         raise NotImplementedError()
 
     def _rotate(self, vec_to_rotate: List[np.ndarray], angle: float,
@@ -173,20 +132,11 @@ class Segment:
 
         This method rotates a list of vector by a specific angle around an axis passing through an origin.
 
-        Parameters
-        ----------
-        vec_to_rotate: List of 1D-numpy.ndarray of shape (3,)
-            List of vectors to rotate.
-        angle: float
-            Rotation angle, in rad.
-        axis: 1D-numpy.ndarray of shape (3,)
-            Rotation axis vector.
-        origin: 1D-numpy.ndarray of shape (3,), optional
-            Vector representing the reference origin used for the rotation. Default is centered on the segment position.
-        Returns
-        -------
-        None
-
+        :param List(numpy.ndarray) vec_to_rotate: List of vectors to rotate. List of 1D of shape (3,)
+            
+        :param float angle: Rotation angle, in rad.
+        :param numpy.ndarray axis: Rotation axis vector. 1D of shape (3,)
+        :param numpy.ndarray origin: Vector representing the reference origin used for the rotation. Default is centered on the segment position. 1D of shape (3,)
         """
         if origin is None:
             origin = self.vec_r0
@@ -207,26 +157,25 @@ class Segment:
         for vec in vec_to_rotate:
             vec[:] = rot @ vec
 
-    @abstractmethod
     def flip_current_direction(self) -> Segment:
         """Inverse current orientation
 
         This method inverses the orientation of the current in the segment.
 
-        Returns
-        -------
-        itself
+
+        :returns: itself
         """
         raise NotImplementedError()
 
-    @abstractmethod
+
     def get_endpoints(self) -> Tuple[np.ndarray, np.ndarray]:
         """Return segment endpoint coordinates
 
         This method returns the beginning and the end points of the segment.
 
-        Returns
-        coordinates: tuple of two 1D-numpy.ndarray of shape (3,)
+        :returns: tuple of two 1D array of shape (3,)
+        :rtype: numpy.ndarray
+
         """
         raise NotImplementedError()
 
@@ -234,63 +183,39 @@ class Segment:
 class ArcAbstract(Segment):
     """Superclass for arc and circle type segments
 
-    Attributes
-    ----------
-    radius: float
-        Radius or the arc or circle segment.
-    arc_angle: float
-        Angle of the arc.
-    position: 1D numpy.ndarray of shape (3,)
-        Position vector of the center of the arc.
-    vec_x: 1D numpy.ndarray of shape (3,)
-        Unit vector corresponding to the x-axis in the arc referential. By construction, this vector also defines the
-        beginning of the arc.
-    vec_y: 1D numpy.ndarray of shape (3,)
-        Unit vector corresponding to the y-axis in the arc referential. By construction, this vector also defines the
-        orientation of the arc in the plane.
-    vec_z: 1D numpy.ndarray of shape (3,)
-        Unit vector corresponding to the z-axis in the arc referential. By construction, this vector is orthogonal to
-        arc plane.
-    current: positive float
-        Current flowing in the arc.
+    .. note:: 
+        This superclass is not available directly by the user.
+        Arc, Circle and Line are to be used.
+    
+    :param float radius: Radius or the arc or circle segment.
+    :param float arc_angle: Angle of the arc.
+    :param numpy.ndarray position: Position vector of the center of the arc. 1D of shape (3,)
+    :param numpy.ndarray vec_x: Unit vector corresponding to the x-axis in the arc referential. By construction, this vector also defines the beginning of the arc. 1D of shape (3,)
+    :param numpy.ndarray vec_y: Unit vector corresponding to the y-axis in the arc referential. By construction, this vector also defines the orientation of the arc in the plane. 1D of shape (3,)
+    :param numpy.ndarray vec_z: Unit vector corresponding to the z-axis in the arc referential. By construction, this vector is orthogonal to arc plane. 1D of shape (3,)
+    :param float current: Current flowing in the arc. Must be positive.
+
     """
     def __init__(self, radius: float, arc_angle: float, position: np.ndarray,
                  vec_x: np.ndarray, vec_y: np.ndarray, vec_z: np.ndarray, current: float):
-        """Create an ArcAbstract object.
-
-        Parameters
-        ----------
-        radius: float
-            Radius or the arc or circle segment.
-        arc_angle: float
-            Angle of the arc.
-        position: 1D numpy.ndarray of shape (3,)
-            Position vector of the center of the arc.
-        vec_x: 1D numpy.ndarray of shape (3,)
-            Unit vector corresponding to the x-axis in the arc referential. By construction, this vector also defines
-            the beginning of the arc.
-        vec_y: 1D numpy.ndarray of shape (3,)
-            Unit vector corresponding to the y-axis in the arc referential. By construction, this vector also defines
-            the orientation of the arc in the plane.
-        vec_z: 1D numpy.ndarray of shape (3,)
-            Unit vector corresponding to the z-axis in the arc referential. By construction, this vector is orthogonal
-            to arc plane.
-        current: positive float
-            Current flowing in the arc.
-        """
+        """Create an ArcAbstract object."""
         super().__init__(position, current)
 
         # Input segment validation
         if any([vec.shape != (3,) for vec in [vec_x, vec_y, vec_z]]):
             raise PycoilibWrongShapeVector
 
+        #: Radius or the arc or circle segment.
         self.radius = radius
+        #: Angle of the arc.
         self.theta = arc_angle
+        #:Unit vector corresponding to the x-axis in the arc referential. By construction, this vector also defines the beginning of the arc.
         self.vec_x = vec_x.copy()
+        #: Unit vector corresponding to the y-axis in the arc referential. By construction, this vector also defines the orientation of the arc in the plane.
         self.vec_y = vec_y.copy()
+        #: Unit vector corresponding to the z-axis in the arc referential. By construction, this vector is orthogonal to arc plane.
         self.vec_z = vec_z.copy()
 
-    @classmethod
     def get_vec_uvw(cls, arc_rot_angle: float, axis_rot_angle: float,
                     axis: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Return an orthonormal basis (u,v,w) = R_axis(axis_rot_angle) R_z(arc_rot_angle) (x,y,z)
@@ -299,20 +224,12 @@ class ArcAbstract(Segment):
         (u,v,w). First, a rotation arc_rot_angle is applied around the z_axis (in the arc frame), and then a second
         rotation of axis_rot_angle around the specified axis is applied.
 
-        Parameters
-        ----------
-        arc_rot_angle: float
-            Angular position of the arc around the z-axis, with the x-axis the origin.
-        axis_rot_angle: float
-            Rotation angle of the second operation around the axis.
-        axis: 1D-numpy.ndarray en shape (3,)
-            Rotation axis for the second operation.
-
-        Returns
-        -------
-        Rotated_basis: Tuple of three 1D-numpy.ndarray en shape (3,)
-            Arc usual basis represented in the laboratory frame.
-
+        :param float arc_rot_angle: Angular position of the arc around the z-axis, with the x-axis the origin.
+        :param float axis_rot_angle: Rotation angle of the second operation around the axis.
+        :param numpy.ndarray axis: Rotation axis for the second operation. 1D of shape (3,)
+            
+        :returns: Arc usual basis represented in the laboratory frame. 
+        :rtype: Tuple of three 1D-numpy.ndarray of shape (3,)
         """
 
         if axis.shape != (3,):
@@ -377,6 +294,7 @@ class Arc(ArcAbstract):
     """Arc segment class
 
     This class defines several constructors for the arc segment class.
+
     """
     def __init__(self, radius, arc_angle, position: np.ndarray = None,
                  vec_x: np.ndarray = None, vec_y: np.ndarray = None, vec_z: np.ndarray = None, current=1.):
@@ -387,31 +305,21 @@ class Arc(ArcAbstract):
 
         super().__init__(radius, arc_angle, position, vec_x, vec_y, vec_z, current)
 
-    @classmethod
     def from_rot(cls, radius: float, arc_angle: float, arc_angular_pos: float, position: np.ndarray, axis: np.ndarray,
                  angle: float, current=1.) -> Arc:
         """Instantiate an arc in the xy-plane and rotate it around an axis
 
-        Parameters
-        ----------
-        radius: float
-            Radius or the arc or circle segment.
-        arc_angle: float
-            Angle of the arc.
-        arc_angular_pos: float
-            Angular position of the arc around the z-axis, with the x-axis the origin.
-        position: 1D numpy.ndarray of shape (3,)
-            Position vector of the center of the arc.
-        axis: 1D-numpy.ndarray en shape (3,)
-            Rotation axis for the arc.
-        angle: float
-            Rotation angle around the axis.
-        current: current: positive float
-            Current flowing in the arc.
+        
+        :param float radius: Radius or the arc or circle segment.
+        :param float arc_angle: Angle of the arc.
+        :param float arc_angular_pos: Angular position of the arc around the z-axis, with the x-axis the origin.
+        :param numpy.ndarray position: Position vector of the center of the arc. 1D of shape (3,)
+        :param numpy.ndarray axis: Rotation axis for the arc. 1D of shape (3,)
+        :param float angle: Rotation angle around the axis.
+        :param float current: Current flowing in the arc. Must be positive.
 
-        Returns
-        -------
-        arc: Arc
+        :returns: Arc
+        :rtype: Arc
         """
         if any([vec.shape != (3,) for vec in [axis]]):
             raise PycoilibWrongShapeVector
@@ -420,29 +328,21 @@ class Arc(ArcAbstract):
 
         return cls(radius, arc_angle, position, vec_u, vec_v, vec_w, current)
 
-    @classmethod
+    
     def from_normal(cls, radius: float, arc_angle: float, arc_angular_pos=0, position: np.ndarray = None,
                     normal: np.ndarray = None, current=1.) -> Arc:
         """Instantiate an arc from the orientation of its normal
 
-        Parameters
-        ----------
-        radius: float
-            Radius or the arc or circle segment.
-        arc_angle: float
-            Angle of the arc.
-        arc_angular_pos: float, optional
-            Angular position of the arc around the z-axis, with the x-axis the origin. Default is 0.
-        position: 1D numpy.ndarray of shape (3,), optional
-            Position vector of the center of the arc. Default is origin (0,0,0)
-        normal: 1D numpy.ndarray of shape (3,), optional
-            Orientation of the arc normal. Default is the z-axis (0,0,1)
-        current: positive float, optional
-            Current flowing in the arc. Default is 1.
+        
+        :param float radius: Radius or the arc or circle segment.
+        :param float arc_angle: Angle of the arc.
+        :param float arc_angular_pos: Angular position of the arc around the z-axis, with the x-axis the origin. Default is 0.
+        :param numpy.ndarray position: Position vector of the center of the arc. Default is origin (0,0,0). 1D of shape (3,).
+        :param numpy.ndarray normal: Orientation of the arc normal. Default is the z-axis (0,0,1). 1D of shape (3,).
+        :param float current: Current flowing in the arc. Default is 1. Must be positive.
 
-        Returns
-        -------
-        arc: Arc
+        :returns: Arc
+        :rtype: Arc
         """
 
         position = cls.VEC_0 if position is None else position
@@ -456,26 +356,17 @@ class Arc(ArcAbstract):
 
         return cls(radius, arc_angle, position, vec_u, vec_v, vec_w, current)
 
-    @classmethod
     def from_endpoints(cls, p0: np.ndarray, p1: np.ndarray, arc_angle: float, normal: np.ndarray, current=1.) -> Arc:
         """Instantiate an arc from its endpoints and normal axis
 
-        Parameters
-        ----------
-        p0: 1D numpy.ndarray of shape (3,)
-            Beginning of the arc.
-        p1: 1D numpy.ndarray of shape (3,)
-            End of the arc.
-        arc_angle: float
-            Angle of the arc.
-        normal: 1D numpy.ndarray of shape (3,)
-            Orientation of the arc normal. Default is the z-axis (0,0,1)
-        current: positive float, optional
-            Current flowing in the arc. Default is 1.
+        :param numpy.ndarray p0: Beginning of the arc. 1D of shape (3,)
+        :param numpy.ndarray p1: End of the arc. 1D of shape (3,)
+        :param float arc_angle: Angle of the arc.
+        :param numpy.ndarray normal: Orientation of the arc normal. Default is the z-axis (0,0,1) .1D of shape (3,)
+        :param float current: Current flowing in the arc. Default is 1. Must be povitive
 
-        Returns
-        -------
-        arc: Arc
+        :returns: Arc
+        :rtype: Arc
         """
 
         if any([vec.shape != (3,) for vec in [p0, p1, normal]]):
@@ -519,22 +410,14 @@ class Circle(ArcAbstract):
     def from_rot(cls, radius: float, position: np.ndarray, axis: np.ndarray, angle: float, current=1.) -> Circle:
         """Instantiate an arc in the xy-plane and rotate it around an axis
 
-        Parameters
-        ----------
-        radius: float
-            Radius or the arc or circle segment.
-        position: 1D numpy.ndarray of shape (3,)
-            Position vector of the center of the arc.
-        axis: 1D-numpy.ndarray en shape (3,)
-            Rotation axis for the arc.
-        angle: float
-            Rotation angle around the axis.
-        current: current: positive float
-            Current flowing in the arc.
+        :param float radius: Radius or the arc or circle segment.
+        :param numpy.ndarray position: Position vector of the center of the arc. 1D of shape (3,)
+        :param numpy.ndarray axis: Rotation axis for the arc. 1D of shape (3,)
+        :param float angle: Rotation angle around the axis.
+        :param float current: Current flowing in the arc.
 
-        Returns
-        -------
-        circle: Circle
+        :returns: Circle
+        :rtype: Circle
         """
         if axis.shape != (3,):
             raise PycoilibWrongShapeVector
@@ -547,20 +430,13 @@ class Circle(ArcAbstract):
     def from_normal(cls, radius, position: np.ndarray = None, normal: np.ndarray = None, current=1.):
         """Instantiate a circle from the orientation of its normal
 
-        Parameters
-        ----------
-        radius: float
-            Radius or the arc or circle segment.
-        position: 1D numpy.ndarray of shape (3,), optional
-            Position vector of the center of the arc. Default is origin (0,0,0)
-        normal: 1D numpy.ndarray of shape (3,), optional
-            Orientation of the arc normal. Default is the z-axis (0,0,1)
-        current: positive float, optional
-            Current flowing in the arc. Default is 1.
+        :param float radius: Radius or the arc or circle segment.
+        :param numpy.ndarray position: Position vector of the center of the arc. Default is origin (0,0,0). 1D of shape (3,)
+        :param numpy.ndarray normal: Orientation of the arc normal. Default is the z-axis (0,0,1). 1D of shape (3,).
+        :param float current: Current flowing in the arc. Default is 1.
 
-        Returns
-        -------
-        circle: Circle
+        :returns: Circle
+        :rtype: Circle
         """
         normal = cls.VEC_Z if normal is None else normal
         if normal.shape != (3,):
@@ -583,30 +459,21 @@ class Circle(ArcAbstract):
 class Line(Segment):
     """Line segment class
 
-    Attributes
-    ----------
-    vec_n: 1D numpy.ndarray of shape (3,)
-        Unit vector parallel to the orientation of the line object.
-    ell: float
-        Length of the line object.
+    :param numpy.ndarray p0: Beginning of the line segment. 1D of shape (3,)
+    :param numpy.ndarray p1: End of the line segment. 1D of shape (3,)
+    :param float current: Current flowing in the arc. Default is 1. Must be positive
+    
     """
     def __init__(self, p0: np.ndarray, p1: np.ndarray, current=1.):
         """Initialize a line segment from its endpoints
-
-        Parameters
-        ----------
-        p0: 1D numpy.ndarray of shape (3,)
-            Beginning of the line segment.
-        p1: 1D numpy.ndarray of shape (3,)
-            End of the line segment.
-        current: positive float, optional
-            Current flowing in the arc. Default is 1.
         """
         if p0.shape != (3,) or p1.shape != (3,):
             raise PycoilibWrongShapeVector
 
         super().__init__(p0, current)
-        self.ell = np.sqrt((p1 - p0) @ (p1 - p0))  # ell: length
+        #: Length of the line object.
+        self.ell = np.sqrt((p1 - p0) @ (p1 - p0))  
+        #: Unit vector parallel to the orientation of the line object.
         self.vec_n = (p1 - p0) / self.ell
 
     def _coordinates2draw(self):
