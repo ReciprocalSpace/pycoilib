@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Wire module
-
-
 Created on Tue Jan 26 08:25:25 2021
 
 @author: utric
@@ -17,30 +14,15 @@ from ..segment.segment import Segment, ArcAbstract, Line, Circle, Arc
 
 
 class Wire:
-    """ Wire class, TODO description or delete"""
     def self_inductance(self, segment):
-        """
-        .. WARNING
-            Not implemented
-        """
         raise NotImplementedError()
 
 
 class WireCircular(Wire):
-    """WireCircular class, 
-    
-    :param float radius: TODO description or delete
-    """
     def __init__(self, radius):
-        """constructor"""
-        #: TODO description or delete
         self.radius = radius
 
     def self_inductance(self, segment: Segment):
-        """self_inductance method, TODO description or delete
-
-        :param Segment segment: TODO description or delete
-        """
         if isinstance(segment, Line):
             ell = segment.ell
             a = self.radius
@@ -67,20 +49,11 @@ class WireCircular(Wire):
 
 
 class WireRect(Wire):
-    """WireRect class, TODO description or delete
-
-    :param float width: TODO description or delete
-    :param float thickness: TODO description or delete
-    """
     def __init__(self, width, thickness=0):
         self.width = width
         self.thickness = thickness
 
     def self_inductance(self, shape):
-        """self_inductance method, TODO description or delete
-
-        :param TYPE shape: TODO description or delete + type
-        """
         if isinstance(shape, Line):
             raise NotImplementedError()
                     
