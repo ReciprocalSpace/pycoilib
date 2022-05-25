@@ -1,33 +1,27 @@
 Pycoilib
 ========
 
-Pycoilib is a python library developed to compute the self-inductance of a coil or the
-mutual-inductance between a pair of coils of arbitrary geometry. Self/mutual
-inductance is computed by solving integrals of analytical expressions of the mutual inductance.
+Pycoilib is a free python library for inductance calculation
 
-***
+Look how easy it is to use: ::
 
-Quickstart
-----------
-Pycoilib is still in development, and not yet accessible on PyPl. However, it can be downloaded
-from https://github.com/ReciprocalSpace/pycoilib. To use the library, add the path to a configuration
-*.pth file in your environment. See https://docs.python.org/3/library/site.html for more information.
+    import pycoilib 
+    # Get your stuff done 
+    project.do_stuff() 
 
-The idea behind pycoilib is simple: design the geometry of your coil using segments, select a wire type,
-and compute the inductance. <i>Et voilà!</i> You're all set! See for yourself:
+Features
+--------
+
+- Construct complex coil geometries from simple segments shapes : lines, arcs and loops
+- Perform self-inductance computations for a coil and mutual inductance between coils
+- Interface with magpylib to compute and display magnetic field maps
 
 
-    import pycoilib as pycoil
+Installation
+------------
+As this library is still in development
 
-    geometry = [pycoil.segment.Circle(radius=0.05)]
-    wire = pycoil.wire.WireCircular(radius=0.001)
-    coil = pycoil.coil.Coil(geometry, wire)
-
-    inductance = coil.get_inductance()
-    print(inductance)
-
-    >>> 2.476691129653111e-07
-
+Copy this `repository <https://github.com/ReciprocalSpace/pycoilib>`__ on your system and add the repository 
 
 
 .. toctree::
