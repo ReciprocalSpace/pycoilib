@@ -41,7 +41,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Physics</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Physics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#self-mutual-inductance">Self/mutual inductance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#segments-parametric-equations">Segments parametric equations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#current-line">Current line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test">Test</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="credits.html">Credits, licence &amp; citation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Exemples:</span></p>
@@ -84,7 +90,42 @@
              
   <section id="physics">
 <h1>Physics<a class="headerlink" href="#physics" title="Permalink to this headline"></a></h1>
-<p>TODO bon là il faudra un max d’explications et faudra aussi mettre des images</p>
+<section id="self-mutual-inductance">
+<h2>Self/mutual inductance<a class="headerlink" href="#self-mutual-inductance" title="Permalink to this headline"></a></h2>
+<p>The idea behind pycoilib is to compute the inductance of a coil by using the concept of “partial inductance”. In this approach, the coil geometry is divided into a collection of <img class="math" src="_images/math/3bfb3a64189a14b2704f4610827762d5e3145114.png" alt="N"/> simple current segments and the total inductance <img class="math" src="_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.png" alt="L"/> of the coil is computed using the following equation:</p>
+<div class="math">
+<p><img src="_images/math/e221cb85a4a2b1f3023217f6dd7663ab7196678f.png" alt="L = \sum_{i=1}^{N} L_i + 2 \sum_{i=1}^{N-1} \sum_{j=i+1}^{N} M_{i,j},"/></p>
+</div><p>where <img class="math" src="_images/math/ee70e1a1a2cd2143b1fb067fabe96455bd33aa0a.png" alt="L_i"/> is the self-inductance of the i&lt;sup&gt;th&lt;/sup&gt; segment, and <img class="math" src="_images/math/c77f4b3d19e1b7d847e5b77fb2bf310ae9f6e927.png" alt="M_{i,j}"/> is the mutual-inductance between the segments <img class="math" src="_images/math/5aa339d4daf45a810dda332e3c80a0698e526e04.png" alt="i"/> and <img class="math" src="_images/math/e3fc28292267f066fee7718c64f4bbfece521f24.png" alt="j"/>.</p>
+<p>To compute the mutual <img class="math" src="_images/math/a5954b0a3f7a1098cc086270631a6f91328e7dbb.png" alt="M_{p,s}"/> betweenn a primary and a secondary, we use the Neumann double integral formula:</p>
+<div class="math">
+<p><img src="_images/math/65fa5c411868b067320414627a4bfe98bf97be21.png" alt="M_{p,s} = \int_{C_p} d \vec p \left( \frac{\mu_0}{4 \pi} \int_{C_s} \frac{d\vec s}{|\vec p - \vec s|}\right)"/></p>
+</div><p>where <img class="math" src="_images/math/7e2de5be47906e279611a371961579b9963b7906.png" alt="C_p"/> and <img class="math" src="_images/math/4cbb2d3dea79a03c44ce83d074200a4afdb73e26.png" alt="C_s"/> are the oriented paths along the primary and secondary segment, respectively, and <img class="math" src="_images/math/f350e0816ab400c406dd43da0b53f7532a4d49ce.png" alt="\mu_0"/> is the vacuum permeability. This equation corresponds to the integral over <img class="math" src="_images/math/4cbb2d3dea79a03c44ce83d074200a4afdb73e26.png" alt="C_s"/> of the magnetic vector potential induced by a unitary current flowing over <img class="math" src="_images/math/7e2de5be47906e279611a371961579b9963b7906.png" alt="C_p"/>. The same expression can also be used to compute a segment self-inductance.</p>
+<p>Furthermore, the Neumann double integral is perfectly equivalent to the better known surface integral:</p>
+<div class="math">
+<p><img src="_images/math/c97d7d9b646dc683b4578c64a14586b1ba325c86.png" alt="L_I = \Phi = \int_{S_p} \vec B_s \cdot d\vec S_p,"/></p>
+</div><p>with <img class="math" src="_images/math/cb58f2ee4e828696cc3af2132f3ede823e482024.png" alt="\vec B_s"/> the magnetic field produced by the secondary over <img class="math" src="_images/math/2c77107fd8d1eae3b4c5339ca158ca6928e1f13f.png" alt="S_p"/> the primary coil surface. However, this latter expression is impractical when working with complex coil geometries, as a coil surface becomes difficult the properly define.</p>
+</section>
+<section id="segments-parametric-equations">
+<h2>Segments parametric equations<a class="headerlink" href="#segments-parametric-equations" title="Permalink to this headline"></a></h2>
+<p>To design a coil geometry, Pycoilib includes three kinds of segments: lines, arc, and loops, as shown in the figure below. The segments can touch at their respective endpoints, but they do not cross each other.</p>
+<p>In this section (and the followings), we will make extensive use of vector notation. So here’s a few notation conventions:</p>
+<ul class="simple">
+<li><p>vectors of arbitrary length are denoted with the arrow symbol: <img class="math" src="_images/math/daa6f574daa7b2f35d1ae33afaf72a8dbd9c7faf.png" alt="\vec x"/></p></li>
+<li><p>unit vectors are topped with a hat symbol: <img class="math" src="_images/math/b9a894e23e6a2dddba0a13c6cdadbe5fc0657649.png" alt="\hat x \vec y \, (\equiv \hat x \cdot \vec y)"/></p></li>
+<li><p>scalar products between two vectors are noted without the ” <img class="math" src="_images/math/a993123d5379f2796ab9cc92bc2341db50e24d37.png" alt="\cdot"/>”: <img class="math" src="_images/math/a02e77550bb8eea0ac04ece2d02434c836c57731.png" alt="\vec x \hat y"/></p></li>
+<li><p>cross products are designated with the wedge symbol: <img class="math" src="_images/math/9c2dc6cc7de2fd45cfc36a591475051df45c6010.png" alt="\hat x \wedge \vec y"/></p></li>
+</ul>
+<p>Without any loss of generality, we will assume the primary is centered at the origin <img class="math" src="_images/math/5ba5ec57cbda850943b714f4f68adb9138255e16.png" alt="O(0,0,0)"/> and the secondary is centered at an arbitrary position <img class="math" src="_images/math/b0194a29da0b16d10e4508a181a065ff612b1583.png" alt="\vec s_0 = s_0 \hat s_0"/> in the laboratory frame of reference.</p>
+</section>
+<section id="current-line">
+<h2>Current line<a class="headerlink" href="#current-line" title="Permalink to this headline"></a></h2>
+</section>
+<section id="test">
+<h2>Test<a class="headerlink" href="#test" title="Permalink to this headline"></a></h2>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/Fig-2.png"><img alt="_images/Fig-2.png" src="_images/Fig-2.png" style="width: 400px;" /></a>
+</figure>
+</section>
 </section>
 
 
