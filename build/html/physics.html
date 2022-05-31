@@ -45,7 +45,24 @@
 <li class="toctree-l2"><a class="reference internal" href="#self-mutual-inductance">Self/mutual inductance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#segments-parametric-equations">Segments parametric equations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#current-line">Current line</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#test">Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#current-arcs-and-loops">Current arcs and loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#general-solutions-for-the-first-integral">General solutions for the first integral</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#when-the-secondary-is-a-straight-wire">When the secondary is a straight wire</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#when-the-secondary-is-an-arc">When the secondary is an arc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#when-the-secondary-is-a-loop">When the secondary is a loop</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#integral-expression-for-the-mutual-inductance">Integral expression for the mutual inductance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pair-of-lines">Pair of lines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#when-hat-p-hat-s-and-hat-s-0-are-collinear">When <img class="math" src="_images/math/a122e0824d346517487d6fe109c0d3baffa23efe.png" alt="\hat{p}"/> , <img class="math" src="_images/math/c9eb25f1fc8ff09305963446c57a1b5c5eac05d8.png" alt="\hat{s}"/> and <img class="math" src="_images/math/cafc305a30b92a289db0f70b5752646052be391c.png" alt="{\hat{s}}_{0}"/> are collinear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#general-case">General case</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#a-loop-and-an-arc-or-a-loop">A loop and an arc or a loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pair-of-arcs">Pair of arcs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-straight-wire-and-an-arc-or-a-loop">A straight wire and an arc or a loop</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="credits.html">Credits, licence &amp; citation</a></li>
@@ -104,6 +121,12 @@
 <div class="math">
 <p><img src="_images/math/c97d7d9b646dc683b4578c64a14586b1ba325c86.png" alt="L_I = \Phi = \int_{S_p} \vec B_s \cdot d\vec S_p,"/></p>
 </div><p>with <img class="math" src="_images/math/cb58f2ee4e828696cc3af2132f3ede823e482024.png" alt="\vec B_s"/> the magnetic field produced by the secondary over <img class="math" src="_images/math/2c77107fd8d1eae3b4c5339ca158ca6928e1f13f.png" alt="S_p"/> the primary coil surface. However, this latter expression is impractical when working with complex coil geometries, as a coil surface becomes difficult the properly define.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/Fig-1.png"><img alt="_images/Fig-1.png" src="_images/Fig-1.png" style="width: 400px;" /></a>
+<figcaption>
+<p><span class="caption-text">Fig. 1 – Schematic view of the segments and their relevant parameters for arbitrary orientations. Current line as (a) the primary circuit and (b) the secondary circuit. Current arc as (c) the primary and (d) the secondary.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
 </section>
 <section id="segments-parametric-equations">
 <h2>Segments parametric equations<a class="headerlink" href="#segments-parametric-equations" title="Permalink to this headline"></a></h2>
@@ -119,12 +142,389 @@
 </section>
 <section id="current-line">
 <h2>Current line<a class="headerlink" href="#current-line" title="Permalink to this headline"></a></h2>
+<p>When the primary is a current line of length <img class="math" src="_images/math/8b9928fc0377488223629642c9fa37f44dbdc270.png" alt="l_{p}"/> (Fig. 1a), its parametric equation can be defined as:</p>
+<div class="math">
+<p><img src="_images/math/5bb21ed6b2cce2423881f18c1aa5a1220fcebecd.png" alt="\begin{matrix}
+\overrightarrow{p} = \hat{p}p, \\
+d\overrightarrow{p} = \hat{p}dp, \\
+(2.2) \\
+\end{matrix}"/></p>
+</div><p>for <img class="math" src="_images/math/94f4657baf936b0298c8c33c3b711314651a5a72.png" alt="p \in \left\lbrack 0,l_{p} \right\rbrack"/> and where <img class="math" src="_images/math/a122e0824d346517487d6fe109c0d3baffa23efe.png" alt="\hat{p}"/> is the line direction.</p>
+<p>Similarly, when the secondary is a line segment of length <img class="math" src="_images/math/5258fe0254c70c6f95b9380eb3d935749afafa55.png" alt="l_{s}"/> beginning at <img class="math" src="_images/math/be6b007ee46d9f809f3c5846a933390d202b7952.png" alt="{\overrightarrow{s}}_{0}"/> (Fig. 1b), its parametric equation reads:</p>
+<div class="math">
+<p><img src="_images/math/22849be1a762d375b20c311ed05c00b085d1e141.png" alt="\begin{matrix}
+\overrightarrow{s} = {\hat{s}}_{0}s_{0} + \hat{s}s, \\
+d\overrightarrow{s} = \hat{s}ds, \\
+(2.3) \\
+\end{matrix}"/></p>
+</div><p>for <img class="math" src="_images/math/a43fc6ba3e0f4011aadef851aaab7ce57cff06ce.png" alt="s \in \left\lbrack 0,l_{s} \right\rbrack"/> and where
+<img class="math" src="_images/math/c9eb25f1fc8ff09305963446c57a1b5c5eac05d8.png" alt="\hat{s}"/> is the line direction.</p>
 </section>
-<section id="test">
-<h2>Test<a class="headerlink" href="#test" title="Permalink to this headline"></a></h2>
-<figure class="align-center">
-<a class="reference internal image-reference" href="_images/Fig-2.png"><img alt="_images/Fig-2.png" src="_images/Fig-2.png" style="width: 400px;" /></a>
-</figure>
+<section id="current-arcs-and-loops">
+<h2>Current arcs and loops<a class="headerlink" href="#current-arcs-and-loops" title="Permalink to this headline"></a></h2>
+<p>For the primary, we consider an arc of a circle or radius <img class="math" src="_images/math/af12dafe14f9fc84e3ee846ac37c12d87e867512.png" alt="R_{p}"/> and subtending an angle <img class="math" src="_images/math/ce9b889f139e7c9aeca846a8bdff4a556e94ab9c.png" alt="\theta_{1}"/> (Fig.~1c). A loop is a sub-type of arcs, when <img class="math" src="_images/math/233150605685a6fc1c90e05f7ab66ea74f21c3f6.png" alt="\theta_{1} = 2\pi."/> The
+arc parametric equations are:</p>
+<div class="math">
+<p><img src="_images/math/d52fbb0cb705e443208157ae0bc3eda3ac730538.png" alt="\begin{matrix}
+\overrightarrow{p} = R_{p}\left( \hat{x}\cos\theta + \hat{y}\sin\theta \right), \\
+d\overrightarrow{p} = R_{p}\left( - \hat{x}\sin\theta + \hat{y}\cos\theta \right)d\theta, \\
+(2.4) \\
+\end{matrix}"/></p>
+</div><p>for <img class="math" src="_images/math/32c91298ebfd3f7db0adcebed8056caf9d88f12a.png" alt="\theta \in \left\lbrack 0,\theta_{1} \right\rbrack"/>. The unit
+vectors <img class="math" src="_images/math/a787de15b9b3e025c3790414ce6a3bcc427b1715.png" alt="\hat{x}"/> and <img class="math" src="_images/math/1257829df10bd602e03553570cadfe2328fd1d91.png" alt="\hat{y}"/> are orthogonal, their orientation in
+the laboratory frame is arbitrary, and they define the arc plane.</p>
+<p>Similarly, for the secondary, we consider an arc of a circle or radius
+<img class="math" src="_images/math/6e30a61cd6c27f75f848a200b4ecdca8fd0307f6.png" alt="R_{s}"/> and subtending an angle <img class="math" src="_images/math/4d8f35cd7d88e45b720e66ce3c6a2a081a28aec4.png" alt="\varphi_{1}"/> (Fig.~1d) and centered
+at <img class="math" src="_images/math/be6b007ee46d9f809f3c5846a933390d202b7952.png" alt="{\overrightarrow{s}}_{0}"/>. The parametric equations are:</p>
+<div class="math">
+<p><img src="_images/math/1923df021210a40959dfb1b52e53ed7a6c3726bc.png" alt="\begin{matrix}
+\overrightarrow{s} = {\hat{s}}_{0}s_{0} + R_{s}\left( \hat{u}\cos\varphi + \hat{v}\sin\varphi \right), \\
+d\overrightarrow{s} = R_{s}\left( - \hat{u}\sin\varphi + \hat{v}\cos\varphi \right), \\
+(2.5) \\
+\end{matrix}"/></p>
+</div><p>for <img class="math" src="_images/math/91bbf0814a7be0d23dd2498079c3995f84349c6f.png" alt="\varphi \in \left\lbrack 0,\varphi_{1} \right\rbrack"/> . The
+vectors <img class="math" src="_images/math/c565d15e24b49cb3a88fdbf0199fabb6bd2b7ebe.png" alt="\hat{u}"/> and <img class="math" src="_images/math/9e6c91d71b1df5575fd9d3dff63eaa7329b0e571.png" alt="\hat{v}"/> play the same role as <img class="math" src="_images/math/a787de15b9b3e025c3790414ce6a3bcc427b1715.png" alt="\hat{x}"/>
+and <img class="math" src="_images/math/1257829df10bd602e03553570cadfe2328fd1d91.png" alt="\hat{y}"/> for the primary.</p>
+</section>
+<section id="general-solutions-for-the-first-integral">
+<h2>General solutions for the first integral<a class="headerlink" href="#general-solutions-for-the-first-integral" title="Permalink to this headline"></a></h2>
+<p>An important aspect of the double integral of Eq. (2.1) is that the
+parametric equations of the two segments <img class="math" src="_images/math/8989d060c617786544e17af5ab94a15848aed0b5.png" alt="C_{p}"/> and <img class="math" src="_images/math/9a466f9b67c43a58b3733231251922805003d1a6.png" alt="C_{s}"/> are
+independent. Therefore, we can solve the first integral of Eq.~(2.1),
+which corresponds to the magnetic vector potential produced by unitary
+current circulating along a specific secondary segment <img class="math" src="_images/math/89ca33056ef2dc66a17d0d02420762b0d8922e51.png" alt="C_{s},"/> while
+keeping the details of the primary <img class="math" src="_images/math/8989d060c617786544e17af5ab94a15848aed0b5.png" alt="C_{p}"/> hidden in the
+<img class="math" src="_images/math/a69c50bc7f201aa39272a04fe6e31709ce72cea0.png" alt="\overrightarrow{p}"/> and <img class="math" src="_images/math/121f20aa89095df74755b2c5a87bf59e71f3a0c8.png" alt="d\overrightarrow{p}"/> parameters. This
+allows a solution for Eq.~(2.1) that can be more easily generalized to
+any type of primary <img class="math" src="_images/math/8989d060c617786544e17af5ab94a15848aed0b5.png" alt="C_{p}"/>.</p>
+<p>In this section, we will solve the first integral of Eq.~(2.1):</p>
+<div class="math">
+<p><img src="_images/math/585385d2ceae98a840f91d5f2465eb53c082ca39.png" alt="\begin{matrix}
+\frac{ \mu_{0} }{ 4\pi } \int_{C_{s}} \frac{ d\overrightarrow{s} }{\left| \overrightarrow{p} - \overrightarrow{s} \right|}, \\
+(3.1) \\
+\end{matrix}"/></p>
+</div><p>for each specific secondary segment <img class="math" src="_images/math/9a466f9b67c43a58b3733231251922805003d1a6.png" alt="C_{s}"/> described previously.
+Then, in the next section, we will present the solutions to Eq.~(2.1)
+for the different pairs of segments under study.</p>
+<section id="when-the-secondary-is-a-straight-wire">
+<h3>When the secondary is a straight wire<a class="headerlink" href="#when-the-secondary-is-a-straight-wire" title="Permalink to this headline"></a></h3>
+<p>To solve Eq.~(3.1) when the secondary is a current line, we begin by
+replacing <img class="math" src="_images/math/88b27142869891c446e5f2a4f2af3f62072e966e.png" alt="\overrightarrow{s}"/> and <img class="math" src="_images/math/4fc48166d967b3f3c94dd93d7fad461c2b3e807b.png" alt="d\overrightarrow{s}"/> by their
+respective definition of Eq.~(2.3). The denominator squared of Eq.~(3.1)
+becomes :</p>
+<div class="math">
+<p><img src="_images/math/f11e1d3ad6268bbc4327e028a97e9ded37607a17.png" alt="\left| \overrightarrow{p} - \overrightarrow{s} \right|^{2} = \left| \overrightarrow{p} - {\hat{s}}_{0}s_{0} - \hat{s}s \right|^{2} = \left| \overrightarrow{p} \right|^{2} + s_{0}^{2} + s^{2} - 2\overrightarrow{p}{\hat{s}}_{0}s_{0} - 2\overrightarrow{p}\hat{s}s + 2{\hat{s}}_{0}\hat{s}s_{0}s"/></p>
+</div><div class="math">
+<p><img src="_images/math/7b7f178eda9be590692d582da43ce88291a1f088.png" alt="\begin{matrix}
+\left( s + {\hat{s}}_{0}\hat{s}s_{0} - \overrightarrow{p}\hat{s} \right)^{2} + \left| \overrightarrow{p} \right|^{2}\left( 1 - \left( \hat{p}\hat{s} \right)^{2} \right) + s_{0}^{2}\left( 1 - \left( {\hat{s}}_{0}\hat{s} \right)^{2} \right) - 2\left| \overrightarrow{p} \right|s_{0}\left( \hat{p}{\hat{s}}_{0} - \left( {\hat{s}}_{0}\hat{s} \right)\left( \hat{p}\hat{s} \right) \right), \\
+(3.2) \\
+\end{matrix}"/></p>
+</div><p>After a change in variable, the denominator can be written in a more
+compact form:</p>
+<div class="math">
+<p><img src="_images/math/3bbf4565477e1afee440f735c2737f28c05d611b.png" alt="\begin{matrix}
+\left| \overrightarrow{p} - \overrightarrow{s} \right| = \sqrt{\sigma^{2}\left( s,\overrightarrow{p} \right) + \beta^{2}\left( \overrightarrow{p} \right)}, \\
+(3.3) \\
+\end{matrix}"/></p>
+</div><p>with,</p>
+<div class="math">
+<p><img src="_images/math/f3924c9d673b1ffd80be3b1da4c0c254df4dda56.png" alt="\sigma\left( s,\overrightarrow{p} \right) = s + {\hat{s}}_{0}\hat{s}s_{0} - \overrightarrow{p}\hat{s},"/></p>
+</div><div class="math">
+<p><img src="_images/math/daa770cafd28f7e27ae79ff4a472923aab9c85db.png" alt="\begin{matrix}
+\beta^2 \left( \overrightarrow{p} \right ) = \left | \overrightarrow{p} \right |^2 \left( 1 - \left( \hat{p}\hat{s} \right)^2 \right) + s_0^2 \left( 1 - \left( \hat{s}_0\hat{s} \right)^{2} \right) - 2\left | \overrightarrow{p} \right | s_0\left( \hat{p} \hat{s}_0 - \left( \hat{s}_0 \hat{s} \right)\left( \hat{p}\hat{s} \right) \right). \\
+(3.4) \\
+\end{matrix}"/></p>
+</div><p>The proof that <img class="math" src="_images/math/08b13c8871921c74fb8a9947b2e4e2d3a460c38a.png" alt="\beta^{2} \geq 0"/> , and therefore that <img class="math" src="_images/math/7138dad9ac96835665b17f5817eacfcaa9b834c9.png" alt="\beta"/> is a
+real number, is provided in annex.</p>
+<p>If <img class="math" src="_images/math/703f5a9da5399308bf696de8ad1e23d000439c91.png" alt="\beta \neq 0"/> , this leads to the following solution:</p>
+<div class="math">
+<p><img src="_images/math/7650e1adce7c298d66e0b396b4c33b56cccbbf92.png" alt="\begin{matrix}
+\frac{ \mu_0 }{ 4 \pi } \int_{C_s} \frac{ d \overrightarrow{s} }{ \left | \overrightarrow{p} - \overrightarrow{s} \right | } = \hat{s} \frac{\mu_0}{4\pi} \int_{\sigma \left ( 0,\overrightarrow{p} \right ) }^{\sigma \left ( l_s, \overrightarrow{p} \right ) } \frac{{d\sigma}}{\sqrt{\sigma^{2} + \beta^{2} } } = \hat{s} \frac{ \mu_0 }{4\pi}\left\lbrack {asinh}\left( \frac{\sigma\left( l_p,\overrightarrow{p} \right)}{\beta\left( \overrightarrow{p} \right)} \right) - {asinh}\left( \frac{\sigma\left( 0,\overrightarrow{p} \right)}{\beta\left( \overrightarrow{p} \right)} \right) \right\rbrack, \\
+(3.5) \\
+\end{matrix}"/></p>
+</div><p>and if <img class="math" src="_images/math/347d746e6a03cd39e1a794b4fbc94894dd6d77f6.png" alt="\beta = 0"/> , we have:</p>
+<div class="math">
+<p><img src="_images/math/460918a43814a404c731e1b33d2ba15643db1eb1.png" alt="\begin{matrix}
+\frac{\mu_{0}}{4\pi}\int_{C_{s}} \frac{d\overrightarrow{s}}{\left| \overrightarrow{p} - \overrightarrow{s} \right|} = \hat{s}\frac{\mu_{0}}{4\pi}\int_{\sigma\left( 0,\overrightarrow{p} \right)}^{\sigma\left( l_{s},\overrightarrow{p} \right)}\frac{{d\sigma}}{|\sigma|} = \hat{s}\frac{\mu_{0}}{4\pi}\left( {sign}\sigma\left( l_{s},\overrightarrow{p} \right)\ln\left| \sigma\left( l_{s},\overrightarrow{p} \right) \right| - {sign}\sigma\left( 0,\overrightarrow{p} \right)\ln\left| \sigma\left( 0,\overrightarrow{p} \right) \right| \right). \\
+(3.6) \\
+\end{matrix}"/></p>
+</div></section>
+<section id="when-the-secondary-is-an-arc">
+<h3>When the secondary is an arc<a class="headerlink" href="#when-the-secondary-is-an-arc" title="Permalink to this headline"></a></h3>
+<p>In the same manner, for the arc segment, we inject the parametric
+equations of Eq. (2.5) into Eq.~(3.1). The denominator squared is:</p>
+<div class="math">
+<p><img src="_images/math/d9e2ccc030a990be829f782e75e0d4ef69bf8fa7.png" alt="\left | \overrightarrow{p} - \overrightarrow{s} \right |^{2} = \left| \overrightarrow{p} - {\hat{s}}_{0}s_{0} - R_{s}\left( \hat{u}\cos\varphi + \hat{v}\sin\varphi \right) \right|^{2} = \left| \overrightarrow{p} \right|^{2} + s_{0}^{2} + R_{s}^{2} - 2\overrightarrow{p}{\hat{s}}_{0}s_{0} - 2R_{s}\left( \overrightarrow{p}\hat{u} - s_{0}{\hat{s}}_{0}\hat{u} \right)\cos\varphi - 2R_{2}\left( \overrightarrow{p}\hat{v} - s_{0}{\hat{s}}_{0}\hat{v} \right)\sin\varphi"/></p>
+</div><div class="math">
+<p><img src="_images/math/4c47659ceb1e85df2e6f29c39d2cde339fe696b2.png" alt="\begin{matrix}
+A + B\cos\varphi + C\sin\varphi = (A + d)\left( 1 - k^{2}\sin^{2}\psi \right) \\
+(3.7) \\
+\end{matrix}"/></p>
+</div><p>Where,</p>
+<p><img class="math" src="_images/math/0cbc9401bc20f935d76acd255a171cacd54eddb0.png" alt="A = \left| \overrightarrow{p} \right|^{2} + s_{0}^{2} + R_{s}^{2} - 2\overrightarrow{p}{\hat{s}}_{0}s_{0},"/></p>
+<p><img class="math" src="_images/math/aac7553b0d6123d72078251b92d7a8a7efffe0a7.png" alt="B = - 2R_{s}\left( \overrightarrow{p}\hat{u} - s_{0}{\hat{s}}_{0}\hat{u} \right),"/></p>
+<p><img class="math" src="_images/math/e2e0a67797909f0274c6c4a8f197c91702b6001f.png" alt="C = - 2R_{S}\left( \overrightarrow{p}\hat{v} - s_{0}{\hat{s}}_{0}\hat{v} \right),"/></p>
+<p><img class="math" src="_images/math/3ed4d37e15a251f76c1223b753b2ebfd7fd99951.png" alt="d = \sqrt{B^{2} + C^{2}},"/></p>
+<div class="math">
+<p><img src="_images/math/5f7585fa4bf328fdcf58579175e8716036b39638.png" alt="\begin{matrix}
+k^{2} = \frac{2d}{A + d}. \\
+(3.8) \\
+\end{matrix}"/></p>
+</div><p>And using the following transformation:</p>
+<p><img class="math" src="_images/math/1eec0a0ce8b6f1640633073669b8d5505c67cb54.png" alt="\varphi = 2\psi + \kappa"/></p>
+<p><img class="math" src="_images/math/86d1e15df7eadb02db920f9df34e1882ee512305.png" alt="\tan\kappa = \frac{C}{B}"/></p>
+<p>Eq. (3.1) now reads:</p>
+<div class="math">
+<p><img src="_images/math/76891a467cac8d7c15be5c64d8b8e1b1bc0ffb69.png" alt="\int_{C_{s}} \frac{d \overrightarrow{s} d \overrightarrow{p} }{ \left | \overrightarrow{p} - \overrightarrow{s} \right|} = \int_{\psi_{0}}^{\psi_{1}} \frac{2R_{s} \left( - \hat{u} d\overrightarrow{p} \sin( 2 \psi + \kappa) + \hat{v} d \overrightarrow{p} \cos(2 \psi + \kappa) \right) }{ \sqrt{A + d}\sqrt{1 - k^{2}\sin^{2}\psi}} d\Psi"/></p>
+</div><div class="math">
+<p><img src="_images/math/a530688edf6c19c12cb482ca1db4031b1b128897.png" alt="\begin{matrix}
+\frac{- 4R_{s}}{\sqrt{A + d}}\left( \hat{u}d\overrightarrow{p}\cos\kappa + \hat{v}d\overrightarrow{p}\sin\kappa \right)\int_{\psi_{0}}^{\psi_{1}} \frac{\sin\psi\cos\psi}{\sqrt{1 - k^{2}\sin^{2}\psi}}{d\Psi} \\
+\frac{+ {- 2R}_{s}}{\sqrt{A + d}}\left( \hat{u}d \overrightarrow{p}\sin\kappa - \hat{v}d\overrightarrow{p}\cos\kappa \right)\int_{\psi_{0}}^{\psi_{1}} \frac{1 - 2\sin^{2}\psi}{\sqrt{1 - k^{2}\sin^{2}\psi}}{d\Psi}. \\
+(3.9) \\
+\end{matrix}"/></p>
+</div><p>Where <img class="math" src="_images/math/ed8c6d43089053db98872536099d1749cc6cc8c4.png" alt="\psi_{1} = \frac{\left( \varphi_{1} - \kappa \right)}{2},"/></p>
+<div class="math">
+<p><img src="_images/math/841409e6a6daab237466d6ae403b4dbcdff87fba.png" alt="\begin{matrix}
+\psi_{0} = \frac{- \kappa}{2.} \\
+(3.10) \\
+\end{matrix}"/></p>
+</div><p>To solve the two integrals of Eq.~(3.9), we further define the following
+transformation:</p>
+<div class="math">
+<p><img src="_images/math/b21b8540bec135cd65bb6a56a51061ef09464039.png" alt="\begin{matrix}
+\Delta = \sqrt{1 - k^{2}\sin^{2}\psi}. \\
+(3.11) \\
+\end{matrix}"/></p>
+</div><p>The first integral leads to:</p>
+<div class="math">
+<p><img src="_images/math/91690633acec3be0114a1cf19d731dbfc690a70f.png" alt="\begin{matrix}
+\int_{\psi_{0}}^{\psi_{1}} \frac{\sin\psi\cos\psi}{\sqrt{1 - k^{2}\sin^{2}\psi}}{d\Psi} = \int_{\Delta_{0}}^{\Delta_{1}} \frac{- 1}{k^{2}}d\Delta = \frac{- 2}{k^{2}}\left( \frac{\Delta_{1} - \Delta_{0}}{2} \right) = \frac{- 2}{k^{2}}\Phi\left( \psi_{1},\psi_{0},k \right), \\
+(3.12) \\
+\end{matrix}"/></p>
+</div><p>where,</p>
+<div class="math">
+<p><img src="_images/math/427fcd5a227af1c770b74007db100378d8ce318d.png" alt="\begin{matrix}
+\Phi\left( \psi_{1},\psi_{0},k \right) = \left( \frac{\sqrt{1 - k^{2}\sin^{2}\left( \psi_{1} \right)} - \sqrt{1 - k^{2}\sin^{2}\left( \psi_{0} \right)}}{2} \right). \\
+(3.13) \\
+\end{matrix}"/></p>
+</div><p>The second integral of Eq.~(3.9) can be rewritten as:</p>
+<div class="math">
+<p><img src="_images/math/8662d867ef7612575e387b51fd30557d0a56a953.png" alt="\int_{\psi_{0}}^{\psi_{1}}{\frac{1 - 2\sin^{2}\psi}{\sqrt{1 - k^{2}\sin^{2}\psi}}{d\Psi}} = \left( 1 - \frac{k^{2}}{2} \right)\int_{\psi_{0}}^{\psi_{1}} \frac{1}{\sqrt{1 - k^{2}\sin^{2}\psi}}{d\Psi}  + \frac{2}{k^{2}}\int_{\psi_{0}}^{\psi_{1}} \sqrt{1 - k^{2}\sin^{2}\psi}{d\Psi}"/></p>
+</div><div class="math">
+<p><img src="_images/math/0d6571dde30f1718556e7965b88010eadf782a0a.png" alt="\begin{matrix}
+\frac{- 4}{k^{2}}\left\lbrack \left( 1 - \frac{k^{2}}{2} \right)\left( \frac{F\left( \psi_{1},k \right) - F\left( \psi_{0},k \right)}{2} \right) - \left( \frac{E\left( \psi_{1},k \right) - E\left( \psi_{0},k \right)}{2} \right) \right\rbrack = \frac{- 4}{k^{2}}\Psi\left( \psi_{1},\psi_{2},k \right), \\
+(3.14) \\
+\end{matrix}"/></p>
+</div><p>where,</p>
+<div class="math">
+<p><img src="_images/math/3c240a24d738beb442e7b3d364a0b6b3e9719516.png" alt="\begin{matrix}
+\Psi\left( \psi_{1},\psi_{0},k \right) = \left( 1 - \frac{k^{2}}{2} \right)\left( \frac{F\left( \psi_{1},k \right) - F\left( \psi_{0},k \right)}{2} \right) - \left( \frac{E\left( \psi_{1},k \right) - E\left( \psi_{0},k \right)}{2} \right), \\
+(3.15) \\
+\end{matrix}"/></p>
+</div><p>and,</p>
+<p><img class="math" src="_images/math/dd04748875b6291304def3399e6b703966f479a1.png" alt="F \left( \psi^{'},k \right ) = \int_0^{\psi^{'}} \sqrt{1 - k^2\sin^2\psi}^{-1}d\Psi,"/></p>
+<div class="math">
+<p><img src="_images/math/5aee9a4a199d8625dfd6d025df1d683bd883a298.png" alt="\begin{matrix}
+E\left( \psi^{'},k \right) = \int_{0}^{\psi^{'}}{\sqrt{1 - k^{2}\sin^{2}\psi}} {d\Psi}, \\
+(3.16) \\
+\end{matrix}"/></p>
+</div><p>are the well-known incomplete elliptic integrals of the first kind
+<img class="math" src="_images/math/dbec6173d8043249c0f63bc73114cf4bcc89fc6f.png" alt="F(\psi,k)"/> and second kind <img class="math" src="_images/math/303f507f087ef4806d07711688ef6d5eed062a30.png" alt="E(\psi,k)"/> .</p>
+<p>Using the two following identities:</p>
+<p><img class="math" src="_images/math/d5571f49cadb8ec39e2194903f8aeed20f5520c6.png" alt="\cos\kappa = \frac{B}{d},"/></p>
+<div class="math">
+<p><img src="_images/math/a99528460ecce613f959f4bd8a775cae44ae3d81.png" alt="\begin{matrix}
+\sin\kappa = \frac{C}{d}, \\
+(3.17) \\
+\end{matrix}"/></p>
+</div><p>The integral is:</p>
+<div class="math">
+<p><img src="_images/math/adf8558ac167c78ab85f55c650940f30ca92ac9a.png" alt="\begin{matrix}
+\int_{C_{s}} \frac{d\overrightarrow{s}d\overrightarrow{p}}{\left| \overrightarrow{p} - \overrightarrow{s} \right|} = \frac{8R_{s}}{k^{2}d\sqrt{A + d}}\left\lbrack \left( \hat{u}d\overrightarrow{p}B + \hat{v}d\overrightarrow{p}C \right)\Phi(k) + \left( \hat{u}d\overrightarrow{p}C - \hat{v}d\overrightarrow{p}B \right)\Psi\left( \psi_{1},\psi_{0},k \right) \right\rbrack. \\
+(3.18) \\
+\end{matrix}"/></p>
+</div></section>
+<section id="when-the-secondary-is-a-loop">
+<h3>When the secondary is a loop<a class="headerlink" href="#when-the-secondary-is-a-loop" title="Permalink to this headline"></a></h3>
+<p>A special case arises when the secondary is a complete loop which lead
+to a simplified version of Eq. (3.19). In this case,</p>
+<p><img class="math" src="_images/math/17e6a9b80faa3ff5770a9b790be8994dcf37ef35.png" alt="\psi_{1} = \pi - \frac{\kappa}{2},"/></p>
+<p><img class="math" src="_images/math/88d7a90bd6d03f4ef776b938e64df9fa92706a97.png" alt="\psi_{0} = \frac{- \kappa}{2},"/></p>
+<div class="math">
+<p><img src="_images/math/63167c6deb4a82d97c8a92e7a9ac572b199f02c1.png" alt="\begin{matrix}
+\Phi\left( \psi_{1},\psi_{0},k \right) = 0. \\
+(3.19) \\
+\end{matrix}"/></p>
+</div><p>Also, the function <img class="math" src="_images/math/803f7882fa33de49f990ed2bdfa373eccefdf12c.png" alt="\Psi(k)"/> can be re-expressed as a function of the
+complete elliptic integrals of the first kind <img class="math" src="_images/math/01e774ec0124b6ab35d3d750c36fbc6461f156d9.png" alt="K(k)"/> and second kind
+<img class="math" src="_images/math/e33a291cd02a6350919eac9114ad2e4bc520c67d.png" alt="E(k)"/> , namely solutions to Eq.~(3.16) when <img class="math" src="_images/math/0b6b50c6124fcb4cca3885d6202ec497de54ba66.png" alt="\psi^{'} = \pi"/> (see
+Babic emph{et al.} for a demonstration):</p>
+<div class="math">
+<p><img src="_images/math/25ae53c5da88a4b22b1bb375259477a90c8ed220.png" alt="\begin{matrix}
+\Psi^{'}(k) = \left( 1 - \frac{k^{2}}{2} \right)K(k) - E(k). \\
+(3.20) \\
+\end{matrix}"/></p>
+</div><p>This leads to the following equation:</p>
+<div class="math">
+<p><img src="_images/math/d03644ccae944af89ee807f3e690f26d31f03d3c.png" alt="\begin{matrix}
+\int_{C_{s}} \frac{d\overrightarrow{s}d\overrightarrow{p}}{\left| \overrightarrow{p} - \overrightarrow{s} \right|} = \frac{8R_{s}}{k^{2}d\sqrt{A + d}}\left( \hat{u}d\hat{p}C - \hat{v}d\hat{p}B \right)\Psi^{'}(k). \\
+(3.21) \\
+\end{matrix}"/></p>
+</div></section>
+</section>
+<section id="integral-expression-for-the-mutual-inductance">
+<h2>Integral expression for the mutual inductance<a class="headerlink" href="#integral-expression-for-the-mutual-inductance" title="Permalink to this headline"></a></h2>
+<p>We now proceed to give the solution of Eq.~(2.1) for the different
+combinations of primary and secondary segments. As the mutual inductance
+is symmetric, that is <img class="math" src="_images/math/c5ba7f67709a01fcd420d8e2386f1e53198cc3fa.png" alt="M_{a,b} = M_{b,a}"/> for any segment <img class="math" src="_images/math/b3e65e3b6408fcfa00452530b73f55d1755f9965.png" alt="a"/> and
+<img class="math" src="_images/math/68c7c8c65602677ab56cf7fd88002023f0edc575.png" alt="b"/> , we will prefer the simplest equation between two possible
+representations.</p>
+<section id="pair-of-lines">
+<h3>Pair of lines<a class="headerlink" href="#pair-of-lines" title="Permalink to this headline"></a></h3>
+<p>For a pair of current lines, we must treat two separate situations. (i)
+<img class="math" src="_images/math/3a88895bd2d46d28da31fd6793e6fa1156b263c6.png" alt="\beta(p) = 0\forall p"/> : this corresponds to the special case where
+<img class="math" src="_images/math/a122e0824d346517487d6fe109c0d3baffa23efe.png" alt="\hat{p}"/> , <img class="math" src="_images/math/c9eb25f1fc8ff09305963446c57a1b5c5eac05d8.png" alt="\hat{s}"/> and <img class="math" src="_images/math/cafc305a30b92a289db0f70b5752646052be391c.png" alt="{\hat{s}}_{0}"/> are three collinear
+vectors, that is when
+<img class="math" src="_images/math/bba41598f5a9a7e9ca865dd7daed396979263af3.png" alt="\left| \hat{p}\hat{s} \right| = \left| {\hat{s}}_{0}\hat{s} \right| = \left| {\hat{s}}_{0}\hat{p} \right| = 1"/> ;
+and (ii) <img class="math" src="_images/math/51820168f31413de5729462e7984a4a0a2a7b9eb.png" alt="\beta(p) \neq 0\forall p"/> otherwise.</p>
+<section id="when-hat-p-hat-s-and-hat-s-0-are-collinear">
+<h4>When <img class="math" src="_images/math/a122e0824d346517487d6fe109c0d3baffa23efe.png" alt="\hat{p}"/> , <img class="math" src="_images/math/c9eb25f1fc8ff09305963446c57a1b5c5eac05d8.png" alt="\hat{s}"/> and <img class="math" src="_images/math/cafc305a30b92a289db0f70b5752646052be391c.png" alt="{\hat{s}}_{0}"/> are collinear<a class="headerlink" href="#when-hat-p-hat-s-and-hat-s-0-are-collinear" title="Permalink to this headline"></a></h4>
+<p>For the first case, we inject Eq.~(2.2) and Eq.~(3.6) into Eq.~(2.1),
+leading to the following equation:</p>
+<div class="math">
+<p><img src="_images/math/e0789d2829403de1eee3c36cbb31467ad5956029.png" alt="\begin{matrix}
+M_{p,s} = \hat{s}\hat{p}\frac{\mu_{0}}{4\pi}\int_{0}^{l_{p}}\left( {sign}\sigma\left( l_{s},p \right)\ln\left| \sigma\left( l_{s},p \right) \right| - {sign}\sigma(0,p)\ln\left| \sigma(0,p) \right| \right){dp}. \\
+(4.1) \\
+\end{matrix}"/></p>
+</div><p>with</p>
+<div class="math">
+<p><img src="_images/math/53711c6b9c350ca0c4f494fb3fc60f86e1f1a427.png" alt="\begin{matrix}
+\sigma(s,p) = s + {\hat{s}}_{0}\hat{s}s_{0} - \hat{p}\hat{s}p. \\
+(4.2) \\
+\end{matrix}"/></p>
+</div><p>Using the argument that the two wires cannot be superposed, it can be
+proven that <img class="math" src="_images/math/b350eccd99e9992ef1ecb9efd44435ce335cab58.png" alt="\sigma(s,p)"/> does not change sign for
+<img class="math" src="_images/math/0f63478966f7ec21d086cad8934021c77079248f.png" alt="s \in \left\lbrack 0,l_{s} \right\rbrack,p \in \left\lbrack 0,l_{p} \right\rbrack"/> .
+Also, using the convention that when <img class="math" src="_images/math/347ff131befb4da3ff4e8cab34cbabe47c0cedc5.png" alt="s_{0} = 0"/> , then
+<img class="math" src="_images/math/aa6ab2b363218efe8a3f2852323b0293cfa6e046.png" alt="{\hat{s}}_{0} = \hat{p}"/> , we have the following properties :
+<img class="math" src="_images/math/a160d7d07e17df7adc2f6dd529ec4be616fc7011.png" alt="{sign}\sigma = {\hat{s}}_{0}\hat{s}"/> and
+<img class="math" src="_images/math/05797262deacfeabdb567c229c65f48c8633f5f9.png" alt="\left( \hat{s}\hat{p} \right)\left( {\hat{s}}_{0}\hat{s} \right) = {\hat{s}}_{0}\hat{p}"/> .
+Finally, noting that <img class="math" src="_images/math/b9452306d1b3ec888be48a10ef1bf58d538cf061.png" alt="\frac{{dp}}{d\sigma} = -1"/> and that
+<img class="math" src="_images/math/7bcd57c33b9366b390856869c3dc1c4635962677.png" alt="\left\lbrack \sigma_{1}\left( l_{p} \right) - \sigma_{1}(0) - \sigma_{0}\left( l_{p} \right) + \sigma_{0}(0) \right\rbrack = 0"/> ,
+the integral of Eq.~(4.1) takes this analytical form:</p>
+<div class="math">
+<p><img src="_images/math/747dc1d486a7ab21aba86a4cf256681eb46759fb.png" alt="\begin{matrix}
+M_{p,s} = - {\hat{s}}_{0}\hat{p}\frac{\mu_{0}}{4\pi}\begin{bmatrix}
+\sigma\left( l_{s},l_{p} \right)\ln\left| \sigma\left( l_{s},l_{p} \right) \right| - \sigma\left( l_{s},0 \right)\ln\left| \sigma\left( l_{s},0 \right) \right| \\
+ - \sigma\left( 0,l_{p} \right)\ln\left| \sigma\left( 0,l_{p} \right) \right| + \sigma(0,0)\ln\left| \sigma(0,0) \right| \\
+\end{bmatrix}. \\
+(4.3) \\
+\end{matrix}"/></p>
+</div><p>As a remark, Eq.~(4.2) is undefined for <img class="math" src="_images/math/8988a2b0a4353785af32cb0adffc778b8e33d0ed.png" alt="s,p"/> such that
+<img class="math" src="_images/math/4189cf09bd086582bc5543e2f5e8d4503f490f2e.png" alt="\sigma(s,p) = 0"/> . By posing <img class="math" src="_images/math/661dd88daaf28c5832f65db846f7570cb36eee30.png" alt="f(\sigma) = \sigma\ln|\sigma|"/> for
+<img class="math" src="_images/math/5d846fd133e1c66dfd4fea3ded7a4f04c0b2714e.png" alt="\sigma \neq 0,f"/> can be extended to a continuous function at
+<img class="math" src="_images/math/4df7c6eea4f39e98f3545ec59693409db1331b0a.png" alt="\sigma = 0"/> by posing <img class="math" src="_images/math/0eb63ef22252aee0df54ff3a712230afb95db2bf.png" alt="f(0) = 0."/></p>
+</section>
+<section id="general-case">
+<h4>General case<a class="headerlink" href="#general-case" title="Permalink to this headline"></a></h4>
+<p>For the second case, inject Eq.~(2.2) and Eq.~(3.5) into Eq.~(2.1),
+leading to the following solution:</p>
+<div class="math">
+<p><img src="_images/math/633bb48641c20d41a780db88451e02bff2b612ff.png" alt="\begin{matrix}
+M_{p,s} = \hat{s}\hat{p}\frac{\mu_{0}}{4\pi}\int_{0}^{l_{p}}{\left( {asinh}\frac{\sigma\left( l_{s},p \right)}{\beta(p)} - {asinh}\frac{\sigma(0,p)}{\beta(p)} \right){dp}}, \\
+(4.4) \\
+\end{matrix}"/></p>
+</div><p>where,</p>
+<div class="math">
+<p><img src="_images/math/b94ac7b30353e87f63ba21bc4f540003373f188d.png" alt="\begin{matrix}
+\beta^{2}(p) = p^{2}\left( 1 - \left( \hat{p}\hat{s} \right)^{2} \right) + s_{0}^{2}\left( 1 - \left( {\hat{s}}_{0}\hat{s} \right)^{2} \right) - 2ps_{0}\left( \hat{p}{\hat{s}}_{0} - \left( {\hat{s}}_{0}\hat{s} \right)\left( \hat{p}\hat{s} \right) \right). \\
+(4.5) \\
+\end{matrix}"/></p>
+</div><p>The parameter <img class="math" src="_images/math/5aafce61cabbb73ea0c8f4bb4c02b92f7b14ed87.png" alt="\beta(p)"/> can have one root <img class="math" src="_images/math/d4414b3af7e4cb108c36a19129077be9f78934ab.png" alt="p_{r}"/> at:</p>
+<div class="math">
+<p><img src="_images/math/5acd1e05b6509302f615f96c2ed198f23dd9afe6.png" alt="\begin{matrix}
+p_{r} = s_{0}\frac{\left\lbrack \hat{p}{\hat{s}}_{0} - \left( {\hat{s}}_{0}\hat{s} \right)\left( \hat{p}\hat{s} \right) \right\rbrack}{1 - \left( \hat{p}\hat{s} \right)^{2}}, \\
+(4.6) \\
+\end{matrix}"/></p>
+</div><p>for which the integrand in Eq.~(4.3) is undefined (c.f. annex), yet
+continuous. This problem can be avoided either by extending the
+integrand of Eq.~(4.4) to a continuous function at <img class="math" src="_images/math/c104c466198152caed89ae5c98ec44582b0ddd20.png" alt="p_{R}"/> . For a
+given <img class="math" src="_images/math/b52df27bfb0b1e3af0c2c68a7b9da459178c2a7d.png" alt="\sigma"/> , this problem can be avoided by setting a lower bound
+<img class="math" src="_images/math/0ad7b30534898f253002222f998f38001e604648.png" alt="\epsilon"/> on <img class="math" src="_images/math/7138dad9ac96835665b17f5817eacfcaa9b834c9.png" alt="\beta"/> such that <img class="math" src="_images/math/d0cd8e27c43ea134da370c3a3b1ab0241e9169fb.png" alt="0 &lt; \epsilon \ll |\sigma|"/> .</p>
+</section>
+</section>
+<section id="a-loop-and-an-arc-or-a-loop">
+<h3>A loop and an arc or a loop<a class="headerlink" href="#a-loop-and-an-arc-or-a-loop" title="Permalink to this headline"></a></h3>
+<p>We assume the loop to be the secondary coil. Injecting Eq.~(2.4) and
+Eq.~(3.22) into Eq.~(2.1) gives:</p>
+<div class="math">
+<p><img src="_images/math/e1d045a05a573e4c3a008230ddcf142bc1a3677c.png" alt="\begin{matrix}
+M_{p,s} = \frac{{2\mu}_{0}R_{s}R_{p}}{\pi}\int_{0}^{\theta_{1}}{\frac{1}{k^{2}d\sqrt{A + d}}\left\lbrack \left( - \hat{u}\hat{x}C + \hat{v}\hat{x}B \right)\sin\theta + \left( \hat{u}\hat{y}C - \hat{v}\hat{y}B \right)\cos\theta \right\rbrack\Psi^{'}(k){d\theta}}, \\
+(4.7) \\
+\end{matrix}"/></p>
+</div><p>where <img class="math" src="_images/math/80413bd3d58e1f51b40c421fd35e0816e06a68c2.png" alt="\Psi^{'}(k)"/> was defined in Eq.~(3.21) and:</p>
+<p><img class="math" src="_images/math/883cc600705db2072168c92d4fa4274369827df4.png" alt="A = R_{p}^{2} + s_{0}^{2} + R_{s}^{2} - 2R_{p}s_{0}\left( {\hat{s}}_{0}\hat{x}\cos\theta + {\hat{s}}_{0}\hat{y}\sin\theta \right),"/></p>
+<p><img class="math" src="_images/math/820182520d44f6ef08a2e2151a67f4ab55161249.png" alt="B = - 2R_{s}\left( R_{p}\left( \hat{u}\hat{x}\cos\theta + \hat{u}\hat{y}\sin\theta \right) + s_{0}{\hat{s}}_{0}\hat{u} \right),"/></p>
+<p><img class="math" src="_images/math/ad769aa5aca592afc78d1696ac69946173516571.png" alt="C = - 2R_{s}\left( R_{p}\left( \hat{v}\hat{x}\cos\theta + \hat{v}\hat{y}\sin\theta \right) + s_{0}{\hat{s}}_{0}\hat{v} \right),"/></p>
+<p><img class="math" src="_images/math/3ed4d37e15a251f76c1223b753b2ebfd7fd99951.png" alt="d = \sqrt{B^{2} + C^{2}},"/></p>
+<div class="math">
+<p><img src="_images/math/e0c25fc1bcd6601ecac2281de70c359590332c88.png" alt="\begin{matrix}
+k^{2} = \frac{2d}{A + d}. \\
+(4.8) \\
+\end{matrix}"/></p>
+</div><p>If <img class="math" src="_images/math/db6fb480e078699c14577137c7f160efe8167ad8.png" alt="\hat{x} = \lbrack 1,0,0\rbrack"/> ,
+<img class="math" src="_images/math/f99558a8fdf06d6b735c4430e2f39a56d73fcfc9.png" alt="\hat{y} = \lbrack 0,1,0\rbrack"/> , and <img class="math" src="_images/math/22dbd1d32131d2b2fc9f4035ddb95729bb745434.png" alt="\theta_{1} = 2\pi"/> , this
+equation corresponds to the case treated by Babic emph{et al.} in their
+2010 paper.</p>
+</section>
+<section id="pair-of-arcs">
+<h3>Pair of arcs<a class="headerlink" href="#pair-of-arcs" title="Permalink to this headline"></a></h3>
+<p>In this situation, we need Eq.~(2.4) and Eq.~(3.19). This mutual
+inductance is:</p>
+<div class="math">
+<p><img src="_images/math/84ed6fce6ef3c7bd414ba26179e7edf1b618b946.png" alt="\begin{matrix}
+M_{p,s} = \frac{2\mu_{0}R_{s}R_{p}}{\pi}\int_{0}^{\theta_{1}}{\frac{1}{k^{2}d\sqrt{A + d}}\begin{bmatrix}
+\left( \left( - \hat{u}\hat{x}B - \hat{v}\hat{x}C \right)\sin\theta + \left( \hat{u}\hat{y}B + \hat{v}\hat{y}C \right)\cos\theta \right)\Phi\left( \psi_{1},\psi_{0},k \right) \\
+ + \left( \left( - \hat{u}\hat{x}C + \hat{v}\hat{x}B \right)\sin\theta + \left( \hat{u}\hat{y}C - \hat{v}\hat{y}B \right)\cos\theta \right)\Psi\left( \psi_{1},\psi_{0},k \right) \\
+\end{bmatrix}{d\theta}}, \\
+(4.9) \\
+\end{matrix}"/></p>
+</div><p>where the parameters <img class="math" src="_images/math/211284f68205c3e66773eaf026f32a0acdd3dfb3.png" alt="A"/> , emph{B}, emph{C}, emph{d} and emph{k}
+are the same as in the previous case (Eq.~(4.4)), the functions
+<img class="math" src="_images/math/e4276712b2c3412b207f847d688d03a3f3e749f3.png" alt="\Phi\left( \psi_{1},\psi_{0},k \right)"/> and
+<img class="math" src="_images/math/71d2d6816f0249a47a6e05e765719ac17525d023.png" alt="\Psi\left( \psi_{1},\psi_{0},k \right)"/> were define in Eq.~(3.13) and
+Eq.~(3.15) and :</p>
+<p><img class="math" src="_images/math/ed8c6d43089053db98872536099d1749cc6cc8c4.png" alt="\psi_{1} = \frac{\left( \varphi_{1} - \kappa \right)}{2},"/></p>
+<p><img class="math" src="_images/math/88d7a90bd6d03f4ef776b938e64df9fa92706a97.png" alt="\psi_{0} = \frac{- \kappa}{2},"/></p>
+<div class="math">
+<p><img src="_images/math/173eb1a69d4ebe586473f2238a5b1d67818666e1.png" alt="\begin{matrix}
+\tan\kappa = \frac{C}{B}. \\
+(4.10) \\
+\end{matrix}"/></p>
+</div></section>
+<section id="a-straight-wire-and-an-arc-or-a-loop">
+<h3>A straight wire and an arc or a loop<a class="headerlink" href="#a-straight-wire-and-an-arc-or-a-loop" title="Permalink to this headline"></a></h3>
+<p>Finally, we assume the current line is the secondary and the arc is the
+primary. Using Eq.~(2.4) and Eq.~(3.5) in Eq.~(2.1) gives the following
+result:</p>
+<div class="math">
+<p><img src="_images/math/f33f18ba049c03729837cf33a41d90b5cc386b11.png" alt="\begin{matrix}
+M_{p,s} = \frac{\mu_{0}R_{p}}{4\pi}\int_{0}^{\theta_{1}}{\left( - \hat{s}\hat{x}\sin\theta + \hat{s}\hat{y}\cos\theta \right)\left( {asinh}\frac{\sigma\left( l_{s},\theta \right)}{\beta(\theta)} - {asinh}\frac{\sigma(0,\theta)}{\beta(\theta)} \right)}{d\theta}, \\
+(4.11) \\
+\end{matrix}"/></p>
+</div><p>with the parameters:</p>
+<p><img class="math" src="_images/math/369b00d969136be8cf768e994388dabc58d37e33.png" alt="\sigma(s,\theta) = s + {\hat{s}}_{0}\hat{s}s_{0} - R_{p}\left( \hat{x}\hat{s}\cos\theta + \hat{y}\hat{s}\sin\theta \right)"/></p>
+<p><img class="math" src="_images/math/3c15db0d4ed552000f7f1a0fed2e668af7bb9779.png" alt="\beta^{2}(\theta) = R_{p}^{2}\left( 1 - \left( \hat{x}\hat{s}\cos\theta + \hat{y}\hat{s}\sin\theta \right)^{2} \right) + s_{0}^{2}\left( 1 - \left( {\hat{s}}_{0}\hat{s} \right)^{2} \right)"/></p>
+<div class="math">
+<p><img src="_images/math/225e6f54b699284df81d5aee59888285b5312648.png" alt="\begin{matrix}
+ - 2R_{p}s_{0}\left( \left\lbrack \hat{x}{\hat{s}}_{0} - \left( {\hat{s}}_{0}\hat{s} \right)\left( \hat{x}\hat{s} \right) \right\rbrack\cos\theta + \left\lbrack \hat{y}{\hat{s}}_{0} - \left( {\hat{s}}_{0}\hat{s} \right)\left( \hat{y}\hat{s} \right) \right\rbrack\sin\theta \right). \\
+(4.12) \\
+\end{matrix}"/></p>
+</div><p>As with the case for two lines, <img class="math" src="_images/math/c87ed9279031a9981d0778b0c229fc36a81291e5.png" alt="\beta(\theta)"/> can have roots,
+leading to non-analytical points in the integrand of Eq.~(4.7). This can
+also be avoided by setting a lower bound <img class="math" src="_images/math/0ad7b30534898f253002222f998f38001e604648.png" alt="\epsilon"/> on <img class="math" src="_images/math/7138dad9ac96835665b17f5817eacfcaa9b834c9.png" alt="\beta"/> such
+that <img class="math" src="_images/math/d0cd8e27c43ea134da370c3a3b1ab0241e9169fb.png" alt="0 &lt; \epsilon \ll |\sigma|"/> for these points <img class="math" src="_images/math/b52df27bfb0b1e3af0c2c68a7b9da459178c2a7d.png" alt="\sigma"/> .</p>
+</section>
 </section>
 </section>
 
