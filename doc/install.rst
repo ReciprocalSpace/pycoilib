@@ -27,4 +27,6 @@ Dependencies
 
 The Pycoilib dependencies are as follow:
 
-TODO mettre une LISTE des dépendances.
+* `Numpy <https://numpy.org/install/>`__
+* `Matplotlib <https://matplotlib.org/stable/>`__
+* `Scipy <https://scipy.org/install/>`__
